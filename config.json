@@ -1,0 +1,27 @@
+{
+    "mc_server": "newtest",
+    "api_url": "http://localhost:5000",
+
+    "use_mc_whitelist": true,
+    "mc_whitelist": ["Furia", "notFebzey"],
+    "mc_blacklist": [],
+    
+    "use_discord": false,
+    "main_discord_channel": "959607247032418386",
+    "discord_whitelist": [],
+
+    "reconnect_time": 36000,
+
+    "anti_spam_cooldown": 10000,
+    "anti_spam_msg_limit": 9,
+
+    "welcome_messages": true,
+    "advertise": false,
+
+    "whitelisted_commands": [],
+    "disabled_commands": [],
+    "useCommands": true,
+
+    "use_database": true
+
+}

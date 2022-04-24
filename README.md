@@ -1,0 +1,1 @@
+## new forestbot rewrite, this is to eliminate the database connection and fully move over to using api, this code will eventually be merged into the main and original forestbot repository once finished

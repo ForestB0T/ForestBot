@@ -1,0 +1,26 @@
+{
+  "name": "forestbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsc && node build/index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^17.0.21",
+    "@types/node-fetch": "^2.6.1",
+    "@types/ws": "^8.5.2",
+    "chalk": "^5.0.0",
+    "date-and-time": "^2.2.1",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "javascript-time-ago": "^2.3.13",
+    "minecraft-server-ping": "^0.0.8",
+    "mineflayer": "^4.1.0",
+    "mojang-api": "^0.0.2",
+    "node-fetch": "^3.2.2",
+    "urban-dictionary": "^3.0.2",
+    "ws": "^8.5.0"
+  }
+}
