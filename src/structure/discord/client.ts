@@ -1,7 +1,7 @@
 import { Client as client, ColorResolvable, TextChannel } from 'discord.js';
 import type Options              from "../../config"
-import logger                    from '../../functions/utils/logger.js';
-import { bot, colors } from '../../index.js';
+import { bot, colors, config }   from '../../index.js';
+import { readFile, readdir }     from 'fs/promises';
 
 /**
  * @class Client
@@ -9,23 +9,29 @@ import { bot, colors } from '../../index.js';
  */
 export default class Client extends client {
 
-    public chatChannels: Map<string, TextChannel> = new Map();
+    public allow_chatbridge_input : boolean;
+    public chatChannels           : Map<string, TextChannel> = new Map();
+    public whitelist              : Set<string> = new Set();
+    public blacklist              : Set<string> = new Set();
 
     constructor(options: Options["discord"]) {
         super(options);
+        config.discord_whitelist.forEach(user => this.whitelist.add(user));
+        config.discord_blacklist.forEach(user => this.blacklist.add(user));
+        this.allow_chatbridge_input = config.allow_chatbridge_input;
         this.token = options.token;
         this.login();
-        this.once("ready", this.Ready);
+        this.handleEvents();
     }
 
-    /**
-     * This function is called when the
-     * discord bot is ready to use.
-     */
-    private Ready() {
-        logger.log("Discord bot is ready.", "green");
-        this.loadChannels(bot.mc_server);
-        setInterval(() => { this.loadChannels(bot.mc_server) }, 2 * 60000)
+    private async handleEvents() {
+        for (const file of (await readdir('./build/events/discord')).filter(file => file.endsWith(".js"))) {
+            const event = (await import(`../../events/discord/${file}`)).default;
+
+            event.once
+                ? this.once(event.name, (...args) => event.execute(...args, this))
+                : this.on(event.name, (...args) => event.execute(...args, this))
+        };
     }
 
     /**

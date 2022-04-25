@@ -15,6 +15,7 @@ type Config = {
     use_discord: boolean
     main_discord_channel: string
     discord_whitelist: string[]
+    discord_blacklist: string[]
 
     reconnect_time: number
 
@@ -29,6 +30,8 @@ type Config = {
     useCommands: boolean
 
     use_database: boolean
+
+    allow_chatbridge_input: boolean
 }
 
 type Colors = {

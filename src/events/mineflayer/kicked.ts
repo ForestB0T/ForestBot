@@ -1,5 +1,5 @@
 import type Bot      from "../../structure/mineflayer/Bot.js"
-import logger        from "../../functions/utils/logger.js";
+import { logger}     from "../../index.js";
 import { BotEvents } from "mineflayer";
 
 export default {

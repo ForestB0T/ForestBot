@@ -1,8 +1,7 @@
 import mineflayer            from "mineflayer";
 import { ping }              from "minecraft-server-ping";
 import { readFile, readdir } from "fs/promises";
-import { config, endpoints } from "../../index.js";
-import logger                from "../../functions/utils/logger.js";
+import { config, endpoints, logger } from "../../index.js";
 
 /**
  * @class Bot
@@ -50,13 +49,13 @@ export default class Bot {
         this.restartCount++;
 
         if (this.restartCount >= 10) {
-            logger.log("> Connection is being refused.", "red", true)
+            logger.log("> Connection is being refused, bot made too many attempts to reconnect.", "red", true)
             return process.exit(1);
         }
 
         try { await this.pingServer() }
         catch { 
-            logger.log(`> Connection to ${this.options.host} failed.`, "red", true);
+            logger.log(`> Connection to ${this.options.host} failed, maybe the server is offline?`, "red", true);
             return;
         }
 

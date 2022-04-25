@@ -41,13 +41,11 @@ export default {
                 return
             }
 
-            const dataJson = await bot.endpoints.addFact(
+            const data = await bot.endpoints.addFact(
                 user,
                 fact,
                 bot.mc_server
             );
-
-            const data = await dataJson.json();
 
             if (!data) {
                 bot.bot.whisper(user, "Sorry, something went wrong.");

@@ -16,13 +16,11 @@ export default {
 
         client.chatEmbed(`> ${user.username} joined`, "green");
 
-        const dataJson = await Bot.endpoints.updateJoin(
+        const data = await Bot.endpoints.updateJoin(
             user.username,
             user.uuid,
             Bot.mc_server
         )
-
-        const data = await dataJson.json();
 
         if (data.oldname) {
             Bot.bot.chat(`${user.username}, previously known as ${data.oldname} joined the server.`);
