@@ -8,5 +8,6 @@ export default {
         logger.log("Discord bot is ready.", "green");
         client.loadChannels(bot.mc_server);
         setInterval(() => { client.loadChannels(bot.mc_server) }, 2 * 60000)
+  
     }
 }

@@ -8,7 +8,7 @@
     
     "use_discord": false,
     "main_discord_channel": "959607247032418386",
-    "discord_whitelist": [],
+    "discord_whitelist": ["703044116019281963"],
     "discord_blacklist": [],
 
     "reconnect_time": 36000,
@@ -23,8 +23,6 @@
     "disabled_commands": [],
     "useCommands": true,
 
-    "use_database": true,
-
-    "allow_chatbridge_input": false
+    "allow_chatbridge_input": true
 
 }

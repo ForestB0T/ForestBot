@@ -68,14 +68,18 @@ export default class Client extends client {
      * @param color 
      */
     public chatEmbed = async (text: string, color: string) => {
+
         for (const [_, channel] of this.chatChannels) {
             if (!channel) return;
-            await channel.send({
-                embeds: [{
-                    color: colors[color] as ColorResolvable,
-                    description: text
-                }]
-            }).catch(() => { });
+            try {
+                await channel.send({
+                    embeds: [{
+                        color: colors[color] as ColorResolvable,
+                        description: text
+                    }]
+                })
+            }
+            catch { }
         }
     }
 

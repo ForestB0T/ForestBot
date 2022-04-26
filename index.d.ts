@@ -29,8 +29,6 @@ type Config = {
     disabled_commands: string[]
     useCommands: boolean
 
-    use_database: boolean
-
     allow_chatbridge_input: boolean
 }
 

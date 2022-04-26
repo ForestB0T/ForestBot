@@ -77,9 +77,12 @@ export default class Bot {
      * 
      */
     public endAndRestart = async () => {
-        this.bot.quit();
-        this.bot.end();
-        this.isConnected = false;
+        if (this.isConnected) {
+            this.bot.end();
+            this.bot.quit();
+            this.isConnected = false
+        }
+
         await new Promise((resolve) => setTimeout(resolve, 4000));
         logger.log("> Bot has ended, attempting to restart.", "yellow", true)
         this.startBot()
