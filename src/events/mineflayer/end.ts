@@ -1,5 +1,6 @@
 import type Bot      from '../../structure/mineflayer/Bot.js';
 import { BotEvents } from 'mineflayer';
+import { logger }    from '../../index.js';
 
 export default {
     name: 'end',
@@ -7,7 +8,7 @@ export default {
     run: (content: BotEvents, Bot: Bot) => {
         Bot.isConnected = false;
         Bot.endAndRestart()
-        console.log("End event ran")
+        logger.log("> Bot has ended", "red", true);
         return;
     }
 };

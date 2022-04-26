@@ -22,8 +22,9 @@ export default class Bot {
     public restartCount     : number = 0;
     public isConnected      : boolean;
     public endpoints        : endpoints
-
+    
     constructor(public options: mineflayer.BotOptions) {
+
         this.useCommands  = config.useCommands;
         this.useWhitelist = config.use_mc_whitelist
         this.mc_server    = config.mc_server
@@ -37,6 +38,7 @@ export default class Bot {
 
         this.startBot();
         this.loadCommands();    
+    
     }
 
     /**
@@ -47,6 +49,8 @@ export default class Bot {
      */
     public startBot = async () => {
         this.restartCount++;
+
+        logger.log("> Attempting to start.", "yellow", true)
 
         if (this.restartCount >= 10) {
             logger.log("> Connection is being refused, bot made too many attempts to reconnect.", "red", true)
@@ -83,8 +87,7 @@ export default class Bot {
             this.isConnected = false
         }
 
-        await new Promise((resolve) => setTimeout(resolve, 4000));
-        logger.log("> Bot has ended, attempting to restart.", "yellow", true)
+        await new Promise((resolve) => setTimeout(resolve, config.reconnect_time));
         this.startBot()
     }
  

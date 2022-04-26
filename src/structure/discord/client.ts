@@ -1,7 +1,7 @@
 import { Client as client, ColorResolvable, TextChannel } from 'discord.js';
 import type Options              from "../../config"
 import { bot, colors, config }   from '../../index.js';
-import { readFile, readdir }     from 'fs/promises';
+import { readdir }               from 'fs/promises';
 
 /**
  * @class Client
@@ -24,10 +24,12 @@ export default class Client extends client {
         this.handleEvents();
     }
 
+    /**
+     * Loading and handling all the events for the discord bot.
+     */
     private async handleEvents() {
         for (const file of (await readdir('./build/events/discord')).filter(file => file.endsWith(".js"))) {
             const event = (await import(`../../events/discord/${file}`)).default;
-
             event.once
                 ? this.once(event.name, (...args) => event.execute(...args, this))
                 : this.on(event.name, (...args) => event.execute(...args, this))
@@ -42,18 +44,15 @@ export default class Client extends client {
      */
     async loadChannels(mc_server: string) { 
         const channelIdArry = [];
-        const channels = (await bot.endpoints.getChannels(mc_server)).channels;
+        const channels = (await bot.endpoints.getChannels(mc_server)).channels as string[];
         if (!channels) return;
         for (const Channel of channels) {
             channelIdArry.push(Channel)
-            const channel = this.channels.cache.get(Channel) as TextChannel;
-            this.chatChannels.set(Channel, channel);
+            this.chatChannels.set(Channel, this.channels.cache.get(Channel) as TextChannel);
         }
 
         for (const [key, _] of this.chatChannels) {
-            if(!channelIdArry.includes(key)) {
-                this.chatChannels.delete(key);
-            }
+            if(!channelIdArry.includes(key)) this.chatChannels.delete(key);
         }
 
     }

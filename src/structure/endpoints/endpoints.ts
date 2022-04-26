@@ -1,5 +1,8 @@
 import { fetchApi, postApi } from "../../functions/Fetch/fetch.js"
 
+/**
+ * Endpoints for ForestBot api
+ */
 export default { 
 
     savePlaytime:   async (user: string, mc_server: string) => postApi(`saveplaytime`, { user: user, mc_server: mc_server }),
