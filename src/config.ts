@@ -4,8 +4,8 @@ import type { BotOptions } from "mineflayer";
 import type { ClientOptions, PartialTypes} from 'discord.js';
 import { Intents }                         from 'discord.js';
 
-export const config: Config = await JSON.parse(await readFile("./config.json", "utf8"));
-export const colors: Colors = await JSON.parse(await readFile("./colors.json", "utf8"));
+const config: Config = await JSON.parse(await readFile("./config.json", "utf8"));
+const colors: Colors = await JSON.parse(await readFile("./colors.json", "utf8"));
 
 class MineflayerOptions implements BotOptions {
         host     = process.env.MC_HOST
@@ -27,7 +27,9 @@ class DiscordOptions implements ClientOptions {
     disabledCommands: string[] = []
 }
 
-export default class Options {
+class Options {
     mineflayer = new MineflayerOptions();
     discord    = new DiscordOptions();
 }
+
+export { config, colors, Options };

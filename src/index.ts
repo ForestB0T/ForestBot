@@ -7,13 +7,13 @@ export * as logger    from "./functions/utils/logger.js"
 /**
  * Main config and colors .json files.
  */
-const { colors, config } = Conf;
+const { colors, config, Options } = Conf;
 
 /**
  * @class Options
  * Main options for various functions.
  */
-const options = new Conf.default();
+const options = new Options();
 
 /**
  * @class Client
