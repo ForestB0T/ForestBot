@@ -8,4 +8,4 @@ export default {
     //    if (bot.ForestBot.config.config.use_whitelist && !bot.whitelist.includes(user)) return;
         return bot.bot.whisper(user, `I am currently at: X: ${Math.trunc(bot.bot.entity.position.x)} Y: ${Math.trunc(bot.bot.entity.position.y)} Z: ${Math.trunc(bot.bot.entity.position.z)}`)
     }
- }
+ } as MCommand

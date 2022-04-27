@@ -16,4 +16,4 @@ export default {
             : bot.bot.chat(`${data.death}, ${time.timeAgoStr(data.time)}`)
 
     }
-}
+} as MCommand

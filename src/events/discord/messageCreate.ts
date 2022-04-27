@@ -23,7 +23,6 @@ export default {
 
         const username = `${author.username}#${author.discriminator}`;
 
-
         if (client.whitelist.has(author.id)) {
             if (content.startsWith("!restart")) {
                 await channel.send("> Restarting...");
@@ -68,7 +67,7 @@ export default {
 
         if (spamUser >= 6) {
             client.blacklist.add(author.id);
-            await member.send("> You are now blacklisted for spamming")
+            await member.send("> You have been blacklisted for spamming")
             return;
         }
 

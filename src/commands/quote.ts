@@ -12,4 +12,4 @@ export default {
     
         return bot.bot.chat(`${search}: ${data.message}`);
     }
-}
+} as MCommand

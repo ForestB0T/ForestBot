@@ -25,4 +25,4 @@ export default {
             bot.bot.chat(def);
         });
     }
- }
+ } as MCommand

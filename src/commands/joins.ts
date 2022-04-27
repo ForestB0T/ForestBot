@@ -14,4 +14,4 @@ export default {
             ? bot.bot.whisper(user, `${data.joins} times`)
             : bot.bot.chat(`${search}: ${data.joins} times`)
     }
-}
+} as MCommand

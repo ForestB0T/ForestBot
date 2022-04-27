@@ -38,4 +38,4 @@ export default {
         // await time.sleep(1000);
         // return bot.bot.chat('/suicide');
     }
- }
+ } as MCommand

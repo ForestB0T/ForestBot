@@ -7,4 +7,4 @@ export default {
     execute: async (user: string, args: any[], bot: Bot) => {
         return bot.bot.whisper(user, "https://forestbot.org");
     }
- }
+ } as MCommand

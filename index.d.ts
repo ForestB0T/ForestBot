@@ -4,6 +4,13 @@ type User = {
     message?: string
 }
 
+type MCommand = {
+    commands: string[],
+    minArgs:  number,
+    maxArgs:  number,
+    execute:  (user: string, args: any[], bot: Bot) => Promise<any>|any
+}
+
 type Config = {
     mc_server: string
     api_url:   string
@@ -30,6 +37,11 @@ type Config = {
     useCommands:            boolean
 
     allow_chatbridge_input: boolean
+
+    use_websocket:          boolean
+    websocket_port:         number
+    websocket_path:         string
+    websocket_livechat:     boolean
 }
 
 type Colors = {
@@ -39,14 +51,8 @@ type Colors = {
     yellow: string
     gray:   string
     pink:   string
+    blue:   string
 }
-
-type command = {
-    commands: string[],
-    minArgs:  number,
-    maxArgs:  number,
-    execute: (user: string, args: any[], bot: Bot) => void
-};
 
 type antiSpamArgsType = {
     user:          string,

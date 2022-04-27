@@ -8,4 +8,4 @@ export default {
         const h:any[] = Object.entries(bot.bot.players).sort((a:any[],b:any[]) => a[1].ping - b[1].ping);
         return bot.bot.chat(`Best Ping: ${h[0][0]}: ${bot.bot.players[h[0][0]].ping}ms`)
     }
- }
+ } as MCommand

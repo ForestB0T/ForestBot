@@ -1,5 +1,5 @@
 import { Client as client, ColorResolvable, TextChannel } from 'discord.js';
-import type Options              from "../../config"
+import type { Options }             from "../../config"
 import { bot, colors, config }   from '../../index.js';
 import { readdir }               from 'fs/promises';
 
@@ -20,8 +20,14 @@ export default class Client extends client {
         config.discord_blacklist.forEach(user => this.blacklist.add(user));
         this.allow_chatbridge_input = config.allow_chatbridge_input;
         this.token = options.token;
-        this.login();
-        this.handleEvents();
+    }
+
+    Login = () => {
+        return new Promise<void>(async (res,rej) => {
+            await this.login();
+            this.handleEvents();
+            res();
+        })
     }
 
     /**

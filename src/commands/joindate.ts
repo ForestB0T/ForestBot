@@ -23,4 +23,4 @@ export default {
             ? bot.bot.whisper(user, `${joindateStr}`)
             : bot.bot.chat(`${search}: ${joindateStr}`);
     }
-}
+} as MCommand

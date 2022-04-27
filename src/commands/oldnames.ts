@@ -21,4 +21,4 @@ export default {
         });
         return;
     }
-}
+} as MCommand

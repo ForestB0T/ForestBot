@@ -1,5 +1,6 @@
 import Bot            from "./structure/mineflayer/Bot.js";
 import Client         from "./structure/discord/client.js";
+import Websocket      from "./structure/websocket/Websocket.js";
 import * as Conf      from "./config.js";
 export * as endpoints from "./structure/endpoints/endpoints.js";
 export * as logger    from "./functions/utils/logger.js"
@@ -20,6 +21,7 @@ const options = new Options();
  * Discord bot class
  */
 const client = new Client(options.discord); 
+// await client.Login(options.discord)
 
 /**
  * @class Bot
@@ -27,10 +29,17 @@ const client = new Client(options.discord);
  */
 const bot = new Bot(options.mineflayer);
 
+/**
+ * @class Websocket
+ * Main websocket class for mineflayer bot.
+ */
+const websocket = new Websocket();
+
 export { 
     colors, 
     config, 
     options, 
     client, 
-    bot 
+    bot,
+    websocket 
 };

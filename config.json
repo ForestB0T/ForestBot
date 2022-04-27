@@ -23,6 +23,11 @@
     "disabled_commands": [],
     "useCommands": true,
 
-    "allow_chatbridge_input": true
+    "allow_chatbridge_input": true,
+
+    "use_websocket": true,
+    "websocket_port": 8080,
+    "websocket_path": "/playerlist",
+    "websocket_livechat": false
 
 }

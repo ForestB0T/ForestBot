@@ -18,4 +18,4 @@ export default {
             : bot.bot.chat(`${search}: ${playtime}`)
 
     }
-}
+} as MCommand

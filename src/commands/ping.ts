@@ -11,4 +11,4 @@ export default {
         }
         catch { return }
     }
- }
+ } as MCommand

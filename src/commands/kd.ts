@@ -15,4 +15,4 @@ export default {
             : bot.bot.chat(`${search}: Kills: ${data.kills} Deaths: ${data.deaths}`)
 
     }
-}
+} as MCommand

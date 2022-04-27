@@ -1,4 +1,5 @@
 import { fetchApi, postApi } from "../../functions/Fetch/fetch.js"
+import { websocket }         from "../../index.js";
 
 /**
  * Endpoints for ForestBot api
@@ -8,7 +9,8 @@ export default {
     savePlaytime:   async (user: string, mc_server: string) => postApi(`saveplaytime`, { user: user, mc_server: mc_server }),
     savePvpKill:    async (victim: string, murderer: string, deathmsg: string, mc_server: string) => postApi(`savepvpkill`, {victim: victim, murderer: murderer, deathmsg: deathmsg, mc_server: mc_server}),
     savePveKill:    async (victim: string, deathmsg: string, mc_server: string) => postApi(`savepvekill`, { victim: victim, deathmsg: deathmsg, mc_server: mc_server}),
-    saveChat:       async (user: string, msg: string, mc_server: string) => postApi("savechat", { user: user, message: msg, mc_server: mc_server}),
+   // saveChat:       async (user: string, msg: string, mc_server: string) => postApi("savechat", { user: user, message: msg, mc_server: mc_server}),
+    saveChat:       async (user: string, msg: string, mc_server: string) => websocket.sendChatMessage(user, msg, mc_server),
 
     updateLeave:    async (user: string, mc_server: string) => postApi(`updateleave`, { user: user, mc_server: mc_server}),
     updateJoin:     async (user: string, uuid: string, mc_server: string) => postApi(`updatejoin`, {user: user, uuid: uuid, mc_server: mc_server}),

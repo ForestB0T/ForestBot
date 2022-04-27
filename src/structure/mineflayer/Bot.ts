@@ -14,7 +14,7 @@ export default class Bot {
     public userBlacklist    : Set<string> = new Set();
     public disabledCommands : Set<string> = new Set();
     public whitelistedCmds  : Set<string> = new Set();
-    public commands         : Map<string, command> = new Map();
+    public commands         : Map<string, MCommand> = new Map();
     public useCommands      : boolean;
     public useWhitelist     : boolean;
     public welcomeMsgs      : boolean;
@@ -48,17 +48,17 @@ export default class Bot {
      * @returns this.bot = bot;
      */
     public startBot = async () => {
-        this.restartCount++;
-
         logger.log("> Attempting to start.", "yellow", true)
+        this.restartCount++;
 
         if (this.restartCount >= 10) {
             logger.log("> Connection is being refused, bot made too many attempts to reconnect.", "red", true)
             return process.exit(1);
         }
 
-        try { await this.pingServer() }
-        catch { 
+        try { 
+            await this.pingServer()
+        } catch { 
             logger.log(`> Connection to ${this.options.host} failed, maybe the server is offline?`, "red", true);
             return;
         }
@@ -127,7 +127,7 @@ export default class Bot {
      */
     private async loadCommands() {
         for (const file of (await readdir("./build/commands")).filter(file => file.endsWith(".js"))) {
-            const module: command = (await import(`../../commands/${file}`)).default;
+            const module: MCommand = (await import(`../../commands/${file}`)).default;
             this.commands.set(module.commands[0], module);
         }
     }

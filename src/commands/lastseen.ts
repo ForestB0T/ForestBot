@@ -31,4 +31,4 @@ export default {
         ? bot.bot.whisper(user, `${lastseenString}`)
         : bot.bot.chat(`${search}: ${lastseenString}`);
     }
-}
+} as MCommand
