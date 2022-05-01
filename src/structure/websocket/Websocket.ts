@@ -1,5 +1,5 @@
 import WebSocket from "ws";
-import { logger } from "../../index.js";
+import { logger, bot } from "../../index.js";
 
 /**
  * @Class Websocket
@@ -15,7 +15,7 @@ export default class Websocket {
     }
 
     webSocketConnect() {
-        const _wss = new WebSocket('ws://localhost:5000/test/newtest');
+        const _wss = new WebSocket('ws://localhost:5000/ws-auth/newtest');
         return this.wss = _wss;
     }
 

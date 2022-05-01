@@ -90,6 +90,18 @@ export default class Bot {
         await new Promise((resolve) => setTimeout(resolve, config.reconnect_time));
         this.startBot()
     }
+
+    /**
+     * Get an array of players, and their ping.
+     * @returns { username: string, ping: number }[]
+     */
+    getPlayers() {
+        const arr = [];
+        for (const player of Object.keys(this.bot.players)) {
+            arr.push({ username: player, ping: this.bot.players[player].ping });
+        }
+        return arr
+    }
  
     /**
      * 
