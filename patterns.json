@@ -127,7 +127,7 @@
         },
         {
             "name": "pveMessages",
-            "regex": "^([^ ]*) (?:died|tried to swim in lava|was pricked to death|Was killed by nature|drowned|blew up|was killed by|fell out of the world|hit the ground too hard|experienced kinetic energy|fell from a high place|fell off a ladder|fell while climbing|went up in flames|burned to death|was struck by lightning|was killed by magic|starved to death|was stung to death|suffocated in a wall|withered away|froze to death|went off with a bang)$",
+            "regex": "^([^ ]*) (?:died|tried to swim in lava|withered away whilst fighting|was pricked to death|Was killed by nature|drowned|blew up|was killed by|fell out of the world|hit the ground too hard|experienced kinetic energy|fell from a high place|fell off a ladder|fell while climbing|went up in flames|burned to death|was struck by lightning|was killed by magic|starved to death|was stung to death|suffocated in a wall|withered away|froze to death|went off with a bang)$",
             "options": { "parse": false, "repeat": true }
         }
         
