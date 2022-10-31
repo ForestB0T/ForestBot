@@ -39,8 +39,6 @@ type Config = {
 
     use_websocket:          boolean
     websocket_url: string
-    websocket_port:         number
-    websocket_livechat:     boolean
 }
 
 type Colors = {

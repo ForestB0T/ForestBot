@@ -15,7 +15,7 @@ export default {
     updateLeave:    async (user: string, mc_server: string) => postApi(`updateleave`, { user: user, mc_server: mc_server, time: Date.now()}),
     updateJoin:     async (user: string, uuid: string, mc_server: string) => postApi(`updatejoin`, {user: user, uuid: uuid, mc_server: mc_server, time: Date.now()}),
 
-    getChannels:    async (mc_server: string)               => fetchApi(`getchannels/${mc_server}/1234`),
+    getChannels:    async (mc_server: string)               => fetchApi(`getchannels/${mc_server}/${process.env.apiKey}`),
     getPlaytime:    async (user: string, mc_server: string) => fetchApi(`playtime/${user}/${mc_server}`),
     getJoindate:    async (user: string, mc_server: string) => fetchApi(`joindate/${user}/${mc_server}`),
     getJoins:       async (user: string, mc_server: string) => fetchApi(`joins/${user}/${mc_server}`),

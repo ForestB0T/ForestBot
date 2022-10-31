@@ -55,11 +55,8 @@ export default {
                     if (Bot.userBlacklist.has(user.username)) return;
                     if (user.username === Bot.bot.username) return;
 
-                    if (Bot.disabledCommands.has(key) || (Bot.useWhitelist && (Bot.whitelistedCmds.has(alias) && !Bot.userWhitelist.has(user.username))))
-                        return Bot.bot.whisper(user.username, `${prefix}${alias} is currently disabled.`);
-
-                    if (!Bot.useCommands)
-                        return Bot.bot.whisper(user.username, "Commands are currently disabled.");
+                    if (Bot.disabledCommands.has(key) || (Bot.useWhitelist && (Bot.whitelistedCmds.has(alias) && !Bot.userWhitelist.has(user.username)))) return;
+                    if (!Bot.useCommands) return;
 
                     let args = user.message.split(" ")
                     args.shift();

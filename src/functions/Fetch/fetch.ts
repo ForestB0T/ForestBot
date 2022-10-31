@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import { config } from "../../index.js";
 
-const apiKey = "1234";
+const apiKey = process.env.apiKey
 
 const postApi = async (endpoint: string, body: any) => {
     try {
