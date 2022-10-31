@@ -16,9 +16,6 @@ let deathQuotes =
     `This fun for you? like be honest.`,
     `I am at a loss for words`,
     `Love knows no boundaries`,
-    `Fuck you`,
-    `Stupid faggot`,
-    `nigger`,
     `Ok`,
     `Ever try therapy? `,
     `Maybe I do deserve this...`,
@@ -32,7 +29,7 @@ export default {
     minArgs: 0,
     maxArgs: 1,
     execute: async (user: string, args: any[], bot: Bot) => {
-        // if (bot.ForestBot.config.config.use_whitelist && !bot.whitelist.includes(user)) return;
+        if (bot.useWhitelist && !bot.userWhitelist.has(user)) return;
         // let r = deathQuotes[Math.floor(Math.random() * deathQuotes.length)];
         // //bot.bot.chat(r);
         // await time.sleep(1000);

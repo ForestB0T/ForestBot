@@ -4,18 +4,18 @@ import { websocket }         from "../../index.js";
 /**
  * Endpoints for ForestBot api
  */
+ 
 export default { 
 
-    savePlaytime:   async (user: string, mc_server: string) => postApi(`saveplaytime`, { user: user, mc_server: mc_server }),
+    savePlaytime:   async (user: string, mc_server: string) => postApi(`saveplaytime`, { user: user, mc_server: mc_server, time: 60000 }),
     savePvpKill:    async (victim: string, murderer: string, deathmsg: string, mc_server: string) => postApi(`savepvpkill`, {victim: victim, murderer: murderer, deathmsg: deathmsg, mc_server: mc_server}),
     savePveKill:    async (victim: string, deathmsg: string, mc_server: string) => postApi(`savepvekill`, { victim: victim, deathmsg: deathmsg, mc_server: mc_server}),
-   // saveChat:       async (user: string, msg: string, mc_server: string) => postApi("savechat", { user: user, message: msg, mc_server: mc_server}),
-    saveChat:       async (user: string, msg: string, mc_server: string) => websocket.sendChatMessage(user, msg, mc_server),
+    saveChat:       async (user: string, message: string, mc_server: string) => postApi('savechat',{user, message, mc_server}),
 
-    updateLeave:    async (user: string, mc_server: string) => postApi(`updateleave`, { user: user, mc_server: mc_server}),
-    updateJoin:     async (user: string, uuid: string, mc_server: string) => postApi(`updatejoin`, {user: user, uuid: uuid, mc_server: mc_server}),
+    updateLeave:    async (user: string, mc_server: string) => postApi(`updateleave`, { user: user, mc_server: mc_server, time: Date.now()}),
+    updateJoin:     async (user: string, uuid: string, mc_server: string) => postApi(`updatejoin`, {user: user, uuid: uuid, mc_server: mc_server, time: Date.now()}),
 
-    getChannels:    async (mc_server: string)               => fetchApi(`getchannels/${mc_server}`),
+    getChannels:    async (mc_server: string)               => fetchApi(`getchannels/${mc_server}/1234`),
     getPlaytime:    async (user: string, mc_server: string) => fetchApi(`playtime/${user}/${mc_server}`),
     getJoindate:    async (user: string, mc_server: string) => fetchApi(`joindate/${user}/${mc_server}`),
     getJoins:       async (user: string, mc_server: string) => fetchApi(`joins/${user}/${mc_server}`),
@@ -27,9 +27,5 @@ export default {
     getQuote:       async (user: string, mc_server: string) => fetchApi(`quote/${user}/${mc_server}`),
     getUniquePcnt:  async (mc_server: string)               => fetchApi(`uniqueplayers/${mc_server}`),
     getTopStat:     async (stat: string, mc_server: string) => fetchApi(`topstat/${stat}/${mc_server}`),
-    getFact:        async (id: number|string)               => fetchApi(`getfact/${id}`),
-    getRandomFact:  async ()                                => fetchApi(`randomfact`),
     
-    addFact:        async (user: string, fact: string, mc_server: string) => postApi(`addfact`, {user: user, fact: fact, mc_server: mc_server}),
-
 } as endpoints;

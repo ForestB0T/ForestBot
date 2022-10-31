@@ -1,9 +1,9 @@
-import Bot            from "./structure/mineflayer/Bot.js";
-import Client         from "./structure/discord/client.js";
-import Websocket      from "./structure/websocket/Websocket.js";
-import * as Conf      from "./config.js";
+import Bot from "./structure/mineflayer/Bot.js";
+import Client from "./structure/discord/client.js";
+import Websocket from "./structure/websocket/Websocket.js";
+import * as Conf from "./config.js";
 export * as endpoints from "./structure/endpoints/endpoints.js";
-export * as logger    from "./functions/utils/logger.js"
+export * as logger from "./functions/utils/logger.js"
 
 /**
  * Main config and colors .json files.
@@ -20,8 +20,7 @@ const options = new Options();
  * @class Client
  * Discord bot class
  */
-const client = new Client(options.discord); 
-// await client.Login(options.discord)
+const client = new Client(options.discord);
 
 /**
  * @class Bot
@@ -33,13 +32,13 @@ const bot = new Bot(options.mineflayer);
  * @class Websocket
  * Main websocket class for mineflayer bot.
  */
-const websocket = new Websocket();
+const websocket = new Websocket(options.websocketUrl);
 
-export { 
-    colors, 
-    config, 
-    options, 
-    client, 
+export {
+    colors,
+    config,
+    options,
+    client,
     bot,
-    websocket 
+    websocket
 };

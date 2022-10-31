@@ -6,8 +6,8 @@
     "mc_whitelist": ["Furia", "notFebzey"],
     "mc_blacklist": [],
     
-    "use_discord": false,
-    "main_discord_channel": "959607247032418386",
+    "use_discord": true,
+    "main_discord_channel": "968777127392595968",
     "discord_whitelist": ["703044116019281963"],
     "discord_blacklist": [],
 
@@ -17,7 +17,6 @@
     "anti_spam_msg_limit": 9,
 
     "welcome_messages": true,
-    "advertise": false,
 
     "whitelisted_commands": [],
     "disabled_commands": [],
@@ -26,8 +25,8 @@
     "allow_chatbridge_input": true,
 
     "use_websocket": true,
+    "websocket_url": "ws://localhost:8080",
     "websocket_port": 8080,
-    "websocket_path": "/playerlist",
     "websocket_livechat": false
 
 }

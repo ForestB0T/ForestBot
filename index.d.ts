@@ -30,7 +30,6 @@ type Config = {
     anti_spam_msg_limit:    number
 
     welcome_messages:       boolean
-    advertise:              boolean
 
     whitelisted_commands:   string[]
     disabled_commands:      string[]
@@ -39,8 +38,8 @@ type Config = {
     allow_chatbridge_input: boolean
 
     use_websocket:          boolean
+    websocket_url: string
     websocket_port:         number
-    websocket_path:         string
     websocket_livechat:     boolean
 }
 
@@ -82,8 +81,4 @@ type endpoints = {
     getQuote:       (user: string, mc_server: string) => Promise<any>
     getUniquePcnt:  (mc_server: string) => Promise<any>
     getTopStat:     (stat: string, mc_server: string) => Promise<any>
-    getFact:        (id: number|string) => Promise<any>
-    getRandomFact:  () => Promise<any>
-
-    addFact:        (user: string, fact: string, mc_server: string) => Promise<any>
 }

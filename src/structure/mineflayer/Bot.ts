@@ -48,7 +48,7 @@ export default class Bot {
      * @returns this.bot = bot;
      */
     public startBot = async () => {
-        logger.log("> Attempting to start.", "yellow", true)
+        logger.log("> Attempting to start mineflayer bot", "yellow", true)
         this.restartCount++;
 
         if (this.restartCount >= 10) {
@@ -93,12 +93,12 @@ export default class Bot {
 
     /**
      * Get an array of players, and their ping.
-     * @returns { username: string, ping: number }[]
+     * @returns { name: string, ping: number }[]
      */
     getPlayers() {
         const arr = [];
         for (const player of Object.keys(this.bot.players)) {
-            arr.push({ username: player, ping: this.bot.players[player].ping });
+            arr.push({ name: player, ping: this.bot.players[player].ping });
         }
         return arr
     }

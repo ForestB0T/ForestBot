@@ -1,9 +1,11 @@
 import fetch from "node-fetch";
 import { config } from "../../index.js";
 
+const apiKey = "1234";
+
 const postApi = async (endpoint: string, body: any) => {
     try {
-        const data = await (await fetch(`${config.api_url}/${endpoint}`, {
+        const data = await (await fetch(`${config.api_url}/${endpoint}/${apiKey}`, {
             method: 'POST',
             body: JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' }

@@ -1,7 +1,7 @@
 import { Client as client, ColorResolvable, TextChannel } from 'discord.js';
-import type { Options }             from "../../config"
-import { bot, colors, config }   from '../../index.js';
-import { readdir }               from 'fs/promises';
+import type { Options } from "../../config"
+import { bot, colors, config, logger } from '../../index.js';
+import { readdir } from 'fs/promises';
 
 /**
  * @class Client
@@ -9,10 +9,10 @@ import { readdir }               from 'fs/promises';
  */
 export default class Client extends client {
 
-    public allow_chatbridge_input : boolean;
-    public chatChannels           : Map<string, TextChannel> = new Map();
-    public whitelist              : Set<string> = new Set();
-    public blacklist              : Set<string> = new Set();
+    public allow_chatbridge_input: boolean;
+    public chatChannels: Map<string, TextChannel> = new Map();
+    public whitelist: Set<string> = new Set();
+    public blacklist: Set<string> = new Set();
 
     constructor(options: Options["discord"]) {
         super(options);
@@ -20,14 +20,16 @@ export default class Client extends client {
         config.discord_blacklist.forEach(user => this.blacklist.add(user));
         this.allow_chatbridge_input = config.allow_chatbridge_input;
         this.token = options.token;
+        this.Login()
     }
 
+    /**
+     * Main function to start the discord bot.
+     */
     Login = () => {
-        return new Promise<void>(async (res,rej) => {
-            await this.login();
-            this.handleEvents();
-            res();
-        })
+        if (!config.use_discord) return logger.log("Discord is disabled in config.json", "red", false);
+        this.login(this.token);
+        this.handleEvents();
     }
 
     /**
@@ -48,17 +50,16 @@ export default class Client extends client {
      * and get a TextChannel from discord's cache by channel Id.
      * @param mc_server 
      */
-    async loadChannels(mc_server: string) { 
-        const channelIdArry = [];
-        const channels = (await bot.endpoints.getChannels(mc_server)).channels as string[];
-        if (!channels) return;
-        for (const Channel of channels) {
-            channelIdArry.push(Channel)
+    async loadChannels(mc_server: string) {
+        let channelIdArry = await bot.endpoints.getChannels(mc_server)
+
+        if (!channelIdArry) return;
+        for (const Channel of channelIdArry) {
             this.chatChannels.set(Channel, this.channels.cache.get(Channel) as TextChannel);
         }
 
         for (const [key, _] of this.chatChannels) {
-            if(!channelIdArry.includes(key)) this.chatChannels.delete(key);
+            if (!channelIdArry.includes(key)) this.chatChannels.delete(key);
         }
 
     }

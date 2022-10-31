@@ -3,10 +3,9 @@ import { readFile }        from "fs/promises";
 import type { BotOptions } from "mineflayer";
 import type { ClientOptions, PartialTypes} from 'discord.js';
 import { Intents }                         from 'discord.js';
-import { ServerOptions } from "ws";
 
-const config: Config = await JSON.parse(await readFile("./config.json", "utf8"));
-const colors: Colors = await JSON.parse(await readFile("./colors.json", "utf8"));
+export const config: Config = await JSON.parse(await readFile("./config.json", "utf8"));
+export const colors: Colors = await JSON.parse(await readFile("./colors.json", "utf8"));
 
 class MineflayerOptions implements BotOptions {
         host     = process.env.MC_HOST
@@ -28,15 +27,8 @@ class DiscordOptions implements ClientOptions {
     disabledCommands: string[] = []
 }
 
-class WebSocketOptions implements ServerOptions {
-    port: number = config.websocket_port
-    path: string = config.websocket_path
-}
-
-class Options {
+export class Options {
     mineflayer = new MineflayerOptions();
     discord    = new DiscordOptions();
-    websocket  = new WebSocketOptions();
+    websocketUrl = `${config.websocket_url}/${config.mc_server}`;
 }
-
-export { config, colors, Options };
