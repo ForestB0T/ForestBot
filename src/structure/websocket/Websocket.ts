@@ -17,7 +17,7 @@ export default class Websocket {
             return logger.log("Websocket is disabled in config.json", "red", false);
         }
         this.wss = new WebSocket(this.url);
-        this.wss.on("error", (err) => logger.log(err.message, "red"))
+        this.wss.on("error", (err) => logger.log(`Websocket error: ${err.message}`, "red", true))
         this.wss.on("open", () => {
             let intrvl = setInterval(() => { this.wss.ping() }, 30000);
             logger.log("> Connected to websocket successfully", "blue", true)
