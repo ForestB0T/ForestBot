@@ -18,10 +18,15 @@ export default class Websocket {
         }
         this.wss = new WebSocket(this.url);
         this.wss.on("error", (err) => logger.log(err.message, "red"))
-        this.wss.on("open", () => logger.log("> Connected to websocket successfully", "blue", true))
-        this.wss.on("close", () => {
-            logger.log("> Disconnected from websocket", "red", true);
-            return this.start();
+        this.wss.on("open", () => {
+            let intrvl = setInterval(() => { this.wss.ping() }, 30000);
+            logger.log("> Connected to websocket successfully", "blue", true)
+        
+            this.wss.on("close", () => {
+                logger.log("> Disconnected from websocket", "red", true);
+                clearInterval(intrvl);
+                return this.start();
+            })
         })
         this.wss.on("message", (data) => {
             const json = JSON.parse(data.toString());  
