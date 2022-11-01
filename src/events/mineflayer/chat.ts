@@ -35,59 +35,49 @@ export default {
     name: "chat:chat",
     once: false,
     run: async (content: BotEvents, Bot: Bot) => {
-        const user: User = {
-            username: content[0][0],
-            uuid: Bot.bot.players[content[0][0]].uuid,
-            message: content[0][1]
-        }
-
-        Bot.endpoints.saveChat(
-            user.username,
-            user.message,
-            Bot.mc_server
-        )
-
-        client.chatEmbed(`**${user.username}** » ${user.message}`, "gray");
-
-        for (const [key, value] of Bot.commands) {
-            for (const alias of value.commands) {
-                if (user.message.toLowerCase().startsWith(`${prefix}${alias}`)) {
-                    if (Bot.userBlacklist.has(user.username)) return;
-                    if (user.username === Bot.bot.username) return;
-
-                    if (Bot.disabledCommands.has(key) || (Bot.useWhitelist && (Bot.whitelistedCmds.has(alias) && !Bot.userWhitelist.has(user.username)))) return;
-                    if (!Bot.useCommands) return;
-
-                    let args = user.message.split(" ")
-                    args.shift();
-
-                    if (antiSpamHandler({
-                        user: user.username,
-                        Bot: Bot,
-                        cooldown_time: config.anti_spam_cooldown,
-                        spam_limit: config.anti_spam_msg_limit
-                    })) {
-                        value.execute(user.username, args, Bot);
+        try {
+            const user: User = {
+                username: content[0][0],
+                uuid: Bot.bot.players[content[0][0]].uuid,
+                message: content[0][1]
+            }
+    
+            Bot.endpoints.saveChat(
+                user.username,
+                user.message,
+                Bot.mc_server
+            )
+    
+            client.chatEmbed(`**${user.username}** » ${user.message}`, "gray");
+    
+            for (const [key, value] of Bot.commands) {
+                for (const alias of value.commands) {
+                    if (user.message.toLowerCase().startsWith(`${prefix}${alias}`)) {
+                        if (Bot.userBlacklist.has(user.username)) return;
+                        if (user.username === Bot.bot.username) return;
+    
+                        if (Bot.disabledCommands.has(key) || (Bot.useWhitelist && (Bot.whitelistedCmds.has(alias) && !Bot.userWhitelist.has(user.username)))) return;
+                        if (!Bot.useCommands) return;
+    
+                        let args = user.message.split(" ")
+                        args.shift();
+    
+                        if (antiSpamHandler({
+                            user: user.username,
+                            Bot: Bot,
+                            cooldown_time: config.anti_spam_cooldown,
+                            spam_limit: config.anti_spam_msg_limit
+                        })) {
+                            value.execute(user.username, args, Bot);
+                        }
+                    
+                        return;
                     }
-                
-                    return;
                 }
             }
+    
+        } catch (err) {
+            return console.log(err.message);
         }
-
-
-        // if (Bot.ForestBot.config.config.websocket_livechat) {
-        //     try {
-        //         const Ws = Bot.ForestBot.Ws.wss;
-        //         if (!Ws.clients) return;
-        //         Ws.clients.forEach(
-        //             set => set.send(JSON.stringify({
-        //                 user: username,
-        //                 msg: message
-        //             }))
-        //         )
-        //     } catch { };
-        // }
-
     }
 }
