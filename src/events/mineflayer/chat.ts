@@ -36,9 +36,8 @@ export default {
     once: false,
     run: async (content: BotEvents, Bot: Bot) => {
         try {
-            const user: User = {
+            const user = {
                 username: content[0][0],
-                uuid: Bot.bot.players[content[0][0]].uuid,
                 message: content[0][1]
             }
     
