@@ -17,7 +17,12 @@ export default class Websocket {
             return logger.log("Websocket is disabled in config.json", "red", false);
         }
         this.wss = new WebSocket(this.url);
-        this.wss.on("error", (err) => logger.log(`Websocket error: ${err.message}`, "red", true))
+        this.wss.on("error", (err) => {
+            logger.log(`Websocket error: ${err.message}`, "red", true);
+            setTimeout(() => {
+                this.start();
+            }, 10000);
+        })
         this.wss.on("open", () => {
             let intrvl = setInterval(() => { this.wss.ping() }, 30000);
             logger.log("> Connected to websocket successfully", "blue", true)
@@ -25,7 +30,10 @@ export default class Websocket {
             this.wss.on("close", () => {
                 logger.log("> Disconnected from websocket", "red", true);
                 clearInterval(intrvl);
-                return this.start();
+                setTimeout(() => {
+                    this.start();
+                }, 10000);
+                return;
             })
         })
         this.wss.on("message", (data) => {

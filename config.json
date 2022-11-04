@@ -1,5 +1,5 @@
 {
-    "mc_server": "newtest",
+    "mc_server": "liveoverflow",
     "api_url": "https://api.forestbot.org",
 
     "use_mc_whitelist": true,
