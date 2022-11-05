@@ -57,7 +57,7 @@
         },
         {
             "name": "chat",
-            "regex": "([^ ]*) » (.*)$",
+            "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*)? » (.*)$",
             "options": { "parse": true, "repeat": true }
         },
         {
