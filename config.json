@@ -1,12 +1,12 @@
 {
-    "mc_server": "liveoverflow",
-    "api_url": "https://api.forestbot.org",
+    "mc_server": "newtest",
+    "api_url": "http://localhost:5000",
 
     "use_mc_whitelist": true,
     "mc_whitelist": ["Furia", "notFebzey"],
     "mc_blacklist": [],
     
-    "use_discord": true,
+    "use_discord": false,
     "main_discord_channel": "968777127392595968",
     "discord_whitelist": ["703044116019281963"],
     "discord_blacklist": [],
@@ -25,6 +25,6 @@
     "allow_chatbridge_input": true,
 
     "use_websocket": true,
-    "websocket_url": "wss://ws.forestbot.org"
+    "websocket_url": "ws://localhost:8080"
 
 }

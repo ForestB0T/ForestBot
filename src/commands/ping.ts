@@ -7,7 +7,13 @@ export default {
     execute: async (user: string, args: any[], bot: Bot) => {
         const search = args[0] ? args[0] : user;
         try {
-            return bot.bot.chat(`${search}: ${bot.bot.players[search].ping}ms`)
+            let str = ``
+            const ping = bot.bot.players[search].ping;
+            str = `${search}: ${ping}ms`;
+            if (ping == 0) str = `${search}: ${ping}ms (Most likely just joined.)`;
+
+
+            return bot.bot.chat(str);
         }
         catch { return }
     }

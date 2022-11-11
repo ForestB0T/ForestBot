@@ -17,7 +17,7 @@
     "dotenv": "^16.0.0",
     "javascript-time-ago": "^2.3.13",
     "minecraft-server-ping": "^0.0.8",
-    "mineflayer": "^4.1.0",
+    "mineflayer": "^4.5.1",
     "mojang-api": "^0.0.2",
     "node-fetch": "^3.2.2",
     "urban-dictionary": "^3.0.2",

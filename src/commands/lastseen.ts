@@ -22,7 +22,8 @@ export default {
         let lastseenString: string;
 
         if (data && data.lastseen.match(/^\d+$/)) {
-            lastseenString = time.convertUnixTimestamp(parseInt(data.lastseen) / 1000);
+            const timeAgo = time.timeAgoStr(parseInt(data.lastseen));
+            lastseenString = `${time.convertUnixTimestamp(parseInt(data.lastseen) / 1000)} (${timeAgo})`;
         } else {
             lastseenString = data.lastseen;
         }

@@ -13,36 +13,42 @@ export default class Websocket {
     }
 
     start() {
-        if(!config.use_websocket) { 
-            return logger.log("Websocket is disabled in config.json", "red", false);
-        }
+        if (!config.use_websocket) return logger.log("Websocket is disabled in config.json", "red", false);
+
         this.wss = new WebSocket(this.url);
         this.wss.on("error", (err) => {
             logger.log(`Websocket error: ${err.message}`, "red", true);
-            setTimeout(() => {
-                this.start();
-            }, 10000);
+            this.restartWebsocket();
         })
         this.wss.on("open", () => {
-            let intrvl = setInterval(() => { this.wss.ping() }, 30000);
             logger.log("> Connected to websocket successfully", "blue", true)
-        
+            let intrvl = setInterval(() => { 
+                const playerList = bot.getPlayers(); 
+                this.wss.ping();
+                this.wss.send(JSON.stringify({ 
+                    type: "tablist", 
+                    mc_server: bot.mc_server, 
+                    playerlist: JSON.stringify(playerList)
+                }));
+
+            }, 20000);
+
             this.wss.on("close", () => {
                 logger.log("> Disconnected from websocket", "red", true);
                 clearInterval(intrvl);
-                setTimeout(() => {
-                    this.start();
-                }, 10000);
+                this.restartWebsocket();
                 return;
             })
         })
-        this.wss.on("message", (data) => {
-            const json = JSON.parse(data.toString());  
-            if (json.type && json.type === "tablist") {
-                logger.log("> Tablist requested.", "blue", false)
-                const playerList = bot.getPlayers()
-                this.wss.send(JSON.stringify(playerList));
-            }
-        })
+    }
+
+    async restartWebsocket() { 
+        await new Promise((resolve) => setTimeout(resolve, 10000));
+        if (this.wss && this.wss.readyState === WebSocket.OPEN) {
+            this.wss.close();
+            this.start();
+            return
+        }
+        this.start();
     }
 }
