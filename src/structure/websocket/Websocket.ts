@@ -16,10 +16,12 @@ export default class Websocket {
         if (!config.use_websocket) return logger.log("Websocket is disabled in config.json", "red", false);
 
         this.wss = new WebSocket(this.url);
+
         this.wss.on("error", (err) => {
             logger.log(`Websocket error: ${err.message}`, "red", true);
             this.restartWebsocket();
         })
+
         this.wss.on("open", () => {
             logger.log("> Connected to websocket successfully", "blue", true)
             let intrvl = setInterval(() => { 
@@ -44,8 +46,8 @@ export default class Websocket {
 
     async restartWebsocket() { 
         await new Promise((resolve) => setTimeout(resolve, 10000));
-        if (this.wss && this.wss.readyState === WebSocket.OPEN) {
-            this.wss.close();
+        if (this.wss) {
+            this.wss.terminate();
             this.start();
             return
         }
