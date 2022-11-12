@@ -2,6 +2,8 @@
     "mc_server": "newtest",
     "api_url": "https://api.forestbot.org",
 
+    "prefix": "!",
+
     "use_mc_whitelist": true,
     "mc_whitelist": ["Furia", "notFebzey"],
     "mc_blacklist": [],

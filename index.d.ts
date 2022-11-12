@@ -15,6 +15,8 @@ type Config = {
     mc_server: string
     api_url:   string
 
+    prefix: "!" | "?" | "-" | "="
+
     use_mc_whitelist:       boolean
     mc_whitelist:           string[],
     mc_blacklist:           string[],

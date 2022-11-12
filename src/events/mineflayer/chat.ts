@@ -2,7 +2,7 @@ import type { BotEvents } from 'mineflayer';
 import { config, client } from "../../index.js";
 import Bot                from '../../structure/mineflayer/Bot.js';
 
-const prefix = "!";
+const prefix = config.prefix;
 const spam: Map<string, number> = new Map();
 
 function antiSpamHandler(args: antiSpamArgsType): boolean {
@@ -37,6 +37,7 @@ export default {
     once: false,
     run: async (content: BotEvents, Bot: Bot) => {
         try {
+
             const user = {
                 username: content[0][0],
                 message: content[0][1]
