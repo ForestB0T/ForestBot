@@ -1,6 +1,6 @@
 import type Client      from "../../structure/discord/client";
 import type { Message } from "discord.js";
-import { bot }          from "../../index.js";
+import { bot, logger }          from "../../index.js";
 
 /**
  * Users who spam
@@ -25,7 +25,7 @@ export default {
 
         if (client.whitelist.has(author.id)) {
             if (content.startsWith("!restart")) {
-                await channel.send("> Restarting...");
+                logger.log("Restarting bot...", "blue", true);
                 if (bot.isConnected) bot.bot.end();
                 else bot.endAndRestart()
                 return;
