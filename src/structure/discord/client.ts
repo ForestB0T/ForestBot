@@ -85,7 +85,7 @@ export default class Client extends client {
                     }]
                 })
             }
-            catch { }
+            catch{}
         }
     }
 

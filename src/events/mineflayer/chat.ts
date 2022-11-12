@@ -7,6 +7,7 @@ const spam: Map<string, number> = new Map();
 
 function antiSpamHandler(args: antiSpamArgsType): boolean {
     const { user, Bot, cooldown_time, spam_limit } = args; 
+
     if (!spam.has(user)) spam.set(user, 1);
     else spam.set(user, spam.get(user) + 1);
 
@@ -49,6 +50,7 @@ export default {
     
             client.chatEmbed(`**${user.username}** » ${user.message}`, "gray");
     
+            if (!user.message.startsWith(prefix)) return;
             for (const [key, value] of Bot.commands) {
                 for (const alias of value.commands) {
                     if (user.message.toLowerCase().startsWith(`${prefix}${alias}`)) {
@@ -66,9 +68,7 @@ export default {
                             Bot: Bot,
                             cooldown_time: config.anti_spam_cooldown,
                             spam_limit: config.anti_spam_msg_limit
-                        })) {
-                            value.execute(user.username, args, Bot);
-                        }
+                        })) value.execute(user.username, args, Bot);
                     
                         return;
                     }
