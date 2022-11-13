@@ -11,17 +11,16 @@ export default {
         const message = args[0];
         const c = args[1];
 
-        const firstWord = message.split(" ")[0];
-        if (Bot.bot.players[firstWord] && c == "system") {
-
+        const words = message.split(" ");
+        
+        if (Bot.bot.players[words[0]] && c == "system") {            
+            if (words[1] === "joined" && words[1] === "left") return;
+            
             let murderer: string = null;
-            let victim: string = firstWord;
-
-            const words = message.split(" ");
-            words.shift();
+            let victim: string = words[0];
 
             for (const word of words) {
-                if (Bot.bot.players[word] && word !== firstWord) {
+                if (Bot.bot.players[word] && word !== words[0]) {
                     murderer = Bot.bot.players[word].username;
                     break;
                 }
