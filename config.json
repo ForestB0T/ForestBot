@@ -18,11 +18,11 @@
     "anti_spam_cooldown": 6000,
     "anti_spam_msg_limit": 9,
 
-    "welcome_messages": true,
+    "welcome_messages": false,
 
     "whitelisted_commands": [],
     "disabled_commands": ["kill", "coords"],
-    "useCommands": true,
+    "useCommands": false,
 
     "allow_chatbridge_input": true,
 

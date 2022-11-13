@@ -4,12 +4,18 @@ import type Bot from "../../structure/mineflayer/Bot.js";
 /**
  * This event is basically only used to capture kill messages.
  */
+
+const dividers = ["»", "->", ":", ">",];
+
 export default {
     name: "messagestr",
     once: false,
     run: async (args: any[], Bot: Bot) => {
-        const message = args[0];
-        const c = args[1];
+        const message = args[0], c = args[1];
+
+        if (dividers.some(div => message.includes(div))) { 
+            return
+        }
 
         const words = message.split(" ");
         
