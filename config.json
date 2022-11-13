@@ -8,7 +8,7 @@
     "mc_whitelist": ["Furia", "notFebzey"],
     "mc_blacklist": [],
     
-    "use_discord": false,
+    "use_discord": true,
     "main_discord_channel": "968777127392595968",
     "discord_whitelist": ["703044116019281963"],
     "discord_blacklist": [],
@@ -18,11 +18,11 @@
     "anti_spam_cooldown": 6000,
     "anti_spam_msg_limit": 9,
 
-    "welcome_messages": false,
+    "welcome_messages": true,
 
     "whitelisted_commands": [],
     "disabled_commands": ["kill", "coords"],
-    "useCommands": false,
+    "useCommands": true,
 
     "allow_chatbridge_input": true,
 
