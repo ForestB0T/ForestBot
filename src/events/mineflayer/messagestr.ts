@@ -13,7 +13,13 @@ export default {
 
         const words = message.split(" ");
         
-        if (Bot.bot.players[words[0]] && c == "system") {            
+        if (Bot.bot.players[words[0]] && c == "system") {     
+
+            if (message.includes("has made the advancement")) {
+                client.chatEmbed(`> ${message}`, "yellow");
+                return;
+            }
+        
             if (words[1] === "joined" || words[1] === "left") return;
 
             let murderer: string = null;
