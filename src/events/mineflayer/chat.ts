@@ -48,8 +48,8 @@ export default {
 
             if (
                 user.message.endsWith("[w]") ||
-                user.username === "From" ||
-                user.username === "To" ||
+                user.username === "From:" ||
+                user.username === "To:" ||
                 user.message.split(" ")[1] === "»"
             ) {
                 return;
