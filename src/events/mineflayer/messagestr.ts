@@ -15,7 +15,7 @@ export default {
         
         if (Bot.bot.players[words[0]] && c == "system") {            
             if (words[1] === "joined" && words[1] === "left") return;
-            
+
             let murderer: string = null;
             let victim: string = words[0];
 
@@ -26,7 +26,7 @@ export default {
                 }
             }
 
-            await client.chatEmbed(`> ${message}`, "purple");
+            await client.chatEmbed(`> ${message}`, "purple").catch(() => { });
 
             murderer
                 ? Bot.endpoints.savePvpKill(victim, murderer, message, Bot.mc_server)
