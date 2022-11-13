@@ -14,7 +14,7 @@ export default {
         const words = message.split(" ");
         
         if (Bot.bot.players[words[0]] && c == "system") {            
-            if (words[1] === "joined" && words[1] === "left") return;
+            if (words[1] === "joined" || words[1] === "left") return;
 
             let murderer: string = null;
             let victim: string = words[0];
