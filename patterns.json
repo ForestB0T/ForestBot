@@ -17,7 +17,7 @@
         },
         {
             "name": "whisperTo",
-            "regex": "(?:To:|To) ([^ ]*) » (.*)$",
+            "regex": "(?:To:|To) ([^ ]*)(?::| ») (.*)$",
             "options": { "parse": true, "repeat": true }
         },
         {
