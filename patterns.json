@@ -12,6 +12,16 @@
         },
         {
             "name": "whisperFrom",
+            "regex": "From: ([^ ]*) » (.*)$",
+            "options": { "parse": true, "repeat": true }
+        },
+        {
+            "name": "whisperTo",
+            "regex": "To: ([^ ]*) » (.*)$",
+            "options": { "parse": true, "repeat": true }
+        },
+        {
+            "name": "whisperFrom",
             "regex": "^\\[MSG\\] ([^ ]*) -> me: (.*)$",
             "options": { "parse": true, "repeat": true }
         },
@@ -64,73 +74,7 @@
             "name": "chat",
             "regex": "^([^ ]*) > (.*)$",
             "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[Jr MOD\\] ([^ ]*) ✪ > (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[Mod\\] ([^ ]*) » (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[Mod\\] ([^ ]*) ✪ > (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[Discord\\] ([^ ]*) > (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[Discord\\] ([^ ]*) » (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[SR-Mod\\] ([^ ]*) » (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[Discord\\] \\[Mod\\] ([^ ]*) > (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[Discord\\] \\[Donator\\] ([^ ]*) > (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[Discord\\] \\[Nitro Booster\\] ([^ ]*) > (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[Discord\\] ([^ ]*)» (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "chat",
-            "regex": "^\\[YouTube\\] ([^ ]*) » (.*)$",
-            "options": { "parse": true, "repeat": true }
-        },
-        {
-            "name": "pvpMessages",
-            "regex": "^([^ ]*) (?:was slain by|was burnt to a crisp while fighting|was killed by magic whilst trying to escape|drowned whilst trying to escape|experienced kinetic energy whilst trying to escape|was shot by|was blown up by|hit the ground too hard whilst trying to escape|was killed trying to hurt|tried to swim in lava to escape) ([^ ]*)",
-            "options": { "parse": false, "repeat": true }
-        },
-        {
-            "name": "pveMessages",
-            "regex": "^([^ ]*) (?:died|tried to swim in lava|withered away whilst fighting|was pricked to death|Was killed by nature|drowned|blew up|was killed by|fell out of the world|hit the ground too hard|experienced kinetic energy|fell from a high place|fell off a ladder|fell while climbing|went up in flames|burned to death|was struck by lightning|was killed by magic|starved to death|was stung to death|suffocated in a wall|withered away|froze to death|went off with a bang)$",       
-            "options": { "parse": false, "repeat": true }
-        }
-        
+        }        
     ]
 }
 

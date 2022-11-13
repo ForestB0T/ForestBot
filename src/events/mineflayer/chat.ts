@@ -45,6 +45,10 @@ export default {
                 username: content[0][0],
                 message: content[0][1]
             }
+
+            if (user.message.endsWith("[w]")) { 
+                return;
+            }
     
             Bot.endpoints.saveChat(
                 user.username,
