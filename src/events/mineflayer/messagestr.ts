@@ -15,7 +15,7 @@ export default {
         
         if (Bot.bot.players[words[0]] && c == "system") {     
 
-            if (message.includes("has made the advancement")) {
+            if (message.includes("has made the advancement") || message.includes("has completed the challenge")) {
                 client.chatEmbed(`> ${message}`, "yellow");
                 return;
             }
