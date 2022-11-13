@@ -70,6 +70,50 @@ export default class Bot {
         
         _bot.whisper = (user: string, msg: string) => this.bot.chat(`/w ${user} ${msg}`);
 
+    //     _bot.on("messagestr", (message, jsonMsg, matches) => {
+    //         // console.log(message)
+
+    //         //get first word from sentence
+    //         const firstWord = message.split(" ")[0];
+    //         //check if firstWord is an online player
+    //         if (this.bot.players[firstWord]) { 
+
+    //             let deathMsg = message;
+    //             let murderer: string;
+    //             let victim: string;
+
+    //             const words = message.split(" ");
+    //             words.shift();
+ 
+    //             for (const word of words) {
+    //                 if (this.bot.players[word] && word !== firstWord) {
+
+    //                     murderer = this.bot.players[word].username;
+    //                     victim = firstWord;
+
+    //                     console.log("Murderer: " + murderer + " victim: " + victim + " DeathMsg: " + deathMsg);                    
+
+    //                     //add savepvp logic here.
+
+    //                     return;
+    //                 }
+    //             }
+
+    //             let query = murderer
+    //             ? ""
+    //             : ""
+
+    //             victim = firstWord;
+
+    //             console.log(victim + " probably just got killed. DeathMsg " + deathMsg);
+
+    //             //add savepve logic here.
+    //         }
+
+    //         // console.log(jsonMsg)
+        
+    //     })
+
         return this.bot = _bot;
     }
 
@@ -157,8 +201,8 @@ export default class Bot {
             const file  = await import(`../../events/mineflayer/${File}`);
             const event = file.default;
             event.once
-            ?  bot.once(event.name, (...args: any) => event.run(...args, this))
-            :  bot.on(event.name, (...args: any) => event.run(...args, this))
+            ?  bot.once(event.name, (...args: any) => event.run([...args], this))
+            :  bot.on(event.name, (...args: any) => event.run([...args], this))
         }
     }
 

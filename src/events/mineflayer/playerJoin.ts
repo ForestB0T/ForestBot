@@ -5,7 +5,9 @@ import { client }      from "../../index.js";
 export default {
     name: "playerJoined",
     once: false,
-    run: async(player: Player, Bot: Forestbot) => {
+    run: async(args: any[], Bot: Forestbot) => {
+
+        const player: Player = args[0]
 
         if (!Bot.isConnected) return;
 

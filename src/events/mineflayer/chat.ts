@@ -35,7 +35,10 @@ function antiSpamHandler(args: antiSpamArgsType): boolean {
 export default {
     name: "chat:chat",
     once: false,
-    run: async (content: BotEvents, Bot: Bot) => {
+    run: async (args: any[], Bot: Bot) => {
+        
+        const content: BotEvents = args[0];
+        
         try {
 
             const user = {

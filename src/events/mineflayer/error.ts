@@ -5,7 +5,9 @@ import { logger } from "../../index.js";
 export default {
     name: "error",
     once: false,
-    run: (content: BotEvents, Bot: Bot) => {
+    run: (args: any[], Bot: Bot) => {
+        const content: BotEvents = args[0];
+        
         logger.log(`> Bot has encountered an error:\n> ${content}`, "red", true)
         return;
     }

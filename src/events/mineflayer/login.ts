@@ -4,7 +4,7 @@ import { logger } from "../../index.js";
 export default { 
     name: "login",
     once: true,
-    run: (Bot: Bot) => {
+    run: (args:[], Bot: Bot) => {
         logger.log(`> Connected to ${Bot.options.host} successfully`, "green", true);
         
         setInterval(() => {
