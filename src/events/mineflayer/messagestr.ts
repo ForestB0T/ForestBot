@@ -10,7 +10,7 @@ export default {
     name: "messagestr",
     once: false,
     run: async (args: any[], Bot: Bot) => {
-        const message = args[0], c = args[1];
+        const message = args[0];
 
         if (
             message.includes("has made the advancement") ||
