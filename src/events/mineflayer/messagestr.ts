@@ -4,7 +4,7 @@ import type Bot from "../../structure/mineflayer/Bot.js";
  * This event is basically only used to capture kill messages.
  */
 
-const dividers = ["[w]", "»", "From:", "To:", ">", ":", "left", "joined"];
+const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "joined", "whispers"];
 
 export default {
     name: "messagestr",
@@ -20,9 +20,6 @@ export default {
             client.chatEmbed(`> ${message}`, "yellow");
             return;
         }
-
-        //check if message contains any dividers
-        if (dividers.some((divider) => message.includes(divider))) return;
 
         if (
             ((args[2] && args[2]["json"].translate) && args[2]["json"].translate.includes("death")) ||
