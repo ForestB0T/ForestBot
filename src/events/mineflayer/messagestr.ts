@@ -1,11 +1,10 @@
 import { client } from "../../index.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
-
 /**
  * This event is basically only used to capture kill messages.
  */
 
-const dividers = ["»", "->", ":", ">",];
+const dividers = ["»", "->", ":", ">"];
 
 export default {
     name: "messagestr",
@@ -13,27 +12,24 @@ export default {
     run: async (args: any[], Bot: Bot) => {
         const message = args[0], c = args[1];
 
-        if (dividers.some(div => message.includes(div))) { 
-            return
+        if (
+            message.includes("has made the advancement") ||
+            message.includes("has completed the challenge")
+        ) {
+            client.chatEmbed(`> ${message}`, "yellow");
+            return;
         }
 
-        const words = message.split(" ");
-        
-        if (Bot.bot.players[words[0]] && c == "system") {     
+        if ((args[2] && args[2]["json"].translate) && args[2]["json"].translate.includes("death")) {
 
-            if (message.includes("has made the advancement") || message.includes("has completed the challenge")) {
-                client.chatEmbed(`> ${message}`, "yellow");
-                return;
-            }
-        
-            if (words[1] === "joined" || words[1] === "left") return;
+            const words = message.split(" ");
 
-            let murderer: string = null;
-            let victim: string = words[0];
+            const victim = words[0];
+            let murderer = null;
 
             for (const word of words) {
-                if (Bot.bot.players[word] && word !== words[0]) {
-                    murderer = Bot.bot.players[word].username;
+                if (Bot.bot.players[word] && word !== victim) {
+                    murderer = word;
                     break;
                 }
             }
@@ -46,5 +42,6 @@ export default {
 
         }
 
+        return;
     }
 }
