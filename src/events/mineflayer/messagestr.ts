@@ -4,11 +4,14 @@ import type Bot from "../../structure/mineflayer/Bot.js";
  * This event is basically only used to capture kill messages.
  */
 
+const dividers = ["[w]", "»", "From:", "To:", ">", ":", "left", "joined"];
+
 export default {
     name: "messagestr",
     once: false,
     run: async (args: any[], Bot: Bot) => {
         const message = args[0];
+        const words = message.split(" ");
 
         if (
             message.includes("has made the advancement") ||
@@ -18,9 +21,13 @@ export default {
             return;
         }
 
-        if ((args[2] && args[2]["json"].translate) && args[2]["json"].translate.includes("death")) {
+        //check if message contains any dividers
+        if (dividers.some((divider) => message.includes(divider))) return;
 
-            const words = message.split(" ");
+        if (
+            ((args[2] && args[2]["json"].translate) && args[2]["json"].translate.includes("death")) ||
+            (words[0] === Bot.bot.players[words[0]].username && !dividers.some((divider) => message.includes(divider)))
+        ) {
 
             const victim = words[0];
             let murderer = null;
