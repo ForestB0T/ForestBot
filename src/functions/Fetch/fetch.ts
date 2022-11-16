@@ -3,6 +3,12 @@ import { config } from "../../index.js";
 
 const apiKey = process.env.apiKey
 
+/**
+ * Post requests
+ * @param endpoint
+ * @oaram body
+ * @returns 
+ */
 const postApi = async (endpoint: string, body: any) => {
     try {
         const data = await (await fetch(`${config.api_url}/${endpoint}/${apiKey}`, {
@@ -19,6 +25,11 @@ const postApi = async (endpoint: string, body: any) => {
     }
 }
 
+/**
+ * Fetch requests
+ * @param endpoint
+ * @returns 
+ */
 const fetchApi = async (endpoint: string) => {
     try {
         const data = await (await fetch(`${config.api_url}/${endpoint}`)).json()
