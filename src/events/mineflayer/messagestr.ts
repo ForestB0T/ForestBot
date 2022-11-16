@@ -14,6 +14,7 @@ export default {
         const words = message.split(" ");
         try {
             if (
+                message.includes("has reached the goal") ||
                 message.includes("has made the advancement") ||
                 message.includes("has completed the challenge")
             ) {
