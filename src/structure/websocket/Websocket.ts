@@ -13,7 +13,6 @@ export default class Websocket {
     }
 
     start() {
-        if (this.wss) return;
         if (!config.use_websocket) return logger.log("Websocket is disabled in config.json", "red", false);
 
         this.wss = new WebSocket(this.url);
@@ -39,7 +38,6 @@ export default class Websocket {
             this.wss.on("close", () => {
                 logger.log("> Disconnected from websocket", "red", true);
                 clearInterval(intrvl);
-                this.restartWebsocket();
                 return;
             })
         })
@@ -47,11 +45,11 @@ export default class Websocket {
 
     async restartWebsocket() { 
         await new Promise((resolve) => setTimeout(resolve, 10000));
-        if (this.wss || (this.wss && this.wss.readyState === WebSocket.OPEN)) {
+        logger.log("> Attempting to reconnect to websocket", "yellow", true);
+        
+        if (this.wss) {
             this.wss.terminate();
-            this.start();
-            return
-        }
+        };
 
         this.start();
     }
