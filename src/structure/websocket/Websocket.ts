@@ -13,6 +13,7 @@ export default class Websocket {
     }
 
     start() {
+        if (this.wss) return;
         if (!config.use_websocket) return logger.log("Websocket is disabled in config.json", "red", false);
 
         this.wss = new WebSocket(this.url);
