@@ -47,7 +47,7 @@ export default class Websocket {
 
     async restartWebsocket() { 
         await new Promise((resolve) => setTimeout(resolve, 10000));
-        if (this.wss || this.wss.readyState === WebSocket.OPEN) {
+        if (this.wss || (this.wss && this.wss.readyState === WebSocket.OPEN)) {
             this.wss.terminate();
             this.start();
             return
