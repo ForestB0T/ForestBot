@@ -41,6 +41,5 @@ const fetchApi = async (endpoint: string) => {
     }
 }
 
-
 export { fetchApi, postApi }
 

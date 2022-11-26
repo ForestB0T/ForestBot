@@ -5,7 +5,7 @@ import { fetchApi, postApi } from "../../functions/Fetch/fetch.js"
  */
 export default { 
 
-    savePlaytime:   async (user: string, mc_server: string) => postApi(`saveplaytime`, { user: user, mc_server: mc_server, time: 60000 }),
+    savePlaytime:   async (user: string, mc_server: string) => postApi(`saveplaytime`, { user: user, mc_server: mc_server }),
     savePvpKill:    async (victim: string, murderer: string, deathmsg: string, mc_server: string) => postApi(`savepvpkill`, {victim: victim, murderer: murderer, deathmsg: deathmsg, mc_server: mc_server}),
     savePveKill:    async (victim: string, deathmsg: string, mc_server: string) => postApi(`savepvekill`, { victim: victim, deathmsg: deathmsg, mc_server: mc_server}),
     saveChat:       async (user: string, message: string, mc_server: string) => postApi('savechat',{user, message, mc_server}),
