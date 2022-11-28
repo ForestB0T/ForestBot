@@ -15,8 +15,8 @@
 
     "reconnect_time": 36000,
 
-    "anti_spam_cooldown": 6000,
-    "anti_spam_msg_limit": 9,
+    "anti_spam_cooldown": 10000,
+    "anti_spam_msg_limit": 4,
 
     "welcome_messages": true,
 
@@ -24,9 +24,6 @@
     "disabled_commands": ["kill", "coords"],
     "useCommands": true,
 
-    "allow_chatbridge_input": true,
-
-    "use_websocket": true,
-    "websocket_url": "wss://ws.forestbot.org"
+    "allow_chatbridge_input": true
 
 }
