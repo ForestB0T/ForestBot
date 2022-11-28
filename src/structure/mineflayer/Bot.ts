@@ -1,7 +1,7 @@
 import mineflayer            from "mineflayer";
 import { ping }              from "minecraft-server-ping";
 import { readFile, readdir } from "fs/promises";
-import { config, endpoints, logger, websocket } from "../../index.js";
+import { config, endpoints, logger } from "../../index.js";
 
 /**
  * @class Bot
@@ -89,19 +89,19 @@ export default class Bot {
 
         await new Promise((resolve) => setTimeout(resolve, config.reconnect_time));
         this.startBot();
-        websocket.restartWebsocket();
     }
 
     /**
      * Get an array of players, and their ping.
      * @returns [{ name: string, ping: number }]
      */
-    getPlayers() {
-        const arr = [];
+    getPlayers(): [{ name: string, ping: number }] {
+        let arr = []
+
         for (const player of Object.keys(this.bot.players)) {
             arr.push({ name: player, ping: this.bot.players[player].ping });
         }
-        return arr
+        return arr as [{ name: string, ping: number }];
     }
  
     /**

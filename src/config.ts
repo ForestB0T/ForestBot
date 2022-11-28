@@ -30,5 +30,4 @@ class DiscordOptions implements ClientOptions {
 export class Options {
     mineflayer = new MineflayerOptions();
     discord    = new DiscordOptions();
-    websocketUrl = `${config.websocket_url}/${config.mc_server}`;
 }

@@ -10,7 +10,6 @@
   "dependencies": {
     "@types/node": "^17.0.21",
     "@types/node-fetch": "^2.6.1",
-    "@types/ws": "^8.5.2",
     "chalk": "^5.0.0",
     "date-and-time": "^2.2.1",
     "discord.js": "^13.11.0",
@@ -18,9 +17,7 @@
     "javascript-time-ago": "^2.3.13",
     "minecraft-server-ping": "^0.0.8",
     "mineflayer": "^4.5.1",
-    "mojang-api": "^0.0.2",
     "node-fetch": "^3.2.2",
-    "urban-dictionary": "^3.0.2",
-    "ws": "^8.5.0"
+    "urban-dictionary": "^3.0.2"
   }
 }

@@ -38,9 +38,6 @@ type Config = {
     useCommands:            boolean
 
     allow_chatbridge_input: boolean
-
-    use_websocket:          boolean
-    websocket_url: string
 }
 
 type Colors = {
@@ -61,13 +58,15 @@ type antiSpamArgsType = {
 }
 
 type endpoints = {
-    savePlaytime:   (user: string, mc_server: string) => Promise<any>
+    savePlaytime:   (users: string[], mc_server: string) => Promise<any>
     savePvpKill:    (victim: string, murderer: string, deathmsg: string, mc_server: string) => Promise<any>
     savePveKill:    (victim: string, deathmsg: string, mc_server: string) => Promise<any>
     saveChat:       (user: string, msg: string, mc_server: string) => Promise<any>
 
     updateLeave:    (user: string, mc_server: string) => Promise<any>
     updateJoin:     (user: string, uuid: string, mc_server: string) => Promise<any>
+
+    updateplayerlist: (users: [{name: string, ping: number}], mc_server: string) => Promise<any>
 
     getChannels:    (mc_server: string) => Promise<any>
     getPlaytime:    (user: string, mc_server: string) => Promise<any>

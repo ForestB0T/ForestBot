@@ -6,10 +6,17 @@ export default {
     once: true,
     run: (args:[], Bot: Bot) => {
         logger.log(`> Connected to ${Bot.options.host} successfully`, "green", true);
-        
-        setInterval(async () => {
-            Object.keys(Bot.bot.players).forEach(async player => await Bot.endpoints.savePlaytime(player, Bot.mc_server))
-        }, 60000)
 
+        setInterval(async () => {
+            await Bot.endpoints.savePlaytime(
+                Object.keys(Bot.bot.players),
+                Bot.mc_server
+            );
+
+
+            let playerList = Bot.getPlayers()
+            await Bot.endpoints.updateplayerlist(playerList, Bot.mc_server);
+
+        }, 60000);
     }
 }
