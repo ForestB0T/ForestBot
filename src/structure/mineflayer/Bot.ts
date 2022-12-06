@@ -69,7 +69,6 @@ export default class Bot {
         this.loadPatterns(_bot);
         
         _bot.whisper = (user: string, msg: string) => this.bot.chat(`/w ${user} ${msg} [w]`);
-
         return this.bot = _bot;
     }
 
@@ -91,11 +90,12 @@ export default class Bot {
         this.startBot();
     }
 
+
     /**
      * Get an array of players, and their ping.
      * @returns [{ name: string, ping: number }]
      */
-    getPlayers(): [{ name: string, ping: number }] {
+    public getPlayers(): [{ name: string, ping: number }] {
         let arr = []
 
         for (const player of Object.keys(this.bot.players)) {
@@ -115,7 +115,6 @@ export default class Bot {
             try { await ping(this.options.host, this.options.port); resolve(true); }
             catch(err) { reject(err) }
         })
-
 
     /**
      * 

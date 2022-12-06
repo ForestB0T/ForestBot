@@ -10,7 +10,7 @@ export const colors: Colors = await JSON.parse(await readFile("./colors.json", "
 class MineflayerOptions implements BotOptions {
         host     = process.env.MC_HOST
         username = process.env.MC_USER
-        password = process.env.MC_PASS
+        //password = process.env.MC_PASS
         version  = process.env.MC_VERSION
         port     = parseInt(process.env.MC_PORT)
 }
