@@ -23,7 +23,7 @@ export default {
             }
 
             //check for weird S
-            if (def.includes("§")) { 
+            if (trimmedString.includes("§")) { 
                 trimmedString.replace("§", "");
             }
 
