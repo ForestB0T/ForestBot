@@ -10,7 +10,7 @@ export default {
             if (error) return bot.bot.whisper(user, "No results found.");
             
             let def:string = results[0].definition;
-            let maxL: number = 140;
+            let maxL: number = 130;
             
             const trimmedString = def.length > maxL 
             ? def = def.substring(0, maxL - 3) + "..." 
@@ -20,6 +20,11 @@ export default {
             if (trimmedString.match(lineBreaks)) {
                 def = trimmedString.split(lineBreaks).join(" ");
                 def = def.split(" ")[0]
+            }
+
+            //check for weird S
+            if (def.includes("§")) { 
+                trimmedString.replace("§", "");
             }
 
             bot.bot.chat(def);
