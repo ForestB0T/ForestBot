@@ -15,5 +15,6 @@ export default {
         } else {
             return bot.bot.whisper(user, "I could not find a boat.")
         }
+
     }
  } as MCommand

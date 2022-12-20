@@ -30,6 +30,13 @@ export default {
                 else bot.endAndRestart()
                 return;
             }
+            if (content.startsWith("!say")) {
+                const contentArr = [content];
+                contentArr.shift();
+                const msg = contentArr.join(" ");
+                bot.bot.chat(msg)
+                return;
+            }
         }
 
         if (!bot.isConnected) return;
