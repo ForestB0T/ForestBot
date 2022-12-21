@@ -31,7 +31,7 @@ export default {
                 return;
             }
             if (content.startsWith("!say")) {
-                const contentArr = [content];
+                const contentArr = content.split(" ");
                 contentArr.shift();
                 const msg = contentArr.join(" ");
                 bot.bot.chat(msg)
