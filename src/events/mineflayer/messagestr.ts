@@ -1,18 +1,27 @@
-import { client } from "../../index.js";
+import { bot, client } from "../../index.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
 /**
  * This event is basically only used to capture kill messages.
  */
 
 const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "joined", "whispers"];
+const teleportRegex = /([^ ]*) sent a teleport request to you/;
 
 export default {
     name: "messagestr",
     once: false,
     run: async (args: any[], Bot: Bot) => {
-        const message = args[0];
+        const message = args[0] as string;
         const words = message.split(" ");
         try {
+
+            const teleportMatch = message.match(teleportRegex);
+            if (teleportMatch && bot.userWhitelist.has(teleportMatch[1])) {
+                const sender = teleportMatch[1];
+                bot.bot.chat(`/tpaccept ${sender}`)
+                return;
+            } 
+
             if (
                 message.includes("has reached the goal") ||
                 message.includes("has made the advancement") ||
@@ -46,6 +55,6 @@ export default {
             }
 
             return;
-        } catch { }
+        } catch { return; }
     }
 }

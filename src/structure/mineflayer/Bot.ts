@@ -1,35 +1,37 @@
-import mineflayer            from "mineflayer";
-import { ping }              from "minecraft-server-ping";
+import mineflayer from "mineflayer";
+import { ping } from "minecraft-server-ping";
 import { readFile, readdir } from "fs/promises";
 import { config, endpoints, logger } from "../../index.js";
+import * as fs from "fs";
+import * as path from "path";
 
 /**
  * @class Bot
  * Main class for mineflayer bot.
  */
 export default class Bot {
-    
-    public bot              : mineflayer.Bot;
-    public userWhitelist    : Set<string> = new Set();
-    public userBlacklist    : Set<string> = new Set();
-    public disabledCommands : Set<string> = new Set();
-    public whitelistedCmds  : Set<string> = new Set();
-    public commands         : Map<string, MCommand> = new Map();
-    public useCommands      : boolean;
-    public useWhitelist     : boolean;
-    public welcomeMsgs      : boolean;
-    public mc_server        : string;
-    public restartCount     : number = 0;
-    public isConnected      : boolean;
-    public endpoints        : endpoints
-    
+
+    public bot: mineflayer.Bot;
+    public userWhitelist: Set<string> = new Set();
+    public userBlacklist: Set<string> = new Set();
+    public disabledCommands: Set<string> = new Set();
+    public whitelistedCmds: Set<string> = new Set();
+    public commands: Map<string, MCommand> = new Map();
+    public useCommands: boolean;
+    public useWhitelist: boolean;
+    public welcomeMsgs: boolean;
+    public mc_server: string;
+    public restartCount: number = 0;
+    public isConnected: boolean;
+    public endpoints: endpoints
+
     constructor(public options: mineflayer.BotOptions) {
 
-        this.useCommands  = config.useCommands;
+        this.useCommands = config.useCommands;
         this.useWhitelist = config.use_mc_whitelist
-        this.mc_server    = config.mc_server
-        this.welcomeMsgs  = config.welcome_messages
-        this.endpoints    = endpoints.default
+        this.mc_server = config.mc_server
+        this.welcomeMsgs = config.welcome_messages
+        this.endpoints = endpoints.default
 
         config.disabled_commands.forEach(command => this.disabledCommands.add(command));
         config.mc_blacklist.forEach(user => this.userBlacklist.add(user));
@@ -37,8 +39,8 @@ export default class Bot {
         config.whitelisted_commands.forEach(command => this.whitelistedCmds.add(command));
 
         this.startBot();
-        this.loadCommands();    
-    
+        this.loadCommands();
+
     }
 
     /**
@@ -56,9 +58,9 @@ export default class Bot {
             return process.exit(1);
         }
 
-        try { 
+        try {
             await this.pingServer()
-        } catch { 
+        } catch {
             logger.log(`> Connection to ${this.options.host} failed, maybe the server is offline?`, "red", true);
             return;
         }
@@ -67,7 +69,7 @@ export default class Bot {
 
         this.handleEvents(_bot);
         this.loadPatterns(_bot);
-        
+
         _bot.whisper = (user: string, msg: string) => this.bot.chat(`/w ${user} ${msg} [w]`);
         return this.bot = _bot;
     }
@@ -103,7 +105,34 @@ export default class Bot {
         }
         return arr as [{ name: string, ping: number }];
     }
- 
+
+    /**
+     * Add a player to the whitelist.
+     */
+    async updateWhitelist(user: string, action: "add" | "remove") {
+        const filePath = "./mc_whitelist.json"
+        const fileContents = await fs.promises.readFile(filePath, "utf8");
+        const whitelist = JSON.parse(fileContents);
+
+        switch (action) {
+            case "add": {
+                whitelist.users.push(user);
+                this.userWhitelist.add(user);
+                break;
+            }
+            case "remove": {
+                const index = whitelist.users.indexOf(user);
+                if (index !== -1) {
+                    whitelist.users.splice(index, 1);
+                    this.userWhitelist.delete(user);
+                }
+                break;
+            }
+        }
+
+        await fs.promises.writeFile(filePath, JSON.stringify(whitelist, null, 2));
+    }
+
     /**
      * 
      * Pings the server to check if it's online.
@@ -113,7 +142,7 @@ export default class Bot {
     private pingServer = () =>
         new Promise(async (resolve, reject) => {
             try { await ping(this.options.host, this.options.port); resolve(true); }
-            catch(err) { reject(err) }
+            catch (err) { reject(err) }
         })
 
     /**
@@ -153,11 +182,11 @@ export default class Bot {
      */
     private async handleEvents(bot: Bot["bot"]) {
         for (const File of (await readdir('./build/events/mineflayer')).filter(file => file.endsWith('.js'))) {
-            const file  = await import(`../../events/mineflayer/${File}`);
+            const file = await import(`../../events/mineflayer/${File}`);
             const event = file.default;
             event.once
-            ?  bot.once(event.name, (...args: any) => event.run([...args], this))
-            :  bot.on(event.name, (...args: any) => event.run([...args], this))
+                ? bot.once(event.name, (...args: any) => event.run([...args], this))
+                : bot.on(event.name, (...args: any) => event.run([...args], this))
         }
     }
 

@@ -1,6 +1,6 @@
-import type Client      from "../../structure/discord/client";
+import type Client from "../../structure/discord/client";
 import type { Message } from "discord.js";
-import { bot, logger }          from "../../index.js";
+import { bot, logger } from "../../index.js";
 
 /**
  * Users who spam
@@ -9,11 +9,11 @@ import { bot, logger }          from "../../index.js";
 const spam: Map<string, number> = new Map();
 const whisperCommands = ["/w", "/whisper", "/msg"]
 
-export default { 
+export default {
     name: "messageCreate",
     once: false,
-    execute: async (message: Message, client: Client) => { 
-        
+    execute: async (message: Message, client: Client) => {
+
         const { author, channel, content, member } = message;
 
         if (author.id === client.user.id) return;
@@ -23,6 +23,9 @@ export default {
 
         const username = `${author.username}#${author.discriminator}`;
 
+        const args = content.split(" ");
+
+
         if (client.whitelist.has(author.id)) {
             if (content.startsWith("!restart")) {
                 logger.log("Restarting bot...", "blue", true);
@@ -31,10 +34,16 @@ export default {
                 return;
             }
             if (content.startsWith("!say")) {
-                const contentArr = content.split(" ");
-                contentArr.shift();
-                const msg = contentArr.join(" ");
+                args.shift();
+                const msg = args.join(" ");
                 bot.bot.chat(msg)
+                return;
+            }
+            if (content.startsWith("!whitelist")) {
+                args.shift();
+                const action = args[0] as "add" | "remove";
+                const user = args[1];
+                await bot.updateWhitelist(user, action);
                 return;
             }
         }
@@ -42,9 +51,8 @@ export default {
         if (!bot.isConnected) return;
 
         if (whisperCommands.some(alias => content.startsWith(`${alias}`))) {
-            const args = content.split(" ");
             args.shift();
-            
+
             if (!args[0]) {
                 await message.reply("> You need to specify a user to whisper");
                 return;
@@ -78,12 +86,12 @@ export default {
             return;
         }
 
-        if (spamUser === 1) { 
+        if (spamUser === 1) {
             bot.bot.chat(`${username}: ${content}`);
             setTimeout(() => spam.delete(author.id), 5000);
-        } else if (spamUser === 2) { 
+        } else if (spamUser === 2) {
             await member.send("> Messages can only be sent once every **10 seconds**, consider using the `/whisper` command if you're trying to contact someone.")
-            .catch(() => { })
+                .catch(() => { })
             return;
         }
 
