@@ -43,6 +43,6 @@ export default {
 
         setTimeout(() => {
             seenPlayerList.delete(uuid)
-        }, 30000)
+        }, 500000)
     }
 }
