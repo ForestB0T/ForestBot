@@ -5,7 +5,6 @@ import type Bot from "../../structure/mineflayer/Bot.js";
  */
 
 const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "joined", "whispers"];
-const teleportRegex = /([^ ]*) sent a teleport request to you/;
 
 export default {
     name: "messagestr",
@@ -15,12 +14,18 @@ export default {
         const words = message.split(" ");
         try {
 
-            const teleportMatch = message.match(teleportRegex);
+            if (message.includes("has teleported to you") ||
+                (message.includes("sent a teleport request to you") && !bot.userWhitelist.has(words[0]))
+            ) {
+                return;
+            }
+
+            const teleportMatch = message.match(/([^ ]*) sent a teleport request to you/);
             if (teleportMatch && bot.userWhitelist.has(teleportMatch[1])) {
                 const sender = teleportMatch[1];
                 bot.bot.chat(`/tpaccept ${sender}`)
                 return;
-            } 
+            }
 
             if (
                 message.includes("has reached the goal") ||
