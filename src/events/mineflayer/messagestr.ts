@@ -22,7 +22,7 @@ export default {
 
             const teleportMatch = message.match(/([^ ]*) sent a teleport request to you/);
             if (teleportMatch) {
-                if (bot.useWhitelist !== false && !bot.userWhitelist.has(teleportMatch[1])) return
+                if (bot.useWhitelist === true && !bot.userWhitelist.has(teleportMatch[1])) return
                 const sender = teleportMatch[1];
                 bot.bot.chat(`/tpaccept ${sender}`)
                 return;
