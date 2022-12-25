@@ -15,14 +15,16 @@ export default {
         try {
 
             if (message.includes("has teleported to you") ||
-                (message.includes("sent a teleport request to you") && !bot.userWhitelist.has(words[0]))
+                (message.includes("sent a teleport request to you") && !Bot.userWhitelist.has(words[0]))
             ) {
                 return;
             }
 
             const teleportMatch = message.match(/([^ ]*) sent a teleport request to you/);
             if (teleportMatch) {
-                if (bot.useWhitelist === true && !bot.userWhitelist.has(teleportMatch[1])) return
+                if (Bot.useWhitelist && !Bot.userWhitelist.has(teleportMatch[1])) {
+                    return;
+                }
                 const sender = teleportMatch[1];
                 bot.bot.chat(`/tpaccept ${sender}`)
                 return;
