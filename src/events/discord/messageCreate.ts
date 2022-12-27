@@ -15,6 +15,7 @@ export default {
     execute: async (message: Message, client: Client) => {
 
         const { author, channel, content, member } = message;
+        content = content.replace(/§/g, "$");
 
         if (author.id === client.user.id) return;
         if (!client.chatChannels.has(channel.id)) return;
