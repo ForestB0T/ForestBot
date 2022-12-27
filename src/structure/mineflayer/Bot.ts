@@ -70,7 +70,7 @@ export default class Bot {
         this.handleEvents(_bot);
         this.loadPatterns(_bot);
 
-        _bot.whisper = (user: string, msg: string) => this.bot.chat(`/w ${user} ${msg} [w]`);
+        _bot.whisper = (user: string, msg: string) => this.bot.chat(`/w ${user} ${msg.replace(/§/g, "$")} [w]`);
         return this.bot = _bot;
     }
 
