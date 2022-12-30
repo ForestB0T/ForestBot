@@ -8,6 +8,7 @@ export const config: Config = await JSON.parse(await readFile("./config.json", "
 export const colors: Colors = await JSON.parse(await readFile("./colors.json", "utf8"));
 
 config.mc_whitelist = (await JSON.parse(await readFile("./mc_whitelist.json", "utf8"))).users;
+config.mc_blacklist = (await JSON.parse(await readFile("./mc_blacklist.json", "utf8"))).users;
 
 class MineflayerOptions implements BotOptions {
         host     = process.env.MC_HOST

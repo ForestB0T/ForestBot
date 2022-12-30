@@ -109,28 +109,28 @@ export default class Bot {
     /**
      * Add a player to the whitelist.
      */
-    async updateWhitelist(user: string, action: "add" | "remove") {
-        const filePath = "./mc_whitelist.json"
+    async updateLists(user: string, action: "add" | "remove", type: "blacklist" | "whitelist") {
+        const filePath = type === "whitelist" ? "./mc_whitelist.json" : "./mc_blacklist.json";
         const fileContents = await fs.promises.readFile(filePath, "utf8");
-        const whitelist = JSON.parse(fileContents);
+        const list = JSON.parse(fileContents);
 
         switch (action) {
             case "add": {
-                whitelist.users.push(user);
-                this.userWhitelist.add(user);
+                list.users.push(user);
+                type === "whitelist" ? this.userWhitelist.add(user) : this.userBlacklist.add(user);
                 break;
             }
             case "remove": {
-                const index = whitelist.users.indexOf(user);
+                const index = list.users.indexOf(user);
                 if (index !== -1) {
-                    whitelist.users.splice(index, 1);
-                    this.userWhitelist.delete(user);
+                    list.users.splice(index, 1);
+                    type === "whitelist" ? this.userWhitelist.delete(user) : this.userBlacklist.delete(user);
                 }
                 break;
             }
         }
 
-        await fs.promises.writeFile(filePath, JSON.stringify(whitelist, null, 2));
+        await fs.promises.writeFile(filePath, JSON.stringify(list, null, 2));
     }
 
     /**

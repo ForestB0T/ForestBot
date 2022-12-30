@@ -20,7 +20,7 @@ function antiSpamHandler(args: antiSpamArgsType): boolean {
 
     if (sUser >= spam_limit) {
         Bot.bot.whisper(user, "[Anti-Spam] - You have been blacklisted for spamming commands.");
-        Bot.userBlacklist.add(user);
+        Bot.updateLists(user, "add", "blacklist");
         return false
     }
 
@@ -46,6 +46,8 @@ export default {
                 message: content[0][1]
             }
 
+            if (Bot.userBlacklist.has(user.username)) return;
+
             if (
                 user.message.endsWith("[w]") ||
                 user.username === "From:" ||
@@ -67,7 +69,6 @@ export default {
             for (const [key, value] of Bot.commands) {
                 for (const alias of value.commands) {
                     if (user.message.toLowerCase().startsWith(`${prefix}${alias}`)) {
-                        if (Bot.userBlacklist.has(user.username)) return;
                         if (user.username === Bot.bot.username) return;
 
                         if (Bot.disabledCommands.has(key) || (Bot.useWhitelist && (Bot.whitelistedCmds.has(alias) && !Bot.userWhitelist.has(user.username)))) return;

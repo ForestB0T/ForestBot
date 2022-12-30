@@ -44,7 +44,14 @@ export default {
                 args.shift();
                 const action = args[0] as "add" | "remove";
                 const user = args[1];
-                await bot.updateWhitelist(user, action);
+                await bot.updateLists(user, action, "whitelist");
+                return;
+            }
+            if (content.startsWith("!blacklist")) {
+                args.shift();
+                const action = args[0] as "add" | "remove";
+                const user = args[1];
+                await bot.updateLists(user, action, "blacklist");
                 return;
             }
         }
