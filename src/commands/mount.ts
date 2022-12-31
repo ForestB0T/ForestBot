@@ -14,6 +14,7 @@ export default {
 
         if (isMounted) {
             bot.bot.dismount();
+            isMounted = false;
             return bot.bot.whisper(user, "I dismounted the boat.")
         }
 
