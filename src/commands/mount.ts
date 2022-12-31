@@ -1,5 +1,7 @@
 import type Bot from '../structure/mineflayer/Bot.js';
 
+const isMounted: boolean = false;
+
 export default {
     commands: ['mount', 'ride'],
     minArgs: 0,
@@ -7,9 +9,15 @@ export default {
     execute: (user: string, args: any[], bot: Bot) => {
         const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.displayName === "Boat");
 
-         bot.bot.whisper(user, "Searching for nearest boat...")
+        bot.bot.whisper(user, "Searching for nearest boat...")
 
-        if (nearestBoat) {
+
+        if (isMounted) {
+            bot.bot.dismount();
+            return bot.bot.whisper(user, "I dismounted the boat.")
+        }
+
+        if (nearestBoat && !isMounted) {
             bot.bot.mount(nearestBoat);
             return bot.bot.whisper(user, "I mounted the nearest boat!")
         } else {
@@ -17,4 +25,4 @@ export default {
         }
 
     }
- } as MCommand
+} as MCommand
