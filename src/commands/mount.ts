@@ -1,6 +1,6 @@
 import type Bot from '../structure/mineflayer/Bot.js';
 
-const isMounted: boolean = false;
+let isMounted: boolean = false;
 
 export default {
     commands: ['mount', 'ride'],
@@ -19,6 +19,7 @@ export default {
 
         if (nearestBoat && !isMounted) {
             bot.bot.mount(nearestBoat);
+            isMounted = true;
             return bot.bot.whisper(user, "I mounted the nearest boat!")
         } else {
             return bot.bot.whisper(user, "I could not find a boat.")
