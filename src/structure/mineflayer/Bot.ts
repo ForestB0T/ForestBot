@@ -60,7 +60,8 @@ export default class Bot {
 
         try {
             await this.pingServer()
-        } catch {
+        } catch(err) {
+            console.log(err, " error while trying to connect to the server.")
             logger.log(`> Connection to ${this.options.host} failed, maybe the server is offline?`, "red", true);
             return;
         }
