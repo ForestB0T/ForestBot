@@ -1,5 +1,5 @@
 {
-    "mc_server": "simplyvanilla",
+    "mc_server": "localhost",
     "api_url": "https://api.forestbot.org",
 
     "prefix": "!",

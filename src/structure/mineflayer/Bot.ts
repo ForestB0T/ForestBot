@@ -53,7 +53,7 @@ export default class Bot {
 
         if (this.restartCount >= 10) {
             logger.log("> Connection is being refused, bot made too many attempts to reconnect.", "red", true)
-            return process.exit(1);
+            return
         }
 
         try {
@@ -70,7 +70,8 @@ export default class Bot {
 
         
         if (config.useCustomChatPrefix) { 
-            _bot.chat = (msg: string) => this.bot.chat(`${config.customChatPreifx} ${msg}`) 
+            const _newChat = _bot.chat;
+            _bot.chat = (msg: string) => _newChat(`${config.customChatPrefix} ${msg}`);
         }
         _bot.whisper = (user: string, msg: string) => this.bot.chat(`/w ${user} ${msg} [w]`);
         return this.bot = _bot;
@@ -93,7 +94,6 @@ export default class Bot {
         await new Promise((resolve) => setTimeout(resolve, config.reconnect_time));
         this.startBot();
     }
-
 
     /**
      * Get an array of players, and their ping.
