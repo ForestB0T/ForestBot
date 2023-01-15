@@ -68,12 +68,13 @@ export default class Bot {
         this.handleEvents(_bot);
         this.loadPatterns(_bot);
 
+
+        const _newChat = _bot.chat;
         
         if (config.useCustomChatPrefix) { 
-            const _newChat = _bot.chat;
             _bot.chat = (msg: string) => _newChat(`${config.customChatPrefix} ${msg}`);
         }
-        _bot.whisper = (user: string, msg: string) => this.bot.chat(`/w ${user} ${msg} [w]`);
+        _bot.whisper = (user: string, msg: string) => _newChat(`/w ${user} ${msg} [w]`);
         return this.bot = _bot;
     }
 
