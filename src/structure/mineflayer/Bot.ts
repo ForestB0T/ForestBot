@@ -3,8 +3,6 @@ import { ping } from "minecraft-server-ping";
 import { readFile, readdir } from "fs/promises";
 import { config, endpoints, logger } from "../../index.js";
 import * as fs from "fs";
-import * as path from "path";
-
 /**
  * @class Bot
  * Main class for mineflayer bot.
