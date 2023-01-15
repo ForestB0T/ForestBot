@@ -60,8 +60,7 @@ export default class Bot {
 
         try {
             await this.pingServer()
-        } catch(err) {
-            console.log(err, " error while trying to connect to the server.")
+        } catch (err) {
             logger.log(`> Connection to ${this.options.host} failed, maybe the server is offline?`, "red", true);
             return;
         }
@@ -110,7 +109,7 @@ export default class Bot {
     /**
      * Add a player to the whitelist.
      */
-    async updateLists(user: string, action: "add" | "remove", type: "blacklist" | "whitelist") {
+    public async updateLists(user: string, action: "add" | "remove", type: "blacklist" | "whitelist") {
         const filePath = type === "whitelist" ? "./mc_whitelist.json" : "./mc_blacklist.json";
         const fileContents = await fs.promises.readFile(filePath, "utf8");
         const list = JSON.parse(fileContents);
