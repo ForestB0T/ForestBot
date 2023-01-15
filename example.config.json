@@ -1,12 +1,12 @@
 {
-    "mc_server": "newtest",
+    "mc_server": "simplyvanilla",
     "api_url": "https://api.forestbot.org",
 
     "prefix": "!",
+    "useCustomChatPrefix": false,
+    "customChatPrefix": "&d&l",
 
     "use_mc_whitelist": true,
-    "mc_whitelist": ["Furia", "notFebzey"],
-    "mc_blacklist": [],
     
     "use_discord": true,
     "main_discord_channel": "968777127392595968",
@@ -15,15 +15,16 @@
 
     "reconnect_time": 36000,
 
-    "anti_spam_cooldown": 10000,
-    "anti_spam_msg_limit": 4,
+    "anti_spam_cooldown": 6000,
+    "anti_spam_msg_limit": 9,
 
     "welcome_messages": true,
 
     "whitelisted_commands": [],
-    "disabled_commands": ["kill", "coords"],
+    "disabled_commands": ["kill", "coords", "help", "joindate", "joins", "lastseen", "mount", "msgcount", "quote", "urban", "playtime"],
     "useCommands": true,
 
-    "allow_chatbridge_input": true
+    "disabled_events": ["entitySpawn"],
 
+    "allow_chatbridge_input": true
 }
