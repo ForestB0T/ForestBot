@@ -70,6 +70,10 @@ export default class Bot {
         this.handleEvents(_bot);
         this.loadPatterns(_bot);
 
+        
+        if (config.useCustomChatPrefix) { 
+            _bot.chat = (msg: string) => this.bot.chat(`${config.customChatPreifx} ${msg}`) 
+        }
         _bot.whisper = (user: string, msg: string) => this.bot.chat(`/w ${user} ${msg} [w]`);
         return this.bot = _bot;
     }
@@ -184,6 +188,7 @@ export default class Bot {
         for (const File of (await readdir('./build/events/mineflayer')).filter(file => file.endsWith('.js'))) {
             const file = await import(`../../events/mineflayer/${File}`);
             const event = file.default;
+            if (config.disabled_events.includes(event.name)) continue;
             event.once
                 ? bot.once(event.name, (...args: any) => event.run([...args], this))
                 : bot.on(event.name, (...args: any) => event.run([...args], this))

@@ -10,7 +10,6 @@ export default {
         const pos = Bot.bot.entity.position;
         await Bot.bot.look(pos.x + Math.PI, 0, true);
 
-
         return
     }
 }

@@ -16,6 +16,8 @@ type Config = {
     api_url:   string
 
     prefix: "!" | "?" | "-" | "="
+    useCustomChatPrefix:    boolean 
+    customChatPreifx:       string
 
     use_mc_whitelist:       boolean
     mc_whitelist:           string[],
@@ -36,6 +38,8 @@ type Config = {
     whitelisted_commands:   string[]
     disabled_commands:      string[]
     useCommands:            boolean
+
+    disabled_events:        string[]
 
     allow_chatbridge_input: boolean
 }
