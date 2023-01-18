@@ -14,6 +14,10 @@ export default {
         const words = message.split(" ");
         try {
 
+            if (message.includes("has requested to teleport to you.")) {
+                return;
+            }
+
             if (message.includes("has teleported to you") ||
                 (message.includes("sent a teleport request to you") && !Bot.userWhitelist.has(words[0]))
             ) {
