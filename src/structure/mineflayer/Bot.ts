@@ -118,7 +118,7 @@ export default class Bot {
      * Add a player to the whitelist.
      */
     public async updateLists(user: string, action: "add" | "remove", type: "blacklist" | "whitelist") {
-        const filePath = type === "whitelist" ? "./mc_whitelist.json" : "./mc_blacklist.json";
+        const filePath = type === "whitelist" ? "./json/mc_whitelist.json" : "./json/mc_blacklist.json";
         const fileContents = await fs.promises.readFile(filePath, "utf8");
         const list = JSON.parse(fileContents);
 
