@@ -18,6 +18,7 @@ type Config = {
     prefix: "!" | "?" | "-" | "="
     useCustomChatPrefix:    boolean 
     customChatPrefix:       string
+    whisperCommand:         string
 
     use_mc_whitelist:       boolean
     mc_whitelist:           string[],

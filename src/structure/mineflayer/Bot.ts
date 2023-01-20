@@ -79,7 +79,7 @@ export default class Bot {
         if (config.useCustomChatPrefix) { 
             _bot.chat = (msg: string) => _newChat(`${config.customChatPrefix} ${msg}`);
         }
-        _bot.whisper = (user: string, msg: string) => _newChat(`/w ${user} ${msg} [w]`);
+        _bot.whisper = (user: string, msg: string) => _newChat(`${config.whisperCommand} ${user} ${msg} [w]`);
         return this.bot = _bot;
     }
 
