@@ -6,12 +6,16 @@ import type Bot from "../../structure/mineflayer/Bot.js";
 
 const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "joined", "whispers"];
 
+
+
+
 export default {
     name: "messagestr",
     once: false,
     run: async (args: any[], Bot: Bot) => {
         const message = args[0] as string;
         const words = message.split(" ");
+        
         try {
 
             if (message.includes("has requested to teleport to you.")) {

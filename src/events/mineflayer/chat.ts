@@ -39,6 +39,8 @@ export default {
 
         const content: BotEvents = args[0];
 
+        console.log(args)
+
         try {
 
             const user = {

@@ -12,13 +12,17 @@ export const { colors, config } = Config;
 /**
  * @class Options
  * Main options for various functions.
- * 
+ */
+export const options = new Config.Options();
+
+/**
  * @class Client
  * Discord bot class
- * 
+ */
+export const client = new Client(options.discord);
+
+/**
  * @class Bot
  * Mineflayer bot class
  */
-export const options   = new Config.Options();
-export const client    = new Client(options.discord);
-export const bot       = new Bot(options.mineflayer);
+export const bot = new Bot(options.mineflayer);

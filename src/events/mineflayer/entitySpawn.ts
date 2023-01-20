@@ -4,16 +4,6 @@ const seenPlayerList = new Set<string>();
 
 const greetings = [
     "Hello, $username!",
-    "Welcome, $username!",
-    "Hi, $username!",
-    "Greetings, $username!",
-    "Good to see you, $username!",
-    "How's it going, $username?",
-    "Nice to meet you, $username!",
-    "Glad to see you, $username!",
-    "Good morning/afternoon/evening, $username!",
-    "How are you doing, $username?",
-    "It's great to see you, $username!"
 ];
 
 export default {

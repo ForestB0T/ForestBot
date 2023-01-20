@@ -11,6 +11,11 @@
             "options": { "parse": true, "repeat": true }
         },
         {
+            "name": "chat",
+            "regex": "^([^ ]*) ⭐ >> (.*)$",
+            "options": { "parse": true, "repeat": true }
+        },
+        {
             "name": "whisperTo",
             "regex": "^\\[MSG\\] me -> ([^ ]*): (.*)$",
             "options": { "parse": true, "repeat": true }

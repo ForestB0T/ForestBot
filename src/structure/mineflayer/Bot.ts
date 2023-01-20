@@ -1,8 +1,12 @@
 import mineflayer from "mineflayer";
-import { ping } from "minecraft-server-ping";
+import mc from "minecraft-protocol";
 import { readFile, readdir } from "fs/promises";
 import { config, endpoints, logger } from "../../index.js";
 import * as fs from "fs";
+
+
+const { ping } = mc;
+
 /**
  * @class Bot
  * Main class for mineflayer bot.
@@ -65,9 +69,10 @@ export default class Bot {
 
         const _bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
 
+        // _bot._client.on('player_chat', console.dir)
+
         this.handleEvents(_bot);
         this.loadPatterns(_bot);
-
 
         const _newChat = _bot.chat;
         
@@ -142,12 +147,12 @@ export default class Bot {
      * 
      * @returns Promise<unknown>
      */
-    private pingServer = () =>
-        new Promise(async (resolve, reject) => {
-            try { await ping(this.options.host, this.options.port); resolve(true); }
-            catch (err) { reject(err) }
-        })
+    private pingServer = async () => {
+        const results = await ping({ host: this.options.host, port: this.options.port });
+        if (!results) throw new Error("Server is offline");
 
+        console.log(results)
+    }
     /**
      * 
      * Load and register custom chat patterns,
@@ -156,7 +161,7 @@ export default class Bot {
      * @param bot mineflayer.bot
      */
     private async loadPatterns(bot: Bot["bot"]) {
-        const patterns = JSON.parse(await readFile("./patterns.json", { encoding: "utf-8" }));
+        const patterns = JSON.parse(await readFile("./json/patterns.json", { encoding: "utf-8" }));
         for (const pattern of patterns.patterns) {
             bot.addChatPattern(pattern.name, new RegExp(pattern.regex), pattern.options);
         }
