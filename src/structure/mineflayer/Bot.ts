@@ -150,8 +150,6 @@ export default class Bot {
     private pingServer = async () => {
         const results = await ping({ host: this.options.host, port: this.options.port });
         if (!results) throw new Error("Server is offline");
-
-        console.log(results)
     }
     /**
      * 
