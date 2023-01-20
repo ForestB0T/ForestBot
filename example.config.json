@@ -1,10 +1,11 @@
 {
-    "mc_server": "localhost",
+    "mc_server": "newtest",
     "api_url": "https://api.forestbot.org",
 
     "prefix": "!",
     "useCustomChatPrefix": false,
     "customChatPrefix": "&d&l",
+    "whisperCommand": "/msg",
 
     "use_mc_whitelist": true,
     
@@ -18,10 +19,22 @@
     "anti_spam_cooldown": 6000,
     "anti_spam_msg_limit": 9,
 
-    "welcome_messages": true,
+    "welcome_messages": false,
 
     "whitelisted_commands": [],
-    "disabled_commands": ["kill", "coords", "help", "joindate", "joins", "lastseen", "mount", "msgcount", "quote", "urban", "playtime"],
+    "disabled_commands": [
+        "kill", 
+        "coords", 
+        "help", 
+        "joindate", 
+        "joins", 
+        "lastseen", 
+        "mount", 
+        "msgcount", 
+        "quote", 
+        "urban", 
+        "playtime"
+    ],
     "useCommands": true,
 
     "disabled_events": ["entitySpawn"],
