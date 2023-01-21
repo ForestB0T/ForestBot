@@ -146,6 +146,8 @@ export default class Bot {
         }
 
         await fs.promises.writeFile(filePath, JSON.stringify(list, null, 2));
+
+        return;
     }
 
     /**
