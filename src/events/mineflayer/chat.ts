@@ -14,12 +14,12 @@ function antiSpamHandler(args: antiSpamArgsType): boolean {
     const sUser = spam.get(user);
 
     if (sUser === 2) {
-        Bot.bot.whisper(user, `[Anti-Spam] - Please wait ${cooldown_time / 1000} seconds.`);
+        //Bot.bot.whisper(user, `[Anti-Spam] - Please wait ${cooldown_time / 1000} seconds.`);
         return false;
     }
 
     if (sUser >= spam_limit) {
-        Bot.bot.whisper(user, "[Anti-Spam] - You have been blacklisted for spamming commands.");
+        //Bot.bot.whisper(user, "[Anti-Spam] - You have been blacklisted for spamming commands.");
         Bot.updateLists(user, "add", "blacklist");
         return false
     }

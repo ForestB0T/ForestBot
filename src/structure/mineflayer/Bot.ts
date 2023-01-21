@@ -67,9 +67,14 @@ export default class Bot {
             return;
         }
 
-        const _bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
+        if (!(await this.endpoints.pingApi())) {
+            logger.log(`> Connection to api failed, maybe the api is offline?`, "red", true);
+            return;
+        }
 
-        // _bot._client.on('player_chat', console.dir)
+        logger.log("> Connection to api successful", "green", true)
+
+        const _bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
 
         this.handleEvents(_bot);
         this.loadPatterns(_bot);
@@ -79,10 +84,12 @@ export default class Bot {
         if (config.useCustomChatPrefix) { 
             _bot.chat = (msg: string) => _newChat(`${config.customChatPrefix} ${msg}`);
         }
-        _bot.whisper = (user: string, msg: string) => _newChat(`${config.whisperCommand} ${user} ${msg} [w]`);
+
+        //_bot.whisper = (user: string, msg: string) => this.sendWhisperCommand(user, msg)
+
+        _bot.whisper = (user: string, msg: string) => _newChat(`${msg}`);
         return this.bot = _bot;
     }
-
 
     /**
      * 

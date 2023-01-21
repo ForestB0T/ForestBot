@@ -27,5 +27,7 @@ export default {
     getQuote:       async (user, mc_server) => fetchApi(`quote/${user}/${mc_server}`),
     getUniquePcnt:  async (mc_server)               => fetchApi(`uniqueplayers/${mc_server}`),
     getTopStat:     async (stat, mc_server) => fetchApi(`topstat/${stat}/${mc_server}`),
+
+    pingApi:        async () => fetchApi(`ping`)
     
 } as endpoints;

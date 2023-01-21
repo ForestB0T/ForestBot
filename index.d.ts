@@ -85,4 +85,6 @@ type endpoints = {
     getQuote:       (user: string, mc_server: string) => Promise<any>
     getUniquePcnt:  (mc_server: string) => Promise<any>
     getTopStat:     (stat: string, mc_server: string) => Promise<any>
+
+    pingApi: () => Promise<any>
 }

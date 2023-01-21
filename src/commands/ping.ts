@@ -13,7 +13,9 @@ export default {
             if (ping == 0) str = `${search}: ${ping}ms (Most likely just joined.)`;
 
 
-            return bot.bot.chat(str);
+            bot.bot.chat(str);
+        
+            return
         }
         catch { return }
     }
