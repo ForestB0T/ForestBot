@@ -6,16 +6,8 @@ export default {
     run: async (args: any[], Bot: Bot) => {
         Bot.restartCount = 0;
         Bot.isConnected = true;
-
         await time.sleep(2000);
-
-        const pos = Bot.bot.entity.position;
         await Bot.bot.look(180, 0, true);
-
-        Bot.bot.setControlState("jump", true);
-        await time.sleep(500);
-        Bot.bot.setControlState("jump", false);
-
         return
     }
 }
