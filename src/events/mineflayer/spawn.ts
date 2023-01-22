@@ -12,6 +12,10 @@ export default {
         const pos = Bot.bot.entity.position;
         await Bot.bot.look(180, 0, true);
 
+        Bot.bot.setControlState("jump", true);
+        await time.sleep(500);
+        Bot.bot.setControlState("jump", false);
+
         return
     }
 }
