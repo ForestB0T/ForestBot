@@ -16,7 +16,7 @@ class MineflayerOptions implements BotOptions {
         //password = process.env.MC_PASS
         version  = process.env.MC_VERSION
         port     = parseInt(process.env.MC_PORT)
-        //disableChatSigning = true
+       // disableChatSigning = false
 }
 
 class DiscordOptions implements ClientOptions {

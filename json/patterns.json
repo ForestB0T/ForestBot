@@ -3,82 +3,98 @@
         {
             "name": "chat",
             "regex": "^<([^ ]*)> (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "chat",
             "regex": "^([^ ]*) >> (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "chat",
             "regex": "^([^ ]+) [^ ]+ » (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "whisperTo",
             "regex": "^\\[MSG\\] me -> ([^ ]*): (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "From: ([^ ]*) » (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "whisperTo",
             "regex": "(?:To:|To) ([^ ]*)(?::| ») (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "^\\[MSG\\] ([^ ]*) -> me: (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "whisperTo",
             "regex": "^You whisper to ([^ ]*): (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "whisperTo",
             "regex": "^\\[me -> ([^ ]*)\\] (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "^([^ ]*) whispers to you: (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "^\\[([^ ]*) -> me\\] (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "^([^ ]*) whispers: (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },        
         {
             "name": "whisperTo",
             "regex": "^\\[You -> ([^ ]*)\\] (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "^\\[([^ ]*) -> You\\] (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "chat",
             "regex": "^([^ ]*): (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         },
         {
             "name": "chat",
             "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*)? » (.*)$",
-            "options": { "parse": true, "repeat": true }
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
         }
     ]
 }

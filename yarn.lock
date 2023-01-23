@@ -396,19 +396,19 @@ mime-types@^2.1.12:
     mime-db "1.52.0"
 
 minecraft-data@^3.0.0, minecraft-data@^3.15.2, minecraft-data@^3.21.0:
-  version "3.25.1"
-  resolved "https://registry.yarnpkg.com/minecraft-data/-/minecraft-data-3.25.1.tgz#5deaa3de3c9aea7f109f6dca6c9770bde31fed03"
-  integrity sha512-nOSGCylYWVFzROnnHxzsj3Em2plu6C8ey9I5n36mbJP/uyisWVmuBzqeuTG99UPzKsz16D9/fQPYr9KIMGQs2g==
+  version "3.25.2"
+  resolved "https://registry.yarnpkg.com/minecraft-data/-/minecraft-data-3.25.2.tgz#62985940726981a376e9d7dfdd20f2df50b46e12"
+  integrity sha512-5ANMkfB5bC8adJN+nJjD25ZRV6P3tLJacTmDXDNxWSYoq9A2cKIeTlCIC1txYfXxVw/4YJzDx7oL+i1MHQclzg==
 
 minecraft-folder-path@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minecraft-folder-path/-/minecraft-folder-path-1.2.0.tgz#08ea450bfb20dbb02cf6e1470864e2f0d652e477"
   integrity sha512-qaUSbKWoOsH9brn0JQuBhxNAzTDMwrOXorwuRxdJKKKDYvZhtml+6GVCUrY5HRiEsieBEjCUnhVpDuQiKsiFaw==
 
-minecraft-protocol@^1.38.1, minecraft-protocol@^1.39.1:
-  version "1.39.0"
-  resolved "https://registry.yarnpkg.com/minecraft-protocol/-/minecraft-protocol-1.39.0.tgz#81c7c1f23e2c166a6edf6cc14604dca14f3b1ba4"
-  integrity sha512-WQJmN2Nf2J5wsrl79RRMCz9iVW4efzEfWVqD4EZ3aOeCl5z8K1UI/2SU1sDrrqyisJlGXu/sr0oJwW6MDPfDtQ==
+minecraft-protocol@^1.38.1, minecraft-protocol@^1.40.1:
+  version "1.40.1"
+  resolved "https://registry.yarnpkg.com/minecraft-protocol/-/minecraft-protocol-1.40.1.tgz#a862f79401794cda9948beafa72ee66823d35af1"
+  integrity sha512-6T5CNvOGOuYmD9pC4+Qfwhh+3HpIL0jYLcS0t65qwpzCk/Cipw6BYesKshwCFeAppSse7TEj5epHYp6EXZGbBQ==
   dependencies:
     "@types/readable-stream" "^2.3.13"
     aes-js "^3.1.2"
@@ -428,13 +428,6 @@ minecraft-protocol@^1.38.1, minecraft-protocol@^1.39.1:
     readable-stream "^4.1.0"
     uuid-1345 "^1.0.1"
     yggdrasil "^1.4.0"
-
-minecraft-server-ping@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/minecraft-server-ping/-/minecraft-server-ping-0.0.8.tgz#713a9af3b683f5b2825009344417a1ec0004798c"
-  integrity sha512-wbJTE/fefcPkwvND3JPhbfr2Y2/lJ6OKrbACwwPY1TX6flp8Y1USxzFseM6jwcI6wR3uuBtvCo6s6IdpmFnh9A==
-  dependencies:
-    varint "^6.0.0"
 
 mineflayer@4.7.0:
   version "4.7.0"
@@ -796,11 +789,6 @@ uuid@^8.2.0, uuid@^8.3.0:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
-
-varint@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/varint/-/varint-6.0.0.tgz#9881eb0ce8feaea6512439d19ddf84bf551661d0"
-  integrity sha512-cXEIW6cfr15lFv563k4GuVuW/fiwjknytD37jIOLSdSWuOI6WnO/oKwmP2FQTU2l01LP8/M5TSAJpzUaGe3uWg==
 
 vec3@^0.1.3, vec3@^0.1.4, vec3@^0.1.7:
   version "0.1.7"

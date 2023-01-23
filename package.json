@@ -16,7 +16,6 @@
     "dotenv": "^16.0.0",
     "javascript-time-ago": "^2.3.13",
     "minecraft-protocol": "^1.39.0",
-    "minecraft-server-ping": "^0.0.8",
     "mineflayer": "4.7.0",
     "node-fetch": "^3.2.2",
     "urban-dictionary": "^3.0.2"
