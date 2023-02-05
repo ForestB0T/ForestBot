@@ -15,8 +15,8 @@
     "discord.js": "^13.11.0",
     "dotenv": "^16.0.0",
     "javascript-time-ago": "^2.3.13",
-    "minecraft-protocol": "^1.39.0",
-    "mineflayer": "4.7.0",
+    "minecraft-protocol": "^1.40.3",
+    "mineflayer": "^4.8.0",
     "node-fetch": "^3.2.2",
     "urban-dictionary": "^3.0.2"
   }
