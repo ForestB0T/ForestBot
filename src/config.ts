@@ -11,12 +11,10 @@ config.mc_whitelist = (await JSON.parse(await readFile("./json/mc_whitelist.json
 config.mc_blacklist = (await JSON.parse(await readFile("./json/mc_blacklist.json", "utf8"))).users;
 
 class MineflayerOptions implements BotOptions {
-        host     = process.env.MC_HOST
+        host     = config.host
         username = process.env.MC_USER
-        //password = process.env.MC_PASS
-        version  = process.env.MC_VERSION
-        port     = parseInt(process.env.MC_PORT)
-       // disableChatSigning = false
+        version  = config.version
+        port     = config.port
 }
 
 class DiscordOptions implements ClientOptions {

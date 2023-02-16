@@ -2,7 +2,7 @@ import type Bot from "../structure/mineflayer/Bot";
 import time     from "../functions/utils/time.js";
 
 export default {
-    commands: ['jd', 'joindate'],
+    commands: ['joindate', 'jd'],
     minArgs: 0,
     maxArgs: 1,
     execute: async (user: string, args: any[], bot: Bot) => {

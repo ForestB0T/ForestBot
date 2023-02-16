@@ -13,6 +13,9 @@ type MCommand = {
 
 type Config = {
     mc_server: string
+    host: string
+    port: number,
+    version: string
     api_url:   string
 
     prefix: "!" | "?" | "-" | "="
@@ -37,8 +40,29 @@ type Config = {
     welcome_messages:       boolean
 
     whitelisted_commands:   string[]
-    disabled_commands:      string[]
-    useCommands:            boolean
+
+    commands: {
+        bp:       boolean;
+        kill:     boolean;
+        coords:   boolean;
+        discord:  boolean;
+        help:     boolean;
+        joindate: boolean;
+        joins:    boolean;
+        kd:       boolean;
+        lastdeath:boolean;
+        lastseen: boolean;
+        mount:    boolean;
+        msgcount: boolean;
+        owner:    boolean;
+        ping:     boolean;
+        playtime: boolean;
+        quote:    boolean;
+        sleep:    boolean;
+        top:      boolean;
+        urban:    boolean;
+        wp:       boolean;
+    }
 
     disabled_events:        string[]
 

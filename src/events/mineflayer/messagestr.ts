@@ -3,11 +3,7 @@ import type Bot from "../../structure/mineflayer/Bot.js";
 /**
  * This event is basically only used to capture kill messages.
  */
-
 const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "joined", "whispers"];
-
-
-
 
 export default {
     name: "messagestr",
@@ -15,6 +11,8 @@ export default {
     run: async (args: any[], Bot: Bot) => {
         const message = args[0] as string;
         const words = message.split(" ");
+
+        if (!dividers.some((divider) => message.includes(divider))) return;
         
         try {
 
@@ -47,12 +45,7 @@ export default {
                 return;
             }
 
-            if (
-                ((args[2] && args[2]["json"].translate) && args[2]["json"].translate.includes("death")) ||
-                (words[0] === Bot.bot.players[words[0]].username && !dividers.some((divider) => message.includes(divider)))
-            ) {
-
-                const victim = words[0];
+            const saveKill = async (victim: string) => {
                 let murderer = null;
 
                 for (const word of words) {
@@ -60,17 +53,27 @@ export default {
                         murderer = word;
                         break;
                     }
-                }
+                } 
 
                 await client.chatEmbed(`> ${message}`, "purple").catch(() => { });
 
                 murderer
                     ? Bot.endpoints.savePvpKill(victim, murderer, message, Bot.mc_server)
                     : Bot.endpoints.savePveKill(victim, message, Bot.mc_server)
+            }
 
+            if (words[1] === Bot.bot.players[words[1]].username) {
+                saveKill(words[1])
+                return;
+            }   
+
+            if (((args[2] && args[2]["json"].translate) && args[2]["json"].translate.includes("death")) || (words[0] === Bot.bot.players[words[0]].username)) {
+                saveKill(words[0])
+                return;
             }
 
             return;
+
         } catch { return; }
     }
 }

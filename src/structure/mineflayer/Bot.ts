@@ -3,8 +3,6 @@ import mc from "minecraft-protocol";
 import { readFile, readdir } from "fs/promises";
 import { config, endpoints, logger } from "../../index.js";
 import * as fs from "fs";
-
-
 const { ping } = mc;
 
 /**
@@ -16,10 +14,8 @@ export default class Bot {
     public bot: mineflayer.Bot;
     public userWhitelist: Set<string> = new Set();
     public userBlacklist: Set<string> = new Set();
-    public disabledCommands: Set<string> = new Set();
     public whitelistedCmds: Set<string> = new Set();
     public commands: Map<string, MCommand> = new Map();
-    public useCommands: boolean;
     public useWhitelist: boolean;
     public welcomeMsgs: boolean;
     public mc_server: string;
@@ -29,13 +25,11 @@ export default class Bot {
 
     constructor(public options: mineflayer.BotOptions) {
 
-        this.useCommands = config.useCommands;
         this.useWhitelist = config.use_mc_whitelist
         this.mc_server = config.mc_server
         this.welcomeMsgs = config.welcome_messages
         this.endpoints = endpoints.default
 
-        config.disabled_commands.forEach(command => this.disabledCommands.add(command));
         config.mc_blacklist.forEach(user => this.userBlacklist.add(user));
         config.mc_whitelist.forEach(user => this.userWhitelist.add(user));
         config.whitelisted_commands.forEach(command => this.whitelistedCmds.add(command));
@@ -51,44 +45,54 @@ export default class Bot {
      * 
      * @returns this.bot = bot;
      */
-    public startBot = async () => {
-        logger.log("> Attempting to start mineflayer bot", "yellow", true)
+    public async startBot() {
         this.restartCount++;
 
         if (this.restartCount >= 10) {
             logger.log("> Connection is being refused, bot made too many attempts to reconnect.", "red", true)
+            this.restartCount = 0;
+            setTimeout(() => { this.startBot() }, 9 * 60000)
             return
         }
+        
+
+        logger.log("> Attempting to start mineflayer bot", "yellow", true);
 
         try {
-            await this.pingServer()
+            const res = await ping({ host: this.options.host, port: this.options.port });
+            if (!res) throw new Error("No Response.");
         } catch (err) {
-            logger.log(`> Connection to ${this.options.host} failed, maybe the server is offline?`, "red", true);
+            logger.log("> Connection is being refused, bot made too many attempts to reconnect.", "red", true)
+            setTimeout(() => { this.startBot() }, 9 * 60000);
             return;
         }
 
         if (!(await this.endpoints.pingApi())) {
             logger.log(`> Connection to api failed, maybe the api is offline?`, "red", true);
-            return;
-        }
-
-        logger.log("> Connection to api successful", "green", true)
-
-        const _bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
-
-        this.handleEvents(_bot);
-        this.loadPatterns(_bot);
-
-        const _newChat = _bot.chat;
-        
-        if (config.useCustomChatPrefix) { 
-            _bot.chat = (msg: string) => _newChat(`${config.customChatPrefix} ${msg}`);
-            _bot.whisper = (user: string, msg: string) => _newChat(`${config.customChatPrefix} ${msg}`);
         } else {
-            _bot.whisper = (user: string, msg: string) => _newChat(`${msg}`);
+            logger.log("> Connection to api successful", "green", true)
         }
-        return this.bot = _bot;
+
+        const bot = mineflayer.createBot({ ...this.options, auth: "microsoft"});
+
+        this.handleEvents(bot);
+        this.loadPatterns(bot);
+
+        const newChat = bot.chat;
+        const chatPrefix = config.useCustomChatPrefix ? config.customChatPrefix : "";
+
+        bot.chat = (msg: string) => {
+            newChat(`${chatPrefix} ${msg}`)
+        }
+
+        bot.whisper = (user: string, msg: string) => {
+            newChat(`${chatPrefix} ${msg}`)
+        }
+        
+        this.bot = bot;
+        return bot;
     }
+
 
     /**
      * 
@@ -149,16 +153,6 @@ export default class Bot {
         return;
     }
 
-    /**
-     * 
-     * Pings the server to check if it's online.
-     * 
-     * @returns Promise<unknown>
-     */
-    private pingServer = async () => {
-        const results = await ping({ host: this.options.host, port: this.options.port });
-        if (!results) throw new Error("Server is offline");
-    }
     /**
      * 
      * Load and register custom chat patterns,
