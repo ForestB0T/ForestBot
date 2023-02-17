@@ -4,7 +4,21 @@ import type { BotOptions } from "mineflayer";
 import type { ClientOptions, PartialTypes} from 'discord.js';
 import { Intents }                         from 'discord.js';
 
-export const config: Config = await JSON.parse(await readFile("./config.json", "utf8"));
+
+let config: Config = await JSON.parse(await readFile("./config.json", "utf8"));
+
+export async function reloadConfig() {
+  try {
+    const newConfig = await JSON.parse(await readFile("./config.json", "utf8"));
+    config = newConfig;
+    console.log("Config reloaded successfully.");
+  } catch (err) {
+    console.error("Error reloading config:", err);
+  }
+}
+
+export { config };
+
 export const colors: Colors = await JSON.parse(await readFile("./json/colors.json", "utf8"));
 
 config.mc_whitelist = (await JSON.parse(await readFile("./json/mc_whitelist.json", "utf8"))).users;

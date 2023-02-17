@@ -9,8 +9,9 @@ export default {
         const search = args[0] ? args[0] : user;
 
         const data = await bot.endpoints.getJoindate(search, bot.mc_server);
-        if (!data) return bot.bot.whisper(user, "User not found.")
-
+        if (!data) return 
+        
+        
         let joindateStr: string;
 
         if (data.joindate.match(/^\d+$/)) { 

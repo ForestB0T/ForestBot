@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { config } from "../../index.js";
+import { config } from "../../config.js";
 
 const apiKey = process.env.apiKey
 

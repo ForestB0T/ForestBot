@@ -1,5 +1,6 @@
 import type { BotEvents } from 'mineflayer';
-import { config, client } from "../../index.js";
+import { client } from "../../index.js";
+import { config } from "../../config.js";
 import Bot from '../../structure/mineflayer/Bot.js';
 
 const prefix = config.prefix;

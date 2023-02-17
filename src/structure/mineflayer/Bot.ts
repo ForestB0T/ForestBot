@@ -1,7 +1,8 @@
 import mineflayer from "mineflayer";
 import mc from "minecraft-protocol";
 import { readFile, readdir } from "fs/promises";
-import { config, endpoints, logger } from "../../index.js";
+import { endpoints, logger } from "../../index.js";
+import { config } from "../../config.js";
 import * as fs from "fs";
 const { ping } = mc;
 

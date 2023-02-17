@@ -8,7 +8,7 @@ export default {
         const search = args[0] ? args[0] : user;
     
         const data = await bot.endpoints.getQuote(search, bot.mc_server)
-        if (!data) return  bot.bot.whisper(user, "User not found.")
+        if (!data) return
     
         return bot.bot.chat(`${search}: ${data.message}`);
     }

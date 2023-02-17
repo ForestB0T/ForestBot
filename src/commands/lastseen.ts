@@ -9,7 +9,7 @@ export default {
         const search = args[0] ? args[0] : user;
 
         const data = await bot.endpoints.getLastSeen(search, bot.mc_server)
-        if (!data) return bot.bot.whisper(user, "User not found.")
+        if (!data) return
 
         const userIsOnline = bot.bot.players[search] ? true : false;
 

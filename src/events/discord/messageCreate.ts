@@ -1,6 +1,7 @@
 import type Client from "../../structure/discord/client";
 import type { Message } from "discord.js";
 import { bot, logger } from "../../index.js";
+import { reloadConfig } from "../../config.js";
 
 /**
  * Users who spam
@@ -52,6 +53,10 @@ export default {
                 const action = args[0] as "add" | "remove";
                 const user = args[1];
                 await bot.updateLists(user, action, "blacklist");
+                return;
+            }
+            if (content.startsWith("!reloadconfig")) {
+                await reloadConfig(); 
                 return;
             }
         }

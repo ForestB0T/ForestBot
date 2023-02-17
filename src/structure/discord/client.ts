@@ -1,6 +1,7 @@
 import { Client as client, ColorResolvable, TextChannel } from 'discord.js';
 import type { Options } from "../../config"
-import { bot, colors, config, logger } from '../../index.js';
+import { colors, config } from "../../config.js";
+import { bot, logger } from '../../index.js';
 import { readdir } from 'fs/promises';
 
 /**

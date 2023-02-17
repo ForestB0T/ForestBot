@@ -7,7 +7,6 @@ export * as logger    from "./functions/utils/logger.js"
 /**
  * Main config and colors .json files.
  */
-export const { colors, config } = Config;
 
 /**
  * @class Options
