@@ -50,6 +50,7 @@ export default {
             if (dividers.some((divider) => message.includes(divider))) return;
 
             const saveKill = async (victim: string) => {
+                console.log("Saving kill ", victim)
                 let murderer = null;
 
                 for (const word of words) {
@@ -64,20 +65,20 @@ export default {
                 murderer
                     ? Bot.endpoints.savePvpKill(victim, murderer, message, Bot.mc_server)
                     : Bot.endpoints.savePveKill(victim, message, Bot.mc_server)
+
+                return;
             }
 
-            if (words[1] === Bot.bot.players[words[1]].username) {
+            if (Bot.bot.players[words[1]] && words[1] === Bot.bot.players[words[1]].username) {
                 saveKill(words[1])
                 return;
-            }   
-
-            if (((args[2] && args[2]["json"].translate) && args[2]["json"].translate.includes("death")) || (words[0] === Bot.bot.players[words[0]].username)) {
+            } 
+            else if (((args[2] && args[2]["json"].translate) && args[2]["json"].translate.includes("death")) || (Bot.bot.players[words[0]] && words[0] === Bot.bot.players[words[0]].username)) {
                 saveKill(words[0])
                 return;
             }
-
             return;
 
-        } catch { return; }
+        } catch (err) { return console.log(err) }
     }
 }
