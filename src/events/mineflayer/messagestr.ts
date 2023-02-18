@@ -45,7 +45,7 @@ export default {
                 return;
             }
 
-            if (!dividers.some((divider) => message.includes(divider))) return;
+            if (dividers.some((divider) => message.includes(divider))) return;
 
             const saveKill = async (victim: string) => {
                 let murderer = null;
