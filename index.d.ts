@@ -91,6 +91,7 @@ type endpoints = {
     savePvpKill:    (victim: string, murderer: string, deathmsg: string, mc_server: string) => Promise<any>
     savePveKill:    (victim: string, deathmsg: string, mc_server: string) => Promise<any>
     saveChat:       (user: string, msg: string, mc_server: string) => Promise<any>
+    saveAdvancement: (user: string, advancement: string, mc_server: string) => Promise<any>
 
     updateLeave:    (user: string, mc_server: string) => Promise<any>
     updateJoin:     (user: string, uuid: string, mc_server: string) => Promise<any>

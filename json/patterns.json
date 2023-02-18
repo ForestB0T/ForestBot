@@ -2,6 +2,18 @@
     "patterns": [
         {
             "name": "chat",
+            "regex": "^([^ ]*): (.*)$",
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
+        },
+        {
+            "name": "chat",
+            "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*)? » (.*)$",
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
+        },
+        {
+            "name": "chat",
             "regex": "^<([^ ]*)> (.*)$",
             "options": { "parse": true, "repeat": true },
             "disabled": false
@@ -17,6 +29,11 @@
             "regex": "^([^ ]+) [^ ]+ » (.*)$",
             "options": { "parse": true, "repeat": true },
             "disabled": false
+        },
+        {
+            "name": "chat",
+            "regex": "^\\[[^\\]]*\\]\\s*(\\S+)\\s*[^\\w\\s]*\\s*:\\s*(.*)$",
+            "options": { "parse": true, "repeat": true }
         },
         {
             "name": "whisperTo",
@@ -81,18 +98,6 @@
         {
             "name": "whisperFrom",
             "regex": "^\\[([^ ]*) -> You\\] (.*)$",
-            "options": { "parse": true, "repeat": true },
-            "disabled": false
-        },
-        {
-            "name": "chat",
-            "regex": "^([^ ]*): (.*)$",
-            "options": { "parse": true, "repeat": true },
-            "disabled": false
-        },
-        {
-            "name": "chat",
-            "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*)? » (.*)$",
             "options": { "parse": true, "repeat": true },
             "disabled": false
         }

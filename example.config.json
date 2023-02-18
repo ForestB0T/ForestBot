@@ -2,7 +2,7 @@
     "mc_server": "newtest",
     "host": "192.168.100.108",
     "port": 25565,
-    "version": "1.19.2",
+    "version": "1.19.3",
     "api_url": "https://api.forestbot.org",
 
     "prefix": "!",
@@ -19,15 +19,15 @@
 
     "reconnect_time": 36000,
 
-    "anti_spam_cooldown": 6000,
-    "anti_spam_msg_limit": 9,
+    "anti_spam_cooldown": 10000,
+    "anti_spam_msg_limit": 5,
 
     "welcome_messages": false,
 
     "whitelisted_commands": [],
 
     "commands": {
-        "bp": false,
+        "bp": true,
         "kill": false,
         "coords": false,
         "discord": false,
@@ -41,7 +41,7 @@
         "msgcount": false,
         "owner": false,
         "ping": false,
-        "playtime": true,
+        "playtime": false,
         "quote": false,
         "sleep": false,
         "top": false,

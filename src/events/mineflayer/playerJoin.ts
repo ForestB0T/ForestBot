@@ -24,7 +24,7 @@ export default {
             Bot.mc_server
         )
 
-        if (data.oldname) {
+        if (data.oldname && Bot.welcomeMsgs) {
             Bot.bot.chat(`${user.username}, previously known as ${data.oldname} joined the server.`);
             return;
         }

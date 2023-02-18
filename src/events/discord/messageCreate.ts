@@ -21,7 +21,6 @@ export default {
         if (author.id === client.user.id) return;
         if (!client.chatChannels.has(channel.id)) return;
         if (client.blacklist.has(author.id)) return;
-        if (!client.allow_chatbridge_input) return;
 
         const username = `${author.username}#${author.discriminator}`;
 
@@ -61,6 +60,7 @@ export default {
             }
         }
 
+        if (!client.allow_chatbridge_input) return;
         if (!bot.isConnected) return;
 
         if (whisperCommands.some(alias => content.startsWith(`${alias}`))) {

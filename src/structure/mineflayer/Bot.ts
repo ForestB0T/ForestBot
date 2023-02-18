@@ -4,6 +4,7 @@ import { readFile, readdir } from "fs/promises";
 import { endpoints, logger } from "../../index.js";
 import { config } from "../../config.js";
 import * as fs from "fs";
+import time from "../../functions/utils/time.js";
 const { ping } = mc;
 
 /**
@@ -50,7 +51,7 @@ export default class Bot {
         this.restartCount++;
 
         if (this.restartCount >= 10) {
-            logger.log("> Connection is being refused, bot made too many attempts to reconnect.", "red", true)
+            logger.log("> Connection is being refused, The server is most likely offline.", "red", true)
             this.restartCount = 0;
             setTimeout(() => { this.startBot() }, 9 * 60000)
             return
@@ -63,8 +64,8 @@ export default class Bot {
             const res = await ping({ host: this.options.host, port: this.options.port });
             if (!res) throw new Error("No Response.");
         } catch (err) {
-            logger.log("> Connection is being refused, bot made too many attempts to reconnect.", "red", true)
-            setTimeout(() => { this.startBot() }, 9 * 60000);
+            await time.sleep(config.reconnect_time);
+            this.startBot();
             return;
         }
 

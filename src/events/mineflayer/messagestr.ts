@@ -11,8 +11,6 @@ export default {
     run: async (args: any[], Bot: Bot) => {
         const message = args[0] as string;
         const words = message.split(" ");
-
-        if (!dividers.some((divider) => message.includes(divider))) return;
         
         try {
 
@@ -42,8 +40,12 @@ export default {
                 message.includes("has completed the challenge")
             ) {
                 client.chatEmbed(`> ${message}`, "yellow");
+
+                Bot.endpoints.saveAdvancement(words[0], message, Bot.mc_server);
                 return;
             }
+
+            if (!dividers.some((divider) => message.includes(divider))) return;
 
             const saveKill = async (victim: string) => {
                 let murderer = null;
