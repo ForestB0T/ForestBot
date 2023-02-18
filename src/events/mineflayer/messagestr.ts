@@ -41,7 +41,9 @@ export default {
             ) {
                 client.chatEmbed(`> ${message}`, "yellow");
 
-                Bot.endpoints.saveAdvancement(words[0], message, Bot.mc_server);
+
+                const userToSave = Bot.bot.players[words[1]] ? words[1] : words[0];
+                Bot.endpoints.saveAdvancement(userToSave, message, Bot.mc_server);
                 return;
             }
 
