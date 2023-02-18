@@ -50,7 +50,6 @@ export default {
             if (dividers.some((divider) => message.includes(divider))) return;
 
             const saveKill = async (victim: string) => {
-                console.log("Saving kill ", victim)
                 let murderer = null;
 
                 for (const word of words) {
