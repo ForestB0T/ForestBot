@@ -40,8 +40,6 @@ export default {
                 message.includes("has completed the challenge")
             ) {
                 client.chatEmbed(`> ${message}`, "yellow");
-
-
                 const userToSave = Bot.bot.players[words[1]] ? words[1] : words[0];
                 Bot.endpoints.saveAdvancement(userToSave, message, Bot.mc_server);
                 return;

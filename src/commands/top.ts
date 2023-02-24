@@ -32,7 +32,7 @@ export default {
                     bot.bot.chat(`[TOP PLAYTIME]: ${stringPlaytime}`);
                     break;
                 default: 
-                    return bot.bot.whisper(user, "Can't find top stats for " + choice);
+                    return;
             }
         } catch (err) {
             return bot.bot.whisper(user, "Api error");
