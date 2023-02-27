@@ -70,7 +70,7 @@ export default {
                 saveKill(words[1])
                 return;
             } 
-            else if (Bot.bot.players[words[0]] && words[0] === Bot.bot.players[words[0]].username) {
+            else if ((Bot.bot.players[words[0]] && words[0] === Bot.bot.players[words[0]].username) && !Bot.bot.players[words[1]]) {
                 saveKill(words[0])
                 return;
             }
