@@ -70,7 +70,7 @@ export default {
                 saveKill(words[1])
                 return;
             } 
-            else if (((args[2] && args[2]["json"].translate) && args[2]["json"].translate.includes("death")) || (Bot.bot.players[words[0]] && words[0] === Bot.bot.players[words[0]].username)) {
+            else if (Bot.bot.players[words[0]] && words[0] === Bot.bot.players[words[0]].username) {
                 saveKill(words[0])
                 return;
             }
