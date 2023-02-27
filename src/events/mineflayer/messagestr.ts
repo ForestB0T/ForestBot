@@ -3,7 +3,7 @@ import type Bot from "../../structure/mineflayer/Bot.js";
 /**
  * This event is basically only used to capture kill messages.
  */
-const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "joined", "whispers", "[EUPVP]"];
+const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "joined", "whispers", "[EUPVP]", "[Duels]"];
 
 export default {
     name: "messagestr",
