@@ -10,8 +10,8 @@ export default {
     once: false,
     run: async (args: any[], Bot: Bot) => {
         const message = args[0] as string;
-        const words = message.split(" "); 
-        
+        const words = message.split(" ");
+
         try {
 
             if (message.includes("has requested to teleport to you.")) {
@@ -47,15 +47,20 @@ export default {
 
             if (dividers.some((divider) => message.includes(divider))) return;
 
-            const saveKill = async (victim: string) => {
-                let murderer = null;
 
-                for (const word of words) {
-                    if (Bot.bot.players[word] && word !== victim) {
-                        murderer = word;
+            const saveKill = async (victim: string) => {
+                const victimIndex = words.indexOf(victim);
+                let murderer = null;
+                for (let i = victimIndex + 1; i < words.length; i++) {
+                    if (Bot.bot.players[words[i]]) {
+                        if (Bot.bot.players[words[i + 1]]) {
+                            murderer = words[i + 1]
+                            break;
+                        }
+                        murderer = words[i];
                         break;
                     }
-                } 
+                }
 
                 await client.chatEmbed(`> ${message}`, "purple").catch(() => { });
 
@@ -63,15 +68,14 @@ export default {
                     ? Bot.endpoints.savePvpKill(victim, murderer, message, Bot.mc_server)
                     : Bot.endpoints.savePveKill(victim, message, Bot.mc_server)
 
-                return;
             }
 
-            if (Bot.bot.players[words[1]] && words[1] === Bot.bot.players[words[1]].username) {
-                saveKill(words[1])
-                return;
-            } 
-            else if ((Bot.bot.players[words[0]] && words[0] === Bot.bot.players[words[0]].username) && !Bot.bot.players[words[1]]) {
+            if (Bot.bot.players[words[0]] && !Bot.bot.players[words[1]]) {
                 saveKill(words[0])
+                return;
+            }
+            else if (Bot.bot.players[words[1]]) {
+                saveKill(words[1])
                 return;
             }
             return;
