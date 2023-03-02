@@ -49,7 +49,12 @@ export default {
 
             if (config.useRawChat && args[1] === "chat") {
                 const username = await convertUUIDtoUsername(args[3]);
-                client.chatEmbed(`${username} > ${message}`, "gray")
+                await Bot.endpoints.saveChat(
+                    username,
+                    message,
+                    Bot.mc_server
+                )
+                client.chatEmbed(`**${username}** » ${message}`, "gray")
                 return;
             }
     
