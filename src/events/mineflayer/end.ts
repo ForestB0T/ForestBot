@@ -5,10 +5,8 @@ import { logger }    from '../../index.js';
 export default {
     name: 'end',
     once: false,
-    run: (args: any[], Bot: Bot) => {
-        
+    run: (args: any[], Bot: Bot) => {        
         const content: BotEvents = args[0];
-        
         Bot.isConnected = false;
         Bot.endAndRestart()
         logger.log("> Bot has ended", "red", true);

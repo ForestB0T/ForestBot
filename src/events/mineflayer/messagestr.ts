@@ -2,6 +2,7 @@ import { bot, client } from "../../index.js";
 import { config } from "../../config.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
 import convertUUIDtoUsername from "../../structure/mineflayer/utils/convertUUIDtoUser.js";
+import mcCommandHandler from "../../structure/mineflayer/commandHandler.js";
 /**
  * This event is basically only used to capture kill messages.
  */
@@ -55,6 +56,8 @@ export default {
                     Bot.mc_server
                 )
                 client.chatEmbed(`**${username}** » ${message}`, "gray")
+                if (username === Bot.bot.username) return;
+                await mcCommandHandler(username, message, Bot);
                 return;
             }
     
