@@ -23,6 +23,8 @@ type Config = {
     customChatPrefix:       string
     whisperCommand:         string
 
+    useRawChat: boolean
+
     use_mc_whitelist:       boolean
     mc_whitelist:           string[],
     mc_blacklist:           string[],

@@ -36,6 +36,7 @@ export default {
     once: false,
     run: async (args: any[], Bot: Bot) => {
         const content: BotEvents = args[0];
+        if (config.useRawChat) return;
         try {
 
             const user = {

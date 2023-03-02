@@ -29,7 +29,6 @@ class MineflayerOptions implements BotOptions {
         username = process.env.MC_USER
         version  = config.version
         port     = config.port
-        disableChatSigning = true
 }
 
 class DiscordOptions implements ClientOptions {

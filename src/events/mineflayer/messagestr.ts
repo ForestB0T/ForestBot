@@ -1,5 +1,7 @@
 import { bot, client } from "../../index.js";
+import { config } from "../../config.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
+import convertUUIDtoUsername from "../../structure/mineflayer/utils/convertUUIDtoUser.js";
 /**
  * This event is basically only used to capture kill messages.
  */
@@ -44,6 +46,13 @@ export default {
                 Bot.endpoints.saveAdvancement(userToSave, message, Bot.mc_server);
                 return;
             }
+
+            if (config.useRawChat && args[1] === "chat") {
+                const username = await convertUUIDtoUsername(args[3]);
+                client.chatEmbed(`${username} > ${message}`, "gray")
+                return;
+            }
+    
 
             if (dividers.some((divider) => message.includes(divider))) return;
 
