@@ -10,6 +10,8 @@
     "customChatPrefix": "&d&l",
     "whisperCommand": "msg",
 
+    "useRawChat": false,
+
     "use_mc_whitelist": true,
     
     "use_discord": true,
@@ -51,5 +53,6 @@
 
     "disabled_events": ["entitySpawn"],
 
-    "allow_chatbridge_input": true
+    "allow_chatbridge_input": true,
+    "rotateHeadOnJoin": false
 }
