@@ -5,7 +5,7 @@ export default async function convertUUIDtoUsername(uuid: string) {
         const res = await fetch(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`)
         if (!res.ok) return false;
         const data = await res.json() as any;
-        return data.username;
+        return data.name;
     } catch (err) {
         return false;
     }
