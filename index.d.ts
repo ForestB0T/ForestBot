@@ -67,6 +67,7 @@ type Config = {
     disabled_events:        string[]
 
     allow_chatbridge_input: boolean
+    rotateHeadOnJoin: boolean
 }
 
 type Colors = {

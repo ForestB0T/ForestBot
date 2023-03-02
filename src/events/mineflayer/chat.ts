@@ -36,7 +36,6 @@ export default {
     once: false,
     run: async (args: any[], Bot: Bot) => {
         const content: BotEvents = args[0];
-        console.log(args, " chat:chat");
         try {
 
             const user = {

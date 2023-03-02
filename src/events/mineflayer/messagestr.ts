@@ -9,7 +9,6 @@ export default {
     name: "messagestr",
     once: false,
     run: async (args: any[], Bot: Bot) => {
-        console.log(args);
         const message = args[0] as string;
         const words = message.split(" ");
 

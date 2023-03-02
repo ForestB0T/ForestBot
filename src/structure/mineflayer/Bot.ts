@@ -166,7 +166,6 @@ export default class Bot {
         const patterns = JSON.parse(await readFile("./json/patterns.json", { encoding: "utf-8" }));
         for (const pattern of patterns.patterns) {
             if (pattern.disabled) continue;
-            console.log(pattern)
             bot.addChatPattern(pattern.name, new RegExp(pattern.regex), pattern.options);
         }
     }
