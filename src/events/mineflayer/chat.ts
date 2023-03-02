@@ -36,7 +36,7 @@ export default {
     once: false,
     run: async (args: any[], Bot: Bot) => {
         const content: BotEvents = args[0];
-
+        console.log(args, " chat:chat");
         try {
 
             const user = {
@@ -55,7 +55,7 @@ export default {
                 return;
             }
 
-            Bot.endpoints.saveChat(
+            await Bot.endpoints.saveChat(
                 user.username,
                 user.message,
                 Bot.mc_server
