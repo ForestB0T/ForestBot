@@ -48,10 +48,7 @@ export default {
             }
 
             if (config.useRawChat && args[1] === "chat") {
-                console.log(args);
-                console.log(args[3])
-                console.log(Bot.bot.players)
-                const username = Bot.bot.players[args[3]].username;
+                const username = (Object.values(Bot.bot.players).find(val=>val.uuid===args[3])).username;
                 await Bot.endpoints.saveChat(
                     username,
                     message,
