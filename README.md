@@ -1,10 +1,3 @@
-<style>
-  img {
-    display: block;
-    margin: auto;
-  }
-</style>
-
 # ForestBot
 
 <div style="display: flex; justify-content: center; align-items: center; height: 200px;">
