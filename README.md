@@ -1,11 +1,22 @@
-## ForestBot
+# ForestBot
 
-#### Statstic's tracking utility Minecraft Bot
+<div style="text-align:center;">
+  <img src="animatedBot.gif" alt="ForestBot Animated Image" width="250" height="250" />
+</div>
 
 
-Forestbot is a Minecraft bot made with Mineflayer and Typescript used to track various player statistic's while having a public data API, Discord Bot, and multiple in-game commands to view and compare these stats.
+ForestBot is a Minecraft bot that can track player stats such as kills, deaths, playtime, advancements, joindates and more. It can be invited to a Minecraft server to collect and display this data.
 
-Multiple config options available.
-Records almost every statistic you would want within a Minecraft server.
+## Usage
 
-https://forestbot.org
+To use ForestBot, head to the ForestBot website and reqeust him for your Minecraft Server
+
+You can view your stats and learn more by visiting the ForestBot website at https://forestbot.org.
+
+## Contributing
+
+If you would like to contribute to ForestBot, please follow these steps:
+
+1. Fork the repository and create a new branch for your feature or bug fix.
+2. Make your changes and commit them with descriptive commit messages.
+3. Submit a pull request and describe the changes you've made.
