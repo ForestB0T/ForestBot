@@ -4,6 +4,13 @@
   <img src="animatedBot.gif" alt="ForestBot Animated Image" width="250" height="250" />
 </div>
 
+<style>
+  img {
+    display: block;
+    margin: auto;
+  }
+</style>
+
 
 ForestBot is a Minecraft bot that can track player stats such as kills, deaths, playtime, advancements, joindates and more. It can be invited to a Minecraft server to collect and display this data.
 
