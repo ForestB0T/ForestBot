@@ -49,7 +49,7 @@ export default {
             }
 
             if (config.useRawChat && args[1] === "chat") {
-                const username = await convertUUIDtoUsername(args[3]);
+                const username = Bot.bot.players[args[3]].username;
                 await Bot.endpoints.saveChat(
                     username,
                     message,
