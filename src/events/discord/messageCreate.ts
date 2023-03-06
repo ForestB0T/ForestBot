@@ -30,6 +30,7 @@ export default {
         if (client.whitelist.has(author.id)) {
             if (content.startsWith("!restart")) {
                 logger.log("Restarting bot...", "blue", true);
+                bot.allowConnection = true
                 if (bot.isConnected) bot.bot.end();
                 else bot.endAndRestart()
                 return;
