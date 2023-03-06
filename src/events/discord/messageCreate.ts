@@ -34,6 +34,12 @@ export default {
                 else bot.endAndRestart()
                 return;
             }
+            if (content.startsWith("!stop")) {
+                logger.log("Stopping bot...", "blue", true);
+                bot.allowConnection = false;
+                if (bot.isConnected) bot.bot.end();
+                return;
+            }
             if (content.startsWith("!say")) {
                 args.shift();
                 const msg = args.join(" ");

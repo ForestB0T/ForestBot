@@ -5,7 +5,7 @@ import mcCommandHandler from "../../structure/mineflayer/commandHandler.js";
 /**
  * This event is basically only used to capture kill messages.
  */
-const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted"];
+const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you."];
 
 export default {
     name: "messagestr",
@@ -15,27 +15,6 @@ export default {
         const words = message.split(" ");
 
         try {
-
-            if (message.includes("has requested to teleport to you.")) {
-                return;
-            }
-
-            if (message.includes("has teleported to you") ||
-                (message.includes("sent a teleport request to you") && !Bot.userWhitelist.has(words[0]))
-            ) {
-                return;
-            }
-
-            const teleportMatch = message.match(/([^ ]*) sent a teleport request to you/);
-            if (teleportMatch) {
-                if (Bot.useWhitelist && !Bot.userWhitelist.has(teleportMatch[1])) {
-                    return;
-                }
-                const sender = teleportMatch[1];
-                bot.bot.chat(`/tpaccept ${sender}`)
-                return;
-            }
-
             if (
                 message.includes("has reached the goal") ||
                 message.includes("has made the advancement") ||

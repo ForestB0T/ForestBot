@@ -23,6 +23,7 @@ export default class Bot {
     public mc_server: string;
     public restartCount: number = 0;
     public isConnected: boolean;
+    public allowConnection: boolean;
     public endpoints: endpoints
 
     constructor(public options: mineflayer.BotOptions) {
@@ -48,6 +49,7 @@ export default class Bot {
      * @returns this.bot = bot;
      */
     public async startBot() {
+        if (!this.allowConnection) return;
         this.restartCount++;
 
         if (this.restartCount >= 10) {
