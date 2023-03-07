@@ -15,7 +15,6 @@ export default class WebSocketHandler {
 
     this.url = url;
     this.apiKey = apiKey;
-
     this.connect();
   }
 
