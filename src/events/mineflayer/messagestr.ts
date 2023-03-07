@@ -27,18 +27,20 @@ export default {
             }
 
             if (config.useRawChat && args[1] === "chat") {
-                const username = (Object.values(Bot.bot.players).find(val=>val.uuid===args[3])).username;
-                await Bot.endpoints.saveChat(
+                const username = (Object.values(Bot.bot.players).find(val => val.uuid === args[3])).username;
+
+                (Bot.apiWebSockets.get("savechat")).send({
                     username,
                     message,
-                    Bot.mc_server
-                )
+                    mc_server: Bot.mc_server
+                })
+
                 client.chatEmbed(`**${username}** » ${message}`, "gray")
                 if (username === Bot.bot.username) return;
                 await mcCommandHandler(username, message, Bot);
                 return;
             }
-    
+
 
             if (dividers.some((divider) => message.includes(divider))) return;
 

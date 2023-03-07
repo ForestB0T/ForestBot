@@ -8,7 +8,9 @@ export default {
     run: (args: any[], Bot: Bot) => {        
         const content: BotEvents = args[0];
         Bot.isConnected = false;
-        Bot.endAndRestart()
+        Bot.bot.quit();
+        Bot.endAndRestart();
+        Bot.closeWebsockets();
         logger.log("> Bot has ended", "red", true);
         return;
     }

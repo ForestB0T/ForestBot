@@ -5,6 +5,7 @@ import { endpoints, logger } from "../../index.js";
 import { config } from "../../config.js";
 import * as fs from "fs";
 import time from "../../functions/utils/time.js";
+import WebSocketHandler from "../websocket/WebSocket.js";
 const { ping } = mc;
 
 /**
@@ -25,6 +26,7 @@ export default class Bot {
     public isConnected: boolean;
     public allowConnection: boolean = true;
     public endpoints: endpoints
+    public apiWebSockets: Map<string, WebSocketHandler> = new Map();
 
     constructor(public options: mineflayer.BotOptions) {
 
@@ -39,7 +41,6 @@ export default class Bot {
 
         this.startBot();
         this.loadCommands();
-
     }
 
     /**
@@ -58,7 +59,7 @@ export default class Bot {
             setTimeout(() => { this.startBot() }, 9 * 60000)
             return
         }
-        
+
 
         logger.log("> Attempting to start mineflayer bot", "yellow", true);
 
@@ -75,9 +76,16 @@ export default class Bot {
             logger.log(`> Connection to api failed, maybe the api is offline?`, "red", true);
         } else {
             logger.log("> Connection to api successful", "green", true)
+
+            if (config.websockets.enabled) {
+                for (const urlObj of config.websockets.urls) {
+                    if (this.apiWebSockets.has(urlObj.id)) continue;
+                    this.apiWebSockets.set(urlObj.id, new WebSocketHandler({ url: `${config.websockets.hostUrl}/${urlObj.url}`, apiKey: process.env.apiKey }))
+                }
+            }
         }
 
-        const bot = mineflayer.createBot({ ...this.options, auth: "microsoft"});
+        const bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
 
         this.handleEvents(bot);
         this.loadPatterns(bot);
@@ -92,7 +100,7 @@ export default class Bot {
         bot.whisper = (user: string, msg: string) => {
             newChat(`${chatPrefix} ${msg}`)
         }
-        
+
         this.bot = bot;
         return bot;
     }
@@ -106,8 +114,6 @@ export default class Bot {
      */
     public endAndRestart = async () => {
         if (this.isConnected) {
-            this.bot.end();
-            this.bot.quit();
             this.isConnected = false
         }
 
@@ -127,6 +133,19 @@ export default class Bot {
         }
         return arr as [{ name: string, ping: number }];
     }
+
+    /**
+     * Closing existing connections for endpoints that use websockets.
+     */
+    public closeWebsockets() {
+        for (const [id, websocket] of this.apiWebSockets.entries()) {
+            websocket.send({ close: true });
+            websocket.socket.close();
+            this.apiWebSockets.delete(id);
+        }
+    }
+
+
 
     /**
      * Add a player to the whitelist.

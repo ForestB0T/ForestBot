@@ -30,10 +30,12 @@ export default {
                 return;
             }
 
-            await Bot.endpoints.saveChat(
-                user.username,
-                user.message,
-                Bot.mc_server
+            (Bot.apiWebSockets.get("savechat")).send(
+                {
+                    username: user.username,
+                    message: user.message,
+                    mc_server: Bot.mc_server
+                }
             )
 
             client.chatEmbed(`**${user.username}** » ${user.message}`, "gray");

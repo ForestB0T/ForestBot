@@ -5,12 +5,21 @@
     "version": "1.19.3",
     "api_url": "https://api.forestbot.org",
 
+    "websockets": {
+        "enabled": true,
+        "hostUrl": "ws://localhost:5000",
+        "urls": [{
+            "id": "savechat",
+            "url": "savechat"
+        }]
+    },
+
     "prefix": "!",
     "useCustomChatPrefix": false,
     "customChatPrefix": "&d&l",
     "whisperCommand": "msg",
-
-    "useRawChat": false,
+    
+    "useRawChat": true,
 
     "use_mc_whitelist": true,
     
@@ -30,27 +39,27 @@
 
     "commands": {
         "bp": true,
-        "kill": false,
-        "coords": false,
-        "discord": false,
-        "help": false,
-        "joindate": false,
-        "joins": false,
-        "kd": false,
-        "lastdeath": false,
-        "lastseen": false,
-        "mount": false,
-        "msgcount": false,
-        "owner": false,
-        "ping": false,
-        "playtime": false,
-        "quote": false,
-        "sleep": false,
-        "top": false,
-        "urban": false,
-        "wp": false
+        "kill": true,
+        "coords": true,
+        "discord": true,
+        "help": true,
+        "joindate": true,
+        "joins": true,
+        "kd": true,
+        "lastdeath": true,
+        "lastseen": true,
+        "mount": true,
+        "msgcount": true,
+        "owner": true,
+        "ping": true,
+        "playtime": true,
+        "quote": true,
+        "sleep": true,
+        "top": true,
+        "urban": true,
+        "wp": true
     },
-
+    
     "disabled_events": ["entitySpawn"],
 
     "allow_chatbridge_input": true,

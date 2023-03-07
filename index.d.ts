@@ -16,7 +16,16 @@ type Config = {
     host: string
     port: number,
     version: string
-    api_url:   string
+    api_url: string
+
+    websockets: {
+        enabled: boolean
+        hostUrl: string
+        urls: [{
+            id: string
+            url: string
+        }]
+    }
 
     prefix: "!" | "?" | "-" | "="
     useCustomChatPrefix:    boolean 
@@ -108,11 +117,16 @@ type endpoints = {
     getKd:          (user: string, mc_server: string) => Promise<any>
     getLastDeath:   (user: string, mc_server: string) => Promise<any>
     getLastMessage: (user: string, mc_server: string) => Promise<any>
+    getFirstMessage: (user: string, mc_server: string) => Promise<any>
+
     getLastSeen:    (user: string, mc_server: string) => Promise<any>
     getMessageCnt:  (user: string, mc_server: string) => Promise<any>
     getQuote:       (user: string, mc_server: string) => Promise<any>
     getUniquePcnt:  (mc_server: string) => Promise<any>
     getTopStat:     (stat: string, mc_server: string) => Promise<any>
+
+    getLastMessage: (user: string, mc_server: string) => Promise<any>
+
 
     pingApi: () => Promise<any>
 }
