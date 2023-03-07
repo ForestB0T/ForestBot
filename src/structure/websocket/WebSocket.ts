@@ -1,5 +1,4 @@
 import WebSocket from "ws";
-
 interface WebSocketHandlerOptions {
   url: string;
   apiKey: string;
@@ -8,32 +7,39 @@ interface WebSocketHandlerOptions {
 export default class WebSocketHandler {
   public socket: WebSocket;
   private apiKey: string;
+  private url: string
+  public connected: boolean = false;
 
   constructor(options: WebSocketHandlerOptions) {
     const { url, apiKey } = options;
 
-    this.socket = new WebSocket(url, {
+    this.url = url;
+    this.apiKey = apiKey;
+
+    this.connect();
+  }
+
+  public async connect() {
+    this.socket = new WebSocket(this.url, {
       headers: {
-        "x-api-key": apiKey,
+        "x-api-key": this.apiKey,
       },
     });
 
-    this.apiKey = apiKey;
-
     this.socket.on("open", () => {
       console.log("WebSocket connected");
+      this.connected = true;
     });
 
     this.socket.on("error", (error) => {
       console.error(error);
+      this.connected = false;
     });
 
-    this.socket.on("close", () => {
+    this.socket.on("close", async () => {
       console.log("WebSocket disconnected");
     });
   }
-
-
 
   send(data: any) {
     const message = JSON.stringify(data);
