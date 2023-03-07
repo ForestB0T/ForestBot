@@ -12,7 +12,7 @@ export default {
         if (!data) return
 
         const firstMessage = data.messages[0];
-        const firstMsgStr = `"${firstMessage.message}" (${time.timeAgoStr(parseInt(firstMessage.date))})`
+        const firstMsgStr = `"${firstMessage.message}" ${firstMessage.date !== null &&  `(${time.timeAgoStr(parseInt(firstMessage.date))})`}`
 
         return !args[0]
         ? bot.bot.whisper(user, `${firstMsgStr}`)
