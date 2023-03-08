@@ -125,8 +125,7 @@ type endpoints = {
     getUniquePcnt:  (mc_server: string) => Promise<any>
     getTopStat:     (stat: string, mc_server: string) => Promise<any>
 
-    getLastMessage: (user: string, mc_server: string) => Promise<any>
-
+    getWordCount: (word: string, serv: string, user: string) => Promise<any>
 
     pingApi: () => Promise<any>
 }
