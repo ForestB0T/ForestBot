@@ -8,7 +8,6 @@ export default {
         const search = args[0]        
         const word = args[1];
 
-        console.log(word, search)
         if (!search||!word) return;
         const data = await bot.endpoints.getWordCount(word, bot.mc_server, search); 
         if (!data || !data.word_count) return
