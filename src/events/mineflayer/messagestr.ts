@@ -5,7 +5,7 @@ import mcCommandHandler from "../../structure/mineflayer/commandHandler.js";
 /**
  * This event is basically only used to capture kill messages.
  */
-const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you."];
+const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "Left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you."];
 
 export default {
     name: "messagestr",
