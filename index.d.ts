@@ -33,6 +33,7 @@ type Config = {
     whisperCommand:         string
 
     useRawChat: boolean
+    antiafk: boolean
 
     use_mc_whitelist:       boolean
     mc_whitelist:           string[],

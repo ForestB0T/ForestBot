@@ -1,6 +1,7 @@
 import type Bot   from "../../structure/mineflayer/Bot.js"
 import time       from "../../functions/utils/time.js";
 import { config } from "../../config.js";
+import antiafk    from "../../functions/utils/antiAFK.js";
 export default { 
     name: "spawn",
     once: true,
@@ -11,6 +12,11 @@ export default {
             await time.sleep(2000);
             await Bot.bot.look(180, 0, true);
         }
+
+        if (config.antiafk) {
+            antiafk(Bot.bot);
+        }
+
         return
     }
 }
