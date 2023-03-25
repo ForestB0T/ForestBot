@@ -74,6 +74,8 @@ export default class Bot {
 
         if (!(await this.endpoints.pingApi())) {
             logger.log(`> Connection to api failed, maybe the api is offline?`, "red", true);
+            this.endAndRestart();
+            return;
         } else {
             logger.log("> Connection to api successful", "green", true)
 

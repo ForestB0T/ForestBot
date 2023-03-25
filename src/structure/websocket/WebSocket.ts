@@ -1,4 +1,5 @@
 import WebSocket from "ws";
+import { bot } from "../../index.js";
 interface WebSocketHandlerOptions {
   url: string;
   apiKey: string;
@@ -32,6 +33,7 @@ export default class WebSocketHandler {
     });
 
     this.socket.on("error", (error) => {
+      bot.endAndRestart();
       console.error(error);
       this.connected = false;
     });
