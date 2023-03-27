@@ -6,6 +6,7 @@ import { config } from "../../config.js";
 import * as fs from "fs";
 import time from "../../functions/utils/time.js";
 import WebSocketHandler from "../websocket/WebSocket.js";
+import convertToUnicode from "./utils/unicodeTransformer.js";
 const { ping } = mc;
 
 /**
@@ -96,11 +97,11 @@ export default class Bot {
         const chatPrefix = config.useCustomChatPrefix ? config.customChatPrefix : "";
 
         bot.chat = (msg: string) => {
-            newChat(`${chatPrefix} ${msg}`)
+            newChat(`${chatPrefix} ${config.useunicode?convertToUnicode(msg,"bold"):msg}`)
         }
 
         bot.whisper = (user: string, msg: string) => {
-            newChat(`${chatPrefix} ${msg}`)
+            newChat(`${chatPrefix} ${config.useunicode?convertToUnicode(msg, "bold"):msg}`)
         }
 
         this.bot = bot;

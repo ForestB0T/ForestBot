@@ -20,6 +20,8 @@
     "whisperCommand": "msg",
     
     "useRawChat": true,
+    "useunicode": true,
+    "unicodeFont": "fullWidth",
     "antiafk": true,
 
     "use_mc_whitelist": true,

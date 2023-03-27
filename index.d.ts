@@ -33,6 +33,8 @@ type Config = {
     whisperCommand:         string
 
     useRawChat: boolean
+    useunicode: boolean
+    unicodeFont: boolean
     antiafk: boolean
 
     use_mc_whitelist:       boolean
