@@ -1,5 +1,6 @@
 import WebSocket from "ws";
-import { bot } from "../../index.js";
+import { logger } from "../../index.js";
+import { config } from "../../config.js";
 interface WebSocketHandlerOptions {
   url: string;
   apiKey: string;
@@ -27,19 +28,21 @@ export default class WebSocketHandler {
     });
 
     this.socket.on("open", () => {
-      console.log("WebSocket connected");
+      logger.log("Websocket connected.", "green", true);
+
       this.connected = true;
       setInterval(() => { this.socket.ping() }, 5000)
     });
 
-    this.socket.on("error", (error) => {
-      bot.endAndRestart();
+    this.socket.on("error", async (error) => {
+      logger.log("Websocket has been inturrupted.", "red", true);
       console.error(error);
+      await new Promise(r => setTimeout(r, config.reconnect_time));
       this.connected = false;
     });
 
     this.socket.on("close", async () => {
-      console.log("WebSocket disconnected");
+      logger.log("Websocket disconnected.", "yellow", true);
     });
   }
 

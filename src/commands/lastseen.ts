@@ -16,7 +16,7 @@ export default {
         if (userIsOnline && (data && data.lastseen.match(/^\d+$/))) {
             const unixTime = parseInt(data.lastseen);
             const lastseen = time.timeAgoStr(unixTime);
-            return bot.bot.chat(`${search} is online and joined ${lastseen}`);
+            return bot.bot.chat(`${search} is online and logged in ${lastseen}`);
         }
 
         let lastseenString: string;
