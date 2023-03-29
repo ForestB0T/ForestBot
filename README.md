@@ -8,6 +8,8 @@
 
 ForestBot is a Minecraft bot that can track player stats such as kills, deaths, playtime, advancements, joindates and more. It can be invited to a Minecraft server to collect and display this data.
 
+ForestBot relies heavily on https://github.com/ForestB0T/hub
+
 ## Usage
 
 To use ForestBot, head to the ForestBot website and reqeust him for your Minecraft Server
