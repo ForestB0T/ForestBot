@@ -4,18 +4,21 @@
             "name": "chat",
             "regex": "^([^ ]*): (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "johndoe: Hello there!",
             "disabled": false
         },
         {
             "name": "chat",
             "regex": "^([^ ]*) : (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "jane_doe : What's up?",
             "disabled": false
         },
         {
             "name": "chat",
             "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*)? » (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "admin » Welcome to the server!",
             "disabled": false
         },
         {
@@ -23,102 +26,119 @@
             "regex": "^([^&:\\s]+)(?:\\s*&\\s*|:)(.+)$",
             "description": "for uneasy vanilla",
             "options": { "parse": true, "repeat": true },
+            "example": "player1 & Hi there!",
             "disabled": false
         },
         {
             "name": "chat",
             "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*)? > (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "player2 > Hey, how are you doing?",
             "disabled": false
         },
         {
             "name": "chat",
             "regex": "^<([^ ]*)> (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "<user123> Can someone help me with this quest?",
             "disabled": false
         },
         {
             "name": "chat",
             "regex": "^([^ ]*) >> (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "player3 >> I'll be back later.",
             "disabled": false
         },
         {
             "name": "chat",
             "regex": "^([^ ]+) [^ ]+ » (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "player4 mod » Reminder: No griefing allowed.",
             "disabled": false
         },
         {
             "name": "chat",
             "regex": "^\\[[^\\]]*\\]\\s*(\\S+)\\s*[^\\w\\s]*\\s*:\\s*(.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "[Global] player5 : Anyone want to team up for a raid?",
             "disabled": false
         },
         {
             "name": "whisperTo",
             "regex": "^\\[MSG\\] me -> ([^ ]*): (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "[MSG] me -> user456: Hey, can you help me with something?",
             "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "From: ([^ ]*) » (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "From: player6 » Thanks for the help earlier!",
             "disabled": false
         },
         {
             "name": "whisperTo",
             "regex": "(?:To:|To) ([^ ]*)(?::| ») (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "To: player7 » Sure, I can give you some tips.",
             "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "^\\[MSG\\] ([^ ]*) -> me: (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "[MSG] me -> user456: Hey, can you help me with something?",
             "disabled": false
         },
         {
             "name": "whisperTo",
             "regex": "^You whisper to ([^ ]*): (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "You whisper to player9: Let's meet up at the tavern later.",
             "disabled": false
         },
         {
             "name": "whisperTo",
             "regex": "^\\[me -> ([^ ]*)\\] (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "[me -> player10] Did you get the item I sent you?",
             "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "^([^ ]*) whispers to you: (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "player11 whispers to you: Can you lend me some gold?",
             "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "^\\[([^ ]*) -> me\\] (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "[player12 -> me] Hey, can you join our party?",
             "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "^([^ ]*) whispers: (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "player11 whispers: Can you lend me some gold?",
             "disabled": false
         },        
         {
             "name": "whisperTo",
             "regex": "^\\[You -> ([^ ]*)\\] (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "[You -> player13] Sorry, I can't help you right now.",
             "disabled": false
         },
         {
             "name": "whisperFrom",
             "regex": "^\\[([^ ]*) -> You\\] (.*)$",
             "options": { "parse": true, "repeat": true },
+            "example": "[player14 -> You] Thanks for the item, I really appreciate it.",
             "disabled": false
         }
     ]
