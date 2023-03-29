@@ -8,6 +8,12 @@
         },
         {
             "name": "chat",
+            "regex": "^([^ ]*) : (.*)$",
+            "options": { "parse": true, "repeat": true },
+            "disabled": false
+        },
+        {
+            "name": "chat",
             "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*)? » (.*)$",
             "options": { "parse": true, "repeat": true },
             "disabled": false
