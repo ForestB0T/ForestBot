@@ -2,6 +2,7 @@ import { bot, client } from "../../index.js";
 import { config } from "../../config.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
 import mcCommandHandler from "../../structure/mineflayer/commandHandler.js";
+import parseUsername from "../../structure/mineflayer/utils/parseUsername.js";
 /**
  * This event is basically only used to capture kill messages.
  */
@@ -27,7 +28,8 @@ export default {
             }
 
             if (config.useRawChat && args[1] === "chat") {
-                const username = (Object.values(Bot.bot.players).find(val => val.uuid === args[3])).username;
+                let username = (Object.values(Bot.bot.players).find(val => val.uuid === args[3])).username;    
+                username = parseUsername(username, Bot.bot);
 
                 (Bot.apiWebSockets.get("savechat")).send({
                     username,

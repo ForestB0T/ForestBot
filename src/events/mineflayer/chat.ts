@@ -3,7 +3,7 @@ import { client } from "../../index.js";
 import { config } from "../../config.js";
 import Bot from '../../structure/mineflayer/Bot.js';
 import mcCommandHandler from '../../structure/mineflayer/commandHandler.js';
-
+import parseUsername from '../../structure/mineflayer/utils/parseUsername.js';
 const prefix = config.prefix;
 
 export default {
@@ -12,10 +12,11 @@ export default {
     run: async (args: any[], Bot: Bot) => {
         const content: BotEvents = args[0];
         if (config.useRawChat) return;
+
         try {
 
             const user = {
-                username: content[0][0],
+                username: parseUsername(content[0][0], Bot.bot),
                 message: content[0][1]
             }
 
