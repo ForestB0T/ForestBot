@@ -1,8 +1,8 @@
 import type { Bot } from "mineflayer";
 
 export default function parseUsername(name: string, bot: Bot): string {
-    name.replace(/[^_\w\d]/g, '');
-    
+    name = name.replace(/[^_\w\d]/g, '');
+
     if (bot.players[name] && name === bot.players[name].displayName.toString()) return name;
 
     let realName: string;
