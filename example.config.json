@@ -40,6 +40,8 @@
 
     "whitelisted_commands": [],
 
+    "useCommands": true,
+
     "commands": {
         "bp": true,
         "kill": true,

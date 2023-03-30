@@ -2,6 +2,7 @@ import type Bot from "./Bot";
 import { config } from "../../config.js";
 
 const spam: Map<string, number> = new Map();
+
 function antiSpamHandler(args: antiSpamArgsType) {
     const { user, Bot, cooldown_time, spam_limit } = args;
     if (!spam.has(user)) spam.set(user, 1);
@@ -26,6 +27,7 @@ function antiSpamHandler(args: antiSpamArgsType) {
 
 
 export default async function mcCommandHandler(user: string, message: string, bot: Bot) {
+    if (!config.useCommands) return;
     for (const [key, value] of bot.commands) {
         for (const alias of value.commands) {
             if (message.toLocaleLowerCase().startsWith(`${config.prefix}${alias}`)) {

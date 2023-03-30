@@ -55,6 +55,7 @@ type Config = {
 
     whitelisted_commands:   string[]
 
+    useCommands: boolean;
     commands: {
         bp:       boolean;
         kill:     boolean;
