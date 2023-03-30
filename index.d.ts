@@ -108,11 +108,14 @@ type endpoints = {
     saveChat:       (user: string, msg: string, mc_server: string) => Promise<any>
     saveAdvancement: (user: string, advancement: string, mc_server: string) => Promise<any>
 
+    saveIam: (user: string, description: string) => Promise<any>
+
     updateLeave:    (user: string, mc_server: string) => Promise<any>
     updateJoin:     (user: string, uuid: string, mc_server: string) => Promise<any>
 
     updateplayerlist: (users: [{name: string, ping: number}], mc_server: string) => Promise<any>
 
+    getWhoIs: (user: string) => Promise<any>
     getChannels:    (mc_server: string) => Promise<any>
     getPlaytime:    (user: string, mc_server: string) => Promise<any>
     getJoindate:    (user: string, mc_server: string) => Promise<any>

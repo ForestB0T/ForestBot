@@ -11,11 +11,14 @@ export default {
     saveChat: async (user, message, mc_server) => postApi('savechat', { user, message, mc_server }),
     saveAdvancement: async (user, advancement, mc_server) => postApi("saveadvancement", { user, advancement, mc_server }),
 
+    saveIam: async (user, description) => postApi("iam", { user: user, description: description }),
+
     updateLeave: async (user, mc_server) => postApi(`updateleave`, { user: user, mc_server: mc_server, time: Date.now() }),
     updateJoin: async (user, uuid, mc_server) => postApi(`updatejoin`, { user: user, uuid: uuid, mc_server: mc_server, time: Date.now() }),
 
     updateplayerlist: async (users, mc_server) => postApi(`updateplayerlist`, { users: users, mc_server: mc_server }),
 
+    getWhoIs: async (user) => fetchApi(`whois/${user}`),
     getChannels: async (mc_server) => fetchApi(`getchannels/${mc_server}/${process.env.apiKey}`),
     getPlaytime: async (user, mc_server) => fetchApi(`playtime/${user}/${mc_server}`),
     getJoindate: async (user, mc_server) => fetchApi(`joindate/${user}/${mc_server}`),
