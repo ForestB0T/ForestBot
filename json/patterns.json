@@ -2,42 +2,12 @@
     "patterns": [
         {
             "name": "chat",
-            "regex": "^(?:\\[\\w+\\]\\s*)?(\\w+)(?:\\s+\\w+\\s+)?(?::|\\|)\\s*(.*)$",
+            "regex": "^(?:\\[[^\\]]*\\])?(?:\\s*)?(\\w+)(?:\\s*\\[[^\\]]*\\])?(?:\\s*)?:\\s*(.*)$",
             "options": {
                 "parse": true,
                 "repeat": true
             },
-            "example": "[prefix] John suffix : message",
-            "disabled": false
-        },
-        {
-            "name": "chat",
-            "regex": "^(?:\\[\\w+\\]\\s*)?(\\w+):\\s*(.*)$",
-            "options": {
-                "parse": true,
-                "repeat": true
-            },
-            "example": "[prefix] John: message",
-            "disabled": false
-        },
-        {
-            "name": "chat",
-            "regex": "^(\\w+)(?:\\s+\\w+)?\\s*:\\s*(.*)$",
-            "options": {
-                "parse": true,
-                "repeat": true
-            },
-            "example": "John suffix: message",
-            "disabled": false
-        },
-        {
-            "name": "chat_no_prefix_suffix",
-            "regex": "^(\\w+):\\s*(.*)$",
-            "options": {
-                "parse": true,
-                "repeat": true
-            },
-            "example": "John: message",
+            "example": "[Admin]JohnDoe [VIP]: Hello everyone!",
             "disabled": false
         },
         {
