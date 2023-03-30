@@ -6,7 +6,7 @@ export default {
     maxArgs: 255,
     execute: async (user: string, args: any[], bot: Bot) => {
 
-        if (!args || args.length === 0) return;
+        if (!args || args.length === 0) return bot.bot.chat("View descriptions with !whois");
         try {
             await bot.endpoints.saveIam(user, args.join(" "))
             return !args[0]

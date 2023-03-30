@@ -39,6 +39,8 @@ export default class WebSocketHandler {
       console.error(error);
       await new Promise(r => setTimeout(r, config.reconnect_time));
       this.connected = false;
+      this.connect();
+      return;
     });
 
     this.socket.on("close", async () => {
