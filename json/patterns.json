@@ -2,6 +2,20 @@
     "patterns": [
         {
             "name": "chat",
+            "regex": "^([^ ]*): (.*)$",
+            "options": { "parse": true, "repeat": true },
+            "example": "johndoe: Hello there!",
+            "disabled": false
+        },
+        {
+            "name": "chat",
+            "regex": "^([^ ]*) : (.*)$",
+            "options": { "parse": true, "repeat": true },
+            "example": "jane_doe : What's up?",
+            "disabled": false
+        },
+        {
+            "name": "chat",
             "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*)? » (.*)$",
             "options": { "parse": true, "repeat": true },
             "example": "admin » Welcome to the server!",
@@ -9,7 +23,7 @@
         },
         {
             "name": "chat",
-            "regex": "^(?:\\[?[^\\]]*\\]?\\s*)?([^\\s:]+)(?:\\s*\\[[^\\]]*\\])?:\\s*(.+)$",
+            "regex": "^(?:\\[?\\w+\\]?\\s*)?(\\w+)(?:\\s+\\w+\\s+)?:\\s*(.*)$",
             "description": "for uneasy vanilla",
             "options": { "parse": true, "repeat": true },
             "example": "player1 & Hi there!",
