@@ -18,7 +18,7 @@ export default {
 
     updateplayerlist: async (users, mc_server) => postApi(`updateplayerlist`, { users: users, mc_server: mc_server }),
 
-    getNameFind: async (user) => fetchApi(`namefind/${user}`),
+    getNameFind: async (user, mc_server) => fetchApi(`namefind/${user}/${mc_server}`),
     getWhoIs: async (user) => fetchApi(`whois/${user}`),
     getChannels: async (mc_server) => fetchApi(`getchannels/${mc_server}/${process.env.apiKey}`),
     getPlaytime: async (user, mc_server) => fetchApi(`playtime/${user}/${mc_server}`),
