@@ -116,6 +116,7 @@ type endpoints = {
 
     updateplayerlist: (users: [{name: string, ping: number}], mc_server: string) => Promise<any>
 
+    getNameFind: (user: string, mc_server: string) => Promise<any>
     getWhoIs: (user: string) => Promise<any>
     getChannels:    (mc_server: string) => Promise<any>
     getPlaytime:    (user: string, mc_server: string) => Promise<any>
