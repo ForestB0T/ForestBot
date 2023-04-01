@@ -98,7 +98,10 @@ export default {
 
         const spamUser = spam.get(author.id);
 
-        if (content.includes("\n") || content.length > 200) return;
+        if (content.includes("\n") || content.length > 254) {
+            setTimeout(() => spam.delete(author.id), 5000);
+            return;
+        }
 
         if (spamUser >= 6) {
             client.blacklist.add(author.id);
