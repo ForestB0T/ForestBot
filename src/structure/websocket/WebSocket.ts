@@ -42,8 +42,8 @@ export default class WebSocketHandler {
       return;
     });
 
-    this.socket.on("close", async () => {
-      logger.log("Websocket disconnected.", "yellow", true);
+    this.socket.on("close", async (reason) => {
+      logger.log("Websocket disconnected." + reason, "yellow", true);
       await new Promise(r => setTimeout(r, 10000));
       this.connected = false;
       this.connect();
