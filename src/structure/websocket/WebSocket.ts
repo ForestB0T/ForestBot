@@ -54,7 +54,7 @@ export default class WebSocketHandler {
     
       if (data.action === "chat") {
         if (!config.allow_chatbridge_input) return;
-        bot.bot.chat(`${data.data.username} » ${data.data.message}`)
+        bot.bot.chat(`${data.data.username}: ${data.data.message}`)
       }
 
       if (data.data.name_changed) {

@@ -12,7 +12,6 @@ export default {
         if (!data || !data.success) return
 
         const lastMessage = data.data.messages[0];
-        console.log(lastMessage);
         const lastMsgStr = `"${lastMessage.message}" ${lastMessage.date !== null ? `(${time.timeAgoStr(parseInt(lastMessage.date))})`:""}`
 
         return !args[0]
