@@ -33,7 +33,7 @@ export default class WebSocketHandler {
       logger.log("Websocket connected.", "green", true);
 
       this.connected = true;
-      setInterval(() => { this.socket.ping() }, 5000)
+      setInterval(() => { this.socket.ping(1000) }, 5000)
     });
 
     this.socket.on("error", async (error) => {
