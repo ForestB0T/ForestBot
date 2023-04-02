@@ -1,8 +1,6 @@
 import "dotenv/config";
 import { readFile }        from "fs/promises";
 import type { BotOptions, ViewDistance } from "mineflayer";
-import type { ClientOptions, PartialTypes} from 'discord.js';
-import { Intents }                         from 'discord.js';
 
 
 let config: Config = await JSON.parse(await readFile("./config.json", "utf8"));
@@ -32,20 +30,7 @@ class MineflayerOptions implements BotOptions {
         viewDistance = 0
 }
 
-class DiscordOptions implements ClientOptions {
-    token = process.env.token
-    partials: PartialTypes[] = ['CHANNEL']
-    intents = [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_MESSAGES,
-
-    ]
-    disabledCommands: string[] = []
-}
-
 export class Options {
     mineflayer = new MineflayerOptions();
-    discord    = new DiscordOptions();
     websocket_url = config.websocket_url
 }
