@@ -4,15 +4,7 @@
     "port": 25565,
     "version": "1.19.3",
     "api_url": "https://api.forestbot.org",
-
-    "websockets": {
-        "enabled": true,
-        "hostUrl": "ws://localhost:5000",
-        "urls": [{
-            "id": "savechat",
-            "url": "savechat"
-        }]
-    },
+    "websocket_url": "wss://api.forestbot.org",
 
     "prefix": "!",
     "useCustomChatPrefix": false,
@@ -20,17 +12,10 @@
     "whisperCommand": "msg",
     
     "useRawChat": true,
-    "useunicode": true,
-    "unicodeFont": "fullWidth",
     "antiafk": true,
 
     "use_mc_whitelist": true,
     
-    "use_discord": true,
-    "main_discord_channel": "968777127392595968",
-    "discord_whitelist": ["703044116019281963"],
-    "discord_blacklist": [],
-
     "reconnect_time": 36000,
 
     "anti_spam_cooldown": 10000,
