@@ -32,8 +32,8 @@ export default class WebSocketHandler {
     this.socket.on("open", () => {
       logger.log("Websocket connected.", "green", true);
 
-      // this.connected = true;
-      // setInterval(() => { this.socket.ping(1000) }, 5000)
+      this.connected = true;
+      setInterval(() => { this.socket.ping(1000) }, 5000)
     });
 
     this.socket.on("error", async (error) => {
