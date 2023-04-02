@@ -17,6 +17,7 @@ type Config = {
     port: number,
     version: string
     api_url: string
+    websocket_url: string
 
     prefix: "!" | "?" | "-" | "="
     useCustomChatPrefix:    boolean 

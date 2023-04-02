@@ -26,5 +26,5 @@ export const bot = new Bot(options.mineflayer);
  */
 export const websocket = new WebSocketHandler({
     apiKey: process.env.apiKey,
-    url: "ws://localhost:5000/authenticate"
+    url: options.websocket_url
 })
