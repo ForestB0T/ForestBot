@@ -10,7 +10,6 @@ export default {
         Bot.isConnected = false;
         Bot.bot.quit();
         Bot.endAndRestart();
-        Bot.closeWebsockets();
         logger.log("> Bot has ended", "red", true);
         return;
     }

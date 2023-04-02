@@ -12,12 +12,12 @@
         },
         {
             "name": "chat",
-            "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*)? » (.*)$",
+            "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*) » (.*)$",
             "options": {
                 "parse": true,
                 "repeat": true
             },
-            "example": "admin » Welcome to the server!",
+            "example": "[prefix] admin [suffix] » Welcome to the server!",
             "disabled": false
         },
         {
@@ -58,7 +58,7 @@
                 "repeat": true
             },
             "example": "player4 mod » Reminder: No griefing allowed.",
-            "disabled": false
+            "disabled": true
         },
         {
             "name": "chat",

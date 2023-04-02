@@ -2,11 +2,9 @@ import mineflayer from "mineflayer";
 import mc from "minecraft-protocol";
 import { readFile, readdir } from "fs/promises";
 import { endpoints, logger } from "../../index.js";
-import { config } from "../../config.js";
+import { config, mc_blacklist, mc_whitelist } from "../../config.js";
 import * as fs from "fs";
 import time from "../../functions/utils/time.js";
-import WebSocketHandler from "../websocket/WebSocket.js";
-import convertToUnicode from "./utils/unicodeTransformer.js";
 const { ping } = mc;
 
 /**
@@ -27,7 +25,7 @@ export default class Bot {
     public isConnected: boolean;
     public allowConnection: boolean = true;
     public endpoints: endpoints
-    public apiWebSockets: Map<string, WebSocketHandler> = new Map();
+
 
     constructor(public options: mineflayer.BotOptions) {
 
@@ -36,8 +34,8 @@ export default class Bot {
         this.welcomeMsgs = config.welcome_messages
         this.endpoints = endpoints.default
 
-        config.mc_blacklist.forEach(user => this.userBlacklist.add(user));
-        config.mc_whitelist.forEach(user => this.userWhitelist.add(user));
+        mc_blacklist.forEach(user => this.userBlacklist.add(user));
+        mc_whitelist.forEach(user => this.userWhitelist.add(user));
         config.whitelisted_commands.forEach(command => this.whitelistedCmds.add(command));
 
         this.startBot();
@@ -79,13 +77,6 @@ export default class Bot {
             return;
         } else {
             logger.log("> Connection to api successful", "green", true)
-
-            if (config.websockets.enabled) {
-                for (const urlObj of config.websockets.urls) {
-                    if (this.apiWebSockets.has(urlObj.id)) continue;
-                    this.apiWebSockets.set(urlObj.id, new WebSocketHandler({ url: `${config.websockets.hostUrl}/${urlObj.url}`, apiKey: process.env.apiKey }))
-                }
-            }
         }
 
         const bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
@@ -97,11 +88,11 @@ export default class Bot {
         const chatPrefix = config.useCustomChatPrefix ? config.customChatPrefix : "";
 
         bot.chat = (msg: string) => {
-            newChat(`${chatPrefix} ${config.useunicode?convertToUnicode(msg,"bold"):msg}`)
+            newChat(`${chatPrefix}${msg}`)
         }
 
         bot.whisper = (user: string, msg: string) => {
-            newChat(`${chatPrefix} ${config.useunicode?convertToUnicode(msg, "bold"):msg}`)
+            newChat(`${chatPrefix}${msg}`)
         }
 
         this.bot = bot;
@@ -140,14 +131,6 @@ export default class Bot {
     /**
      * Closing existing connections for endpoints that use websockets.
      */
-    public closeWebsockets() {
-        for (const [id, websocket] of this.apiWebSockets.entries()) {
-            websocket.send({ close: true });
-            websocket.socket.close();
-            this.apiWebSockets.delete(id);
-        }
-    }
-
 
 
     /**

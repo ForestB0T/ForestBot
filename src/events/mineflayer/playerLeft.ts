@@ -1,6 +1,7 @@
 import type { Player } from "mineflayer";
 import type Forestbot  from "../../structure/mineflayer/Bot";
-import { client }      from "../../index.js";
+import { websocket }      from "../../index.js";
+import chalk from "chalk";
 
 export default {
     name: "playerLeft",
@@ -14,12 +15,16 @@ export default {
             uuid:     player.uuid
         }
 
-        client.chatEmbed(`> ${user.username} left`, "red");
-     
-        await Bot.endpoints.updateLeave(
-            user.username,
-            Bot.mc_server
-        )
+        websocket.send({
+            type: "minecraft",
+            action: "saveleave",
+            data: {
+                username: user.username,
+                mc_server: Bot.mc_server,
+                time: `${Date.now()}`
+            },
+            mcServer: Bot.mc_server
+        })
 
         return;
     }

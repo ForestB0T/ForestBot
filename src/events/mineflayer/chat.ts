@@ -1,9 +1,10 @@
 import type { BotEvents } from 'mineflayer';
-import { client } from "../../index.js";
+import { websocket } from "../../index.js";
 import { config } from "../../config.js";
 import Bot from '../../structure/mineflayer/Bot.js';
 import mcCommandHandler from '../../structure/mineflayer/commandHandler.js';
 import parseUsername from '../../structure/mineflayer/utils/parseUsername.js';
+import chalk from 'chalk';
 const prefix = config.prefix;
 
 export default {
@@ -31,15 +32,18 @@ export default {
                 return;
             }
 
-            (Bot.apiWebSockets.get("savechat")).send(
-                {
-                    username: user.username,
+            console.log(chalk.red(`${user.username}`), chalk.white(`: ${user.message}`));
+
+            websocket.send({
+                type: "minecraft",
+                action: "savechat",
+                data: {
+                    name: user.username,
                     message: user.message,
                     mc_server: Bot.mc_server
-                }
-            )
-
-            client.chatEmbed(`**${user.username}** » ${user.message}`, "gray");
+                },
+                mcServer: Bot.mc_server
+            })
 
             if (!user.message.startsWith(prefix)) return;
             if (user.username === Bot.bot.username) return;

@@ -1,6 +1,6 @@
 import type { Player } from "mineflayer";
 import type Forestbot  from "../../structure/mineflayer/Bot";
-import { client }      from "../../index.js";
+import { websocket }      from "../../index.js";
 
 export default {
     name: "playerJoined",
@@ -16,23 +16,17 @@ export default {
             uuid:     player.uuid
         }
 
-        client.chatEmbed(`> ${user.username} joined`, "green");
-
-        const data = await Bot.endpoints.updateJoin(
-            user.username,
-            user.uuid,
-            Bot.mc_server
-        )
-
-        if (data.oldname && Bot.welcomeMsgs) {
-            Bot.bot.chat(`${user.username}, previously known as ${data.oldname} joined the server.`);
-            return;
-        }
-
-        if (data.newuser && Bot.welcomeMsgs) {
-            Bot.bot.chat(`${user.username} joined for the first time.`)
-            return;
-        }
+        websocket.send({
+            type: "minecraft",
+            action: "savejoin",
+            data: {
+                user: user.username,
+                uuid: user.uuid,
+                mc_server: Bot.mc_server,
+                time: `${Date.now()}`
+            },
+            mcServer: Bot.mc_server
+        })
 
         return;
     }

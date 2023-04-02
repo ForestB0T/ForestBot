@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { readFile }        from "fs/promises";
-import type { BotOptions } from "mineflayer";
+import type { BotOptions, ViewDistance } from "mineflayer";
 import type { ClientOptions, PartialTypes} from 'discord.js';
 import { Intents }                         from 'discord.js';
 
@@ -21,14 +21,15 @@ export { config };
 
 export const colors: Colors = await JSON.parse(await readFile("./json/colors.json", "utf8"));
 
-config.mc_whitelist = (await JSON.parse(await readFile("./json/mc_whitelist.json", "utf8"))).users;
-config.mc_blacklist = (await JSON.parse(await readFile("./json/mc_blacklist.json", "utf8"))).users;
+export let mc_whitelist = (await JSON.parse(await readFile("./json/mc_whitelist.json", "utf8"))).users as string[]
+export let mc_blacklist = (await JSON.parse(await readFile("./json/mc_blacklist.json", "utf8"))).users as string[]
 
 class MineflayerOptions implements BotOptions {
         host     = config.host
         username = process.env.MC_USER
         version  = config.version
         port     = config.port
+        viewDistance = 0
 }
 
 class DiscordOptions implements ClientOptions {

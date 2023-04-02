@@ -9,9 +9,9 @@ export default {
         const search = args[0] ? args[0] : user;
 
         const data = await bot.endpoints.getFirstMessage(search, bot.mc_server)
-        if (!data) return
+        if (!data||!data.success) return
 
-        const firstMessage = data.messages[0];
+        const firstMessage = data.data.messages[0];
         const firstMsgStr = `"${firstMessage.message}" ${firstMessage.date !== null ? `(${time.timeAgoStr(parseInt(firstMessage.date))})`:""}`
 
         return !args[0]

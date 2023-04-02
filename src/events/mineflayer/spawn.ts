@@ -6,6 +6,9 @@ export default {
     name: "spawn",
     once: true,
     run: async (args: any[], Bot: Bot) => {
+
+        await Bot.endpoints.updateplayerlist(Bot.getPlayers(), Bot.mc_server);
+
         Bot.restartCount = 0;
         Bot.isConnected = true;
         if (config.rotateHeadOnJoin) {

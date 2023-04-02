@@ -9,9 +9,10 @@ export default {
         const search = args[0] ? args[0] : user;
 
         const data = await bot.endpoints.getLastMessage(search, bot.mc_server)
-        if (!data) return
+        if (!data || !data.success) return
 
-        const lastMessage = data.messages[0];
+        const lastMessage = data.data.messages[0];
+        console.log(lastMessage);
         const lastMsgStr = `"${lastMessage.message}" ${lastMessage.date !== null ? `(${time.timeAgoStr(parseInt(lastMessage.date))})`:""}`
 
         return !args[0]

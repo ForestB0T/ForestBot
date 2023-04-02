@@ -6,7 +6,7 @@ let intrvl: NodeJS.Timer;
 export default { 
     name: "login",
     once: true,
-    run: (args:[], Bot: Bot) => {
+    run: async  (args:[], Bot: Bot) => {
         logger.log(`> Connected to ${Bot.options.host} successfully`, "green", true);
 
         if (intrvl) {

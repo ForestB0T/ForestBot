@@ -18,33 +18,15 @@ type Config = {
     version: string
     api_url: string
 
-    websockets: {
-        enabled: boolean
-        hostUrl: string
-        urls: [{
-            id: string
-            url: string
-        }]
-    }
-
     prefix: "!" | "?" | "-" | "="
     useCustomChatPrefix:    boolean 
     customChatPrefix:       string
     whisperCommand:         string
 
     useRawChat: boolean
-    useunicode: boolean
-    unicodeFont: boolean
     antiafk: boolean
 
     use_mc_whitelist:       boolean
-    mc_whitelist:           string[],
-    mc_blacklist:           string[],
-
-    use_discord:            boolean
-    main_discord_channel:   string
-    discord_whitelist:      string[]
-    discord_blacklist:      string[]
 
     reconnect_time:         number
 

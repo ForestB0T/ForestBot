@@ -1,8 +1,9 @@
-import { bot, client } from "../../index.js";
+import { bot, websocket } from "../../index.js";
 import { config } from "../../config.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
 import mcCommandHandler from "../../structure/mineflayer/commandHandler.js";
 import parseUsername from "../../structure/mineflayer/utils/parseUsername.js";
+import chalk from "chalk";
 /**
  * This event is basically only used to capture kill messages.
  */
@@ -21,23 +22,40 @@ export default {
                 message.includes("has made the advancement") ||
                 message.includes("has completed the challenge")
             ) {
-                client.chatEmbed(`> ${message}`, "yellow");
                 const userToSave = Bot.bot.players[words[1]] ? words[1] : words[0];
-                Bot.endpoints.saveAdvancement(userToSave, message, Bot.mc_server);
+                websocket.send({
+                    type: "minecraft",
+                    action: "saveadvancement",
+                    data: {
+                        username: userToSave,
+                        advancement: message,
+                        mc_server: Bot.mc_server,
+                        time: Date.now()
+                    }
+                });
+
+                console.log(chalk.yellow(`${message}`));
+
                 return;
             }
 
             if (config.useRawChat && args[1] === "chat") {
-                let username = (Object.values(Bot.bot.players).find(val => val.uuid === args[3])).username;    
+                let username = (Object.values(Bot.bot.players).find(val => val.uuid === args[3])).username;
                 username = parseUsername(username, Bot.bot);
 
-                (Bot.apiWebSockets.get("savechat")).send({
-                    username,
-                    message,
-                    mc_server: Bot.mc_server
+                console.log(chalk.red(`${username}`), chalk.white(`: ${message}`));
+
+                websocket.send({
+                    type: "minecraft",
+                    action: "savechat",
+                    data: {
+                        name: username,
+                        message: message,
+                        mc_server: Bot.mc_server
+                    },
+                    mcServer: Bot.mc_server
                 })
 
-                client.chatEmbed(`**${username}** » ${message}`, "gray")
                 if (username === Bot.bot.username) return;
                 await mcCommandHandler(username, message, Bot);
                 return;
@@ -61,11 +79,23 @@ export default {
                     }
                 }
 
-                await client.chatEmbed(`> ${message}`, "purple").catch(() => { });
+                console.log(chalk.red(`${message}`));
 
-                murderer
-                    ? Bot.endpoints.savePvpKill(victim, murderer, message, Bot.mc_server)
-                    : Bot.endpoints.savePveKill(victim, message, Bot.mc_server)
+
+                websocket.send({
+                    type: "minecraft",
+                    action: "savedeath",
+                    data: {
+                        victim,
+                        death_message: message,
+                        murderer: murderer ? murderer : null,
+                        time: Date.now(),
+                        type: murderer ? "pvp" : "pve",
+                        mc_server: bot.mc_server
+                    },
+                    mcServer: Bot.mc_server
+                })
+
 
             }
 
