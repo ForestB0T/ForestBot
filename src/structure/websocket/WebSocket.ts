@@ -57,11 +57,11 @@ export default class WebSocketHandler {
         bot.bot.chat(`${data.data.username}: ${data.data.message}`)
       }
 
-      if (data.data.name_changed) {
+      if (data.data.name_changed && config.welcome_messages) {
         bot.bot.chat(`${data.data.new_name}, previously known as ${data.data.old_name} joined.`);
       }
 
-      if (data.data.new_user) {
+      if (data.data.new_user && config.welcome_messages) {
         bot.bot.chat(`${data.data.username} joined for the first time.`);
       }
 
