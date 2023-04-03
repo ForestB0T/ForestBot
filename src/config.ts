@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { readFile }        from "fs/promises";
-import type { BotOptions, ViewDistance } from "mineflayer";
+import type { BotOptions } from "mineflayer";
 
 
 let config: Config = await JSON.parse(await readFile("./config.json", "utf8"));

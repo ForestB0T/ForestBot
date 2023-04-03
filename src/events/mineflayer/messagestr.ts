@@ -23,6 +23,9 @@ export default {
                 message.includes("has completed the challenge")
             ) {
                 const userToSave = Bot.bot.players[words[1]] ? words[1] : words[0];
+                const uuid = Bot.bot.players[userToSave].uuid;
+                
+
                 websocket.send({
                     type: "minecraft",
                     action: "saveadvancement",
@@ -30,7 +33,8 @@ export default {
                         username: userToSave,
                         advancement: message,
                         mc_server: Bot.mc_server,
-                        time: Date.now()
+                        time: Date.now(),
+                        uuid
                     }
                 });
 
@@ -91,7 +95,9 @@ export default {
                         murderer: murderer ? murderer : null,
                         time: Date.now(),
                         type: murderer ? "pvp" : "pve",
-                        mc_server: bot.mc_server
+                        mc_server: bot.mc_server,
+                        victimUUID: Bot.bot.players[victim].uuid??null,
+                        murdererUUID: murderer ? Bot.bot.players[murderer].uuid??null : null
                     },
                     mcServer: Bot.mc_server
                 })
