@@ -42,12 +42,12 @@
         },
         {
             "name": "chat",
-            "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*)? >> (.*)$",
+            "regex": "^(?:\\[.+?\\] )?([^ ]+)(?: \\[.+?\\])?(?: \\S+)? >> (.*)$",
             "options": {
                 "parse": true,
                 "repeat": true
             },
-            "example": "player3 >> I'll be back later.",
+            "example": "[prefix] player3 [suffix] >> I'll be back later.",
             "disabled": false
         },
         {

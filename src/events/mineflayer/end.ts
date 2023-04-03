@@ -4,7 +4,7 @@ import { logger }    from '../../index.js';
 
 export default {
     name: 'end',
-    once: false,
+    once: true,
     run: (args: any[], Bot: Bot) => {        
         const content: BotEvents = args[0];
         Bot.isConnected = false;

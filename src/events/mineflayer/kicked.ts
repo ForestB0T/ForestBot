@@ -7,6 +7,7 @@ export default {
     once: false,
     run: async (content: BotEvents, Bot: Bot) => {
         logger.log(`> Bot has been kicked. Reason: ${content.toString()}`, "yellow", true)
+        Bot.bot.end();
         return;
     }
 };
