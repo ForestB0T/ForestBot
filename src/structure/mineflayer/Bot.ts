@@ -128,10 +128,6 @@ export default class Bot {
         return arr as [{ name: string, ping: number }];
     }
 
-    /**
-     * Closing existing connections for endpoints that use websockets.
-     */
-
 
     /**
      * Add a player to the whitelist.
