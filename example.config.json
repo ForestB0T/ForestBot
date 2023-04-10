@@ -3,7 +3,7 @@
     "host": "192.168.100.108",
     "port": 25565,
     "version": "1.19.3",
-    "api_url": "https://api.forestbot.org",
+    "api_url": "https://api.forestbot.org/authenticate",
     "websocket_url": "wss://api.forestbot.org",
 
     "prefix": "!",
