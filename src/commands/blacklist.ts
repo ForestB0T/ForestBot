@@ -14,7 +14,7 @@ const uuidWhiteList = [
 ]
 
 export default {
-    commands: ['bp', 'bestping'],
+    commands: ['blacklist'],
     minArgs: 0,
     maxArgs: 1,
     execute: async (user: string, args: any[], bot: Bot) => {

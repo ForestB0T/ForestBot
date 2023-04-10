@@ -11,8 +11,8 @@
     "customChatPrefix": "&d&l",
     "whisperCommand": "msg",
     
-    "useRawChat": true,
-    "antiafk": true,
+    "useRawChat": false,
+    "antiafk": false,
 
     "use_mc_whitelist": true,
     
