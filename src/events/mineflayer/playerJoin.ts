@@ -1,11 +1,14 @@
 import type { Player } from "mineflayer";
-import type Forestbot  from "../../structure/mineflayer/Bot";
-import { websocket }      from "../../index.js";
+import type Forestbot from "../../structure/mineflayer/Bot";
+import { websocket } from "../../index.js";
+import ForestBotAi from "../../functions/chatgpt/ai";
+
+let joinCount = 0;
 
 export default {
     name: "playerJoined",
     once: false,
-    run: async(args: any[], Bot: Forestbot) => {
+    run: async (args: any[], Bot: Forestbot) => {
 
         const player: Player = args[0]
 
@@ -13,7 +16,17 @@ export default {
 
         const user = {
             username: player.username,
-            uuid:     player.uuid
+            uuid: player.uuid
+        }
+
+        joinCount++;
+        if (joinCount === 5) {
+            joinCount = 0;
+            ForestBotAi(
+                user.username,
+                `Pretend user ${user.username} just joined the Minecraft Server. Welcome ${user.username} in a not nice way.`
+                , Bot
+            );
         }
 
         websocket.send({
