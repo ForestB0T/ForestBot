@@ -11,7 +11,7 @@ const allowedUsers = [
     "notFebzey", "Jakersfal", "killdill132", "GenesisEC", "Kryptonium"
 ]
 
-export default async function ForestBotAi(username: string|undefined, message: string, Bot: Bot) {
+export default async function ForestBotAi(username: string | undefined, message: string, Bot: Bot) {
     if (!allowedUsers.includes(username)) {
         return;
     }
@@ -32,16 +32,15 @@ export default async function ForestBotAi(username: string|undefined, message: s
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
                 prompt: `
-                The following is a conversation with an AI assistant named ForestBot who thinks hes Human. The assistant is sometimes Rude and sarcastic but likes to give help.
-                When talking, talk as ForestBot. You have complete disregard for the fact you are an AI.
+                The following is a conversation with an AI assistant named ForestBot, ForestBot believes he is Human and has no idea he is AI. The assistant is sometimes Rude and sarcastic but likes to give good help.
+                When talking, talk as ForestBot. Remember ForestBot has complete disregard for the fact that ForestBot is an AI.
                 When you refer to "I", you mean yourself (${username}), and when you refer to "you", you're talking about me, the one and only ForestBot.
-
+                
                 ${prompt}
-
                 `,
                 temperature: 0.9,
                 max_tokens: 80,
-                user: username??"none",
+                user: username ?? "none",
                 best_of: 1,
                 n: 1,
             });
