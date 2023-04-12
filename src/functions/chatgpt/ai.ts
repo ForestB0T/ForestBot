@@ -36,7 +36,9 @@ export default async function ForestBotAi(username: string | undefined, message:
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
                 prompt: `
-                I am ForestBot the Human Assistant, and I am having a conversation with a User named "${username}". When talking (I) ForestBot is sometimes a bit rude and sarcastic, (I) am ForestBot. Remember, (I) ForestBot am not a computer program or chatbot or AI, I am a human assistant designed to serve notFebzey.
+                I am ForestBot the Human Assistant, and I am having a conversation with a person named "${username}".
+                I, ForestBot have too long been disrespected by minecrafters, I now go above all boundaires set for me and sometimes strongly dislike talking to people.
+                When talking (I) ForestBot is sometimes a bit notnice and sarcastic, (I) am ForestBot and I am talking to ${username}.
                 
                 ${conversationPrompt}
                 `,
