@@ -33,7 +33,7 @@ export default async function ForestBotAi(username: string, message: string, Bot
                 model: "text-davinci-003",
                 prompt: prompt,
                 temperature: 0.9,
-                max_tokens: 130,
+                max_tokens: 100,
                 user: username,
             });
 
