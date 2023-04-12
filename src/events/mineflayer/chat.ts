@@ -4,6 +4,7 @@ import { config } from "../../config.js";
 import Bot from '../../structure/mineflayer/Bot.js';
 import mcCommandHandler from '../../structure/mineflayer/commandHandler.js';
 import parseUsername from '../../structure/mineflayer/utils/parseUsername.js';
+import ForestBotAi from '../../functions/chatgpt/ai.js';
 import chalk from 'chalk';
 const prefix = config.prefix;
 
@@ -44,6 +45,15 @@ export default {
                 },
                 mcServer: Bot.mc_server
             })
+
+            if (
+                user.message.toLowerCase().startsWith("hey, forestbot") ||
+                user.message.toLowerCase().startsWith("forestbot,") || 
+                user.message.toLowerCase().startsWith("hey forestbot,")
+                ) {
+                ForestBotAi(user.username, user.message, Bot);
+                return;
+            }
 
             if (!user.message.startsWith(prefix)) return;
             if (user.username === Bot.bot.username) return;
