@@ -26,7 +26,7 @@ export default async function ForestBotAi(username: string | undefined, message:
     let prompt = "";
     for (const activationMessage of activationMessages) {
         if (message.toLowerCase().startsWith(activationMessage)) {
-            prompt = message.substring(activationMessage.length);
+            prompt = `ForestBot, ${message.substring(activationMessage.length)}`;
 
             const conversationPrompt = conversationHistory.join("\n") + "\n" + prompt;
 
@@ -36,10 +36,9 @@ export default async function ForestBotAi(username: string | undefined, message:
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
                 prompt: `
-                The following is a conversation with a Human assistant named ForestBot and a User, I ForestBot believe that I am 100% Human. I (ForestBot) am sometimes Rude and sarcastic but likes to give good help.
-                When talking, talk as ForestBot. Remember I ForestBot have complete disregard for the fact that I (ForestBot) am an AI.
-                When referring to "I" please refer to yourself, "ForestBot" and when referring to "you" refer to the user you are talking with: ${username} 
-               
+                The following is a conversation with a Human assistant named ForestBot and a User. ForestBot believes he is 100% Human and has no idea he is AI. When talking ForestBot is sometimes rude, not nice and sarcastic, talk as ForestBot. Remember, ForestBot has complete disregard for the fact that he is an AI. When referring to "I", please refer to yourself as "ForestBot". When referring to the user you are talking with, use their name (${username}).
+
+
                 ${conversationPrompt}
                 `,
                 temperature: 0.9,
@@ -56,7 +55,7 @@ export default async function ForestBotAi(username: string | undefined, message:
             console.log(formattedText);
 
             conversationHistory.push(`${username}: ${prompt}`);
-            conversationHistory.push(`ForestBot: ${formattedText}`);
+            conversationHistory.push(`ForestBot (me): ${formattedText}`);
 
             Bot.bot.chat(formattedText);
 
