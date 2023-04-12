@@ -32,9 +32,10 @@ export default async function ForestBotAi(username: string, message: string, Bot
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
                 prompt: prompt,
-                temperature: 0.9,
+                temperature: 0.6,
                 max_tokens: 120,
                 user: username,
+                n: 1,
             });
 
             // handle the response here
