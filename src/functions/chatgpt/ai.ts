@@ -11,7 +11,7 @@ const allowedUsers = [
     "notFebzey", "Jakersfal", "killdill132", "GenesisEC", "Kryptonium"
 ]
 
-export default async function ForestBotAi(username: string, message: string, Bot: Bot) {
+export default async function ForestBotAi(username: string|undefined, message: string, Bot: Bot) {
     if (!allowedUsers.includes(username)) {
         return;
     }
@@ -41,7 +41,7 @@ export default async function ForestBotAi(username: string, message: string, Bot
                 `,
                 temperature: 0.9,
                 max_tokens: 80,
-                user: username,
+                user: username??"none",
                 best_of: 1,
                 n: 1,
             });
