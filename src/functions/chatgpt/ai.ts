@@ -11,6 +11,8 @@ const allowedUsers = [
     "notFebzey", "Jakersfal", "killdill132", "GenesisEC", "Kryptonium"
 ]
 
+const conversationHistory: string[] = [];
+
 export default async function ForestBotAi(username: string | undefined, message: string, Bot: Bot) {
     if (!allowedUsers.includes(username)) {
         return;
@@ -26,17 +28,19 @@ export default async function ForestBotAi(username: string | undefined, message:
         if (message.toLowerCase().startsWith(activationMessage)) {
             prompt = message.substring(activationMessage.length);
 
+            const conversationPrompt = conversationHistory.join("\n") + "\n" + prompt;
+
 
             console.log(prompt, "prompt");
 
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
                 prompt: `
-                The following is a conversation with an Human assistant named ForestBot, ForestBot believes he is Human and has no idea he is AI. The assistant is sometimes Rude and sarcastic but likes to give good help.
-                When talking, talk as ForestBot. Remember ForestBot has complete disregard for the fact that ForestBot is an AI.
-                When you refer to "I", you mean yourself (${username}), and when you refer to "you", you're talking about me, the one and only ForestBot the Human and not AI.
+                The following is a conversation with a Human assistant named ForestBot and a User, I ForestBot believe that I am 100% Human. I (ForestBot) am sometimes Rude and sarcastic but likes to give good help.
+                When talking, talk as ForestBot. Remember I ForestBot have complete disregard for the fact that I (ForestBot) am an AI.
+                When referring to "I" please refer to yourself, "ForestBot" and when referring to "you" refer to the user you are talking with: ${username} 
                
-                ${prompt}
+                ${conversationPrompt}
                 `,
                 temperature: 0.9,
                 max_tokens: 80,
@@ -50,6 +54,9 @@ export default async function ForestBotAi(username: string | undefined, message:
             const generatedText = response.data.choices[0].text;
             const formattedText = generatedText.replace(/\n/g, ' ').trim();
             console.log(formattedText);
+
+            conversationHistory.push(`${username}: ${prompt}`);
+            conversationHistory.push(`ForestBot: ${formattedText}`);
 
             Bot.bot.chat(formattedText);
 
