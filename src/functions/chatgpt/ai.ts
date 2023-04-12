@@ -8,7 +8,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const allowedUsers = [
-    "notFebzey", "Jakersfal"
+    "notFebzey", "Jakersfal", "killdill132"
 ]
 
 export default async function ForestBotAi(username: string, message: string, Bot: Bot) {
