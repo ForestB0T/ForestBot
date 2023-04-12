@@ -31,7 +31,7 @@ export default async function ForestBotAi(username: string, message: string, Bot
 
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
-                prompt: `I am ForestBot, you are ${username}. When I refer to "I" we are talking about ${username}. ${prompt}`,
+                prompt: `I am ForestBot, you are ${username}. When we refer to "I" we are talking about ${username}. ${prompt}`,
                 temperature: 0.7,
                 max_tokens: 80,
                 user: username,
