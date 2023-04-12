@@ -9,6 +9,7 @@ const openai = new OpenAIApi(configuration);
 
 
 export default async function ForestBotAi(username: string, message: string, Bot: Bot) {
+    if (username !== "notFebzey") return;
     const activationMessages = [
         "hey, forestbot",
         "forestbot,",
