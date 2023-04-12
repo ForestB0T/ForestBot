@@ -26,7 +26,7 @@ export default async function ForestBotAi(username: string | undefined, message:
     let prompt = "";
     for (const activationMessage of activationMessages) {
         if (message.toLowerCase().startsWith(activationMessage)) {
-            prompt = `ForestBot, ${message.substring(activationMessage.length)}`;
+            prompt = `${username}: ForestBot, ${message.substring(activationMessage.length)}`;
 
             const conversationPrompt = conversationHistory.join("\n") + "\n" + prompt;
 
