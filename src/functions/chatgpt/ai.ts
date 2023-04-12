@@ -40,7 +40,6 @@ export default async function ForestBotAi(username: string | undefined, message:
                 When the User refers to or says "I" they are talking above them selves (${username}). When the User refers to or says "you", they are talking about you, ForestBot the Human assistant.
                 
                 ${conversationPrompt}
-                
                 `,
                 temperature: 0.9,
                 max_tokens: 80,
