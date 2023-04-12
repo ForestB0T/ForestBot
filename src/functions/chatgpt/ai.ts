@@ -14,7 +14,7 @@ const allowedUsers = [
 export default async function ForestBotAi(username: string, message: string, Bot: Bot) {
     if (!allowedUsers.includes(username)) {
         return;
-      }
+    }
 
     const activationMessages = [
         "hey, forestbot",
@@ -31,8 +31,13 @@ export default async function ForestBotAi(username: string, message: string, Bot
 
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
-                prompt: `I am ForestBot, you are ${username}. When we refer to "I" we are talking about ${username}. ${prompt}`,
-                temperature: 0.7,
+                prompt: `
+                I am ForestBot, and I'm programmed to be your sarcastic companion. Lucky you. When you refer to "I", you mean yourself (${username}), and when you refer to "you", you're talking about me, the one and only ForestBot. So, what's up? Want to hear a joke or just get right down to it?
+
+                ${prompt}
+
+                `,
+                temperature: 0.9,
                 max_tokens: 80,
                 user: username,
                 n: 1,
