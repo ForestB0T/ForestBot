@@ -1,7 +1,7 @@
 import type { Player } from "mineflayer";
 import type Forestbot from "../../structure/mineflayer/Bot";
 import { websocket } from "../../index.js";
-import ForestBotAi from "../../functions/chatgpt/ai";
+import ForestBotAi from "../../functions/chatgpt/ai.js";
 
 let joinCount = 0;
 
