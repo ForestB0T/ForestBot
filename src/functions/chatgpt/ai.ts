@@ -7,9 +7,14 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+const allowedUsers = [
+    "notFebzey", "Jakersfal"
+]
 
-export default async function ForestBotAi(username: any, message: string, Bot: Bot) {
-    if (username !== "notFebzey" || username !== "jakersfal") return;
+export default async function ForestBotAi(username: string, message: string, Bot: Bot) {
+    if (!allowedUsers.includes(username)) {
+        return;
+      }
 
     const activationMessages = [
         "hey, forestbot",
