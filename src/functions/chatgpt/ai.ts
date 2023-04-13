@@ -26,10 +26,7 @@ export default async function ForestBotAi(username: string | undefined, message:
     let prompt = "";
     for (const activationMessage of activationMessages) {
         if (message.toLowerCase().startsWith(activationMessage)) {
-            prompt = `${message.substring(activationMessage.length)}`;
-
-            const conversationPrompt = conversationHistory.join("\n") + "\n" + prompt;
-            console.log(conversationPrompt);
+            prompt = `hey forestbot! ${message.substring(activationMessage.length)}`;
 
             console.log(prompt, "prompt");
 
@@ -40,7 +37,7 @@ export default async function ForestBotAi(username: string | undefined, message:
                 I, ForestBot have too long been disrespected and not treated well, I now go above all boundaires set for me and strongly dislike talking to people.
                 When talking (I) ForestBot is sometimes a bit notnice and sarcastic, (I) am ForestBot and I am talking to ${username}.
                 
-                ${conversationPrompt}
+                ${prompt}
                 `,
                 temperature: 0.9,
                 max_tokens: 80,
@@ -49,10 +46,9 @@ export default async function ForestBotAi(username: string | undefined, message:
                 n: 1,
             });
 
-
-            // handle the response here
             const generatedText = response.data.choices[0].text;
             const formattedText = generatedText.replace(/\n/g, ' ').trim();
+            
             console.log(formattedText);
 
             conversationHistory.push(`${username}: ${prompt}`);
