@@ -40,7 +40,7 @@ export default async function ForestBotAi(username: string | undefined, message:
                 ${prompt}
                 `,
                 temperature: 0.9,
-                max_tokens: 80,
+                max_tokens: 70,
                 user: username ?? "none",
                 best_of: 1,
                 n: 1,
@@ -48,7 +48,7 @@ export default async function ForestBotAi(username: string | undefined, message:
 
             const generatedText = response.data.choices[0].text;
             const formattedText = generatedText.replace(/\n/g, ' ').trim();
-            
+
             console.log(formattedText);
 
             conversationHistory.push(`${username}: ${prompt}`);
