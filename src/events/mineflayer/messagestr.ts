@@ -38,6 +38,10 @@ export default {
                     if (!chat_dividers.includes(char)) continue;
                     const dividerIndex = msg.indexOf(char);
 
+                    if (msg[dividerIndex + 1] === ">") {
+                        msg.replace(">>", ">");
+                    }
+
                     if (!dividerIndex) continue;
                     if (dividerIndex >= 30) continue;
 
