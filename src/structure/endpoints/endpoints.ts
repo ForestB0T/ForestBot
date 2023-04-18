@@ -108,7 +108,7 @@ export default class apiHandler extends ForestBotApiClient {
 
             this.Socket.on("newUser", (username) => {
                 if (!config.welcome_messages || !bot.isConnected) return;
-                bot.bot.chat(`Hello, ${username} welcome to the server.`)
+                bot.bot.chat(`Hello, ${username} this is my first time seeing you. Welcome!`)
                 return
             })
 
