@@ -22,7 +22,7 @@ export default {
         let msgg: string;
         let uuid: string;
 
-        const msg = chatArgs[0];
+        let msg = chatArgs[0];
         const chat_dividers = ["»", ">>", ">", ":"];
 
 
@@ -39,8 +39,9 @@ export default {
                     const dividerIndex = msg.indexOf(char);
 
                     if (msg[dividerIndex + 1] === ">") {
-                        msg.replace(">>", ">");
-                    }
+                        msg = msg.replace(">", "");
+                      }
+                      
 
                     if (!dividerIndex) continue;
                     if (dividerIndex >= 30) continue;
