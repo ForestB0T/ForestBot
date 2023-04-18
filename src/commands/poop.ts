@@ -5,6 +5,6 @@ export default {
     minArgs: 0,
     maxArgs: 1,
     execute: async (user: string, args: any[], bot: Bot) => {
-        return bot.bot.chat(`poooooooooooooooooooooooooooop!`)
+        return bot.bot.chat(`poop`)
     }
  } as MCommand
