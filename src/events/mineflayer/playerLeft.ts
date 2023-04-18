@@ -1,7 +1,6 @@
 import type { Player } from "mineflayer";
 import type Forestbot  from "../../structure/mineflayer/Bot";
-import { websocket }      from "../../index.js";
-import chalk from "chalk";
+import { Logger, api }      from "../../index.js";
 
 export default {
     name: "playerLeft",
@@ -15,7 +14,20 @@ export default {
             uuid:     player.uuid
         }
 
-        websocket.send({
+        Logger.leave(user.username, user.uuid);
+
+        // websocket.send({
+        //     type: "minecraft",
+        //     action: "saveleave",
+        //     data: {
+        //         username: user.username,
+        //         mc_server: Bot.mc_server,
+        //         time: `${Date.now()}`
+        //     },
+        //     mcServer: Bot.mc_server
+        // })
+
+        const saveUserLeaveParams = {
             type: "minecraft",
             action: "saveleave",
             data: {
@@ -24,7 +36,9 @@ export default {
                 time: `${Date.now()}`
             },
             mcServer: Bot.mc_server
-        })
+        }
+
+        api.saveLeave(saveUserLeaveParams);
 
         return;
     }

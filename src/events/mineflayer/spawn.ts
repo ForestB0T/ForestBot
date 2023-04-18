@@ -1,20 +1,21 @@
-import type Bot   from "../../structure/mineflayer/Bot.js"
-import time       from "../../functions/utils/time.js";
+import type Bot from "../../structure/mineflayer/Bot.js"
 import { config } from "../../config.js";
-import antiafk    from "../../functions/utils/antiAFK.js";
-export default { 
+import antiafk from "../../structure/mineflayer/utils/antiAFK.js";
+import { Logger, api } from "../../index.js";
+
+export default {
     name: "spawn",
     once: true,
     run: async (args: any[], Bot: Bot) => {
+        Logger.spawn(`${Bot.bot.username} has spawned`);
 
-        await Bot.endpoints.updateplayerlist(Bot.getPlayers(), Bot.mc_server);
-
+        await api.postUpdatePlayerList({
+            users: Bot.getPlayers(),
+            mc_server: Bot.mc_server
+        });
+        
         Bot.restartCount = 0;
         Bot.isConnected = true;
-        if (config.rotateHeadOnJoin) {
-            await time.sleep(2000);
-            await Bot.bot.look(180, 0, true);
-        }
 
         if (config.antiafk) {
             antiafk(Bot.bot);

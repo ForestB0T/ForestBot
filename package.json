@@ -14,12 +14,12 @@
     "chalk": "^5.0.0",
     "date-and-time": "^2.2.1",
     "dotenv": "^16.0.0",
+    "forestbot-api": "^1.0.9",
     "javascript-time-ago": "^2.3.13",
     "minecraft-protocol": "^1.40.3",
     "mineflayer": "^4.8.0",
     "node-fetch": "^3.2.2",
     "openai": "^3.2.1",
-    "urban-dictionary": "^3.0.2",
-    "ws": "^8.13.0"
+    "urban-dictionary": "^3.0.2"
   }
 }

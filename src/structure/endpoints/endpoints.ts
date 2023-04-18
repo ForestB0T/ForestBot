@@ -1,39 +1,147 @@
-import { fetchApi, postApi } from "../../functions/Fetch/fetch.js"
+import { ForestBotApiClient, ForestBotApiConfig } from "forestbot-api";
+import { Logger, bot } from "../../index.js";
+import { config } from "../../config.js";
 
-/**
- * Endpoints for ForestBot api
- */
-export default {
+interface SaveChatParams {
+    type: string,
+    action: string,
+    data: {
+        name: string,
+        message: string,
+        mc_server: string,
+        uuid: string
+    },
+    mcServer: string
+}
 
-    savePlaytime: async (users, mc_server) => postApi(`saveplaytime`, { players: users, mc_server: mc_server }),
-    savePvpKill: async (victim, murderer, deathmsg, mc_server) => postApi(`savepvpkill`, { victim: victim, murderer: murderer, deathmsg: deathmsg, mc_server: mc_server }),
-    savePveKill: async (victim, deathmsg, mc_server) => postApi(`savepvekill`, { victim: victim, deathmsg: deathmsg, mc_server: mc_server }),
-    saveChat: async (user, message, mc_server) => postApi('savechat', { user, message, mc_server }),
-    saveAdvancement: async (user, advancement, mc_server) => postApi("saveadvancement", { user, advancement, mc_server }),
+interface SaveAdvancementArgs {
+    type: string,
+    action: string,
+    data: {
+        username: string,
+        advancement: string,
+        mc_server: string,
+        time: number,
+        uuid: string
+    }
+}
 
-    saveIam: async (user, description) => postApi("iam", { user: user, description: description }),
+interface SaveKillOrDeathArgs {
+    type: string,
+    action: string,
+    data: {
+        victim: string,
+        death_message: string,
+        time: number,
+        type: string,
+        mc_server: string,
+        victimUUID: string,
+        murdererUUID: string,
+    },
+    mcServer: string
+}
 
-    updateLeave: async (user, mc_server) => postApi(`updateleave`, { user: user, mc_server: mc_server, time: Date.now() }),
-    updateJoin: async (user, uuid, mc_server) => postApi(`updatejoin`, { user: user, uuid: uuid, mc_server: mc_server, time: Date.now() }),
+interface SaveUserJoinParams {
+    type: string,
+    action: string,
+    data: {
+        user: string,
+        uuid: string,
+        mc_server: string,
+        time: string,
+    },
+    mcServer: string
+}
 
-    updateplayerlist: async (users, mc_server) => postApi(`updateplayerlist`, { users: users, mc_server: mc_server }),
+interface SaveUserLeaveParams {
+    type: string,
+    action: string,
+    data: {
+        username: string,
+        mc_server: string,
+        time: string,
+    },
+    mcServer: string
+}
 
-    getNameFind: async (user, mc_server) => fetchApi(`namefind/${user}/${mc_server}`),
-    getWhoIs: async (user) => fetchApi(`whois/${user}`),
-    getChannels: async (mc_server) => fetchApi(`getchannels/${mc_server}/${process.env.apiKey}`),
-    getPlaytime: async (user, mc_server) => fetchApi(`playtime/${user}/${mc_server}`),
-    getJoindate: async (user, mc_server) => fetchApi(`joindate/${user}/${mc_server}`),
-    getJoins: async (user, mc_server) => fetchApi(`joins/${user}/${mc_server}`),
-    getKd: async (user, mc_server) => fetchApi(`kd/${user}/${mc_server}`),
-    getLastDeath: async (user, mc_server) => fetchApi(`lastdeath/${user}/${mc_server}`),
-    getLastMessage: async (user, mc_server) => fetchApi(`messages/${user}/${mc_server}/1/last`),
-    getFirstMessage: async (user, mc_server) => fetchApi(`messages/${user}/${mc_server}/1/first`),
-    getLastSeen: async (user, mc_server) => fetchApi(`lastseen/${user}/${mc_server}`),
-    getMessageCnt: async (user, mc_server) => fetchApi(`messagecount/${user}/${mc_server}`),
-    getQuote: async (user, mc_server) => fetchApi(`quote/${user}/${mc_server}`),
-    getUniquePcnt: async (mc_server) => fetchApi(`uniqueplayers/${mc_server}`),
-    getTopStat: async (stat, mc_server) => fetchApi(`topstat/${stat}/${mc_server}`),
-    getWordCount: async(word, serv, user) => fetchApi(`wordcount/${word}/${user}/${serv}`),
-    pingApi: async () => fetchApi(`ping`)
+interface BotErrorParams {
+    type: string,
+    action: string,
+    data: {
+        mc_server: string,
+        time: string,
+    },
+    mcServer: string
+}
 
-} as endpoints;
+export default class apiHandler extends ForestBotApiClient {
+
+    constructor(params: ForestBotApiConfig) {
+        super(params)
+
+        if (params.useWebsocket && params.webSocket_url) {
+
+            this.Socket.on("open", () => {
+                this.Socket.isConnected = true;
+                Logger.success("Websocket connected.")
+            });
+
+            this.Socket.on("closed", async (reason: number) => {
+                Logger.error(`Websocket Disconnected: Code: ${reason}`);
+                this.Socket.isConnected = false;
+                await new Promise(r => setTimeout(r, 10000));
+                this.Socket.authenticate();
+            });
+
+            this.Socket.on("chat", (data) => {
+                if (!bot.isConnected || !config.allow_chatbridge_input) return;
+                const { username, message } = data;
+                bot.bot.chat(`${username}: ${message}`);
+                return
+            });
+
+            this.Socket.on("nameChange", (new_name, old_name) => {
+                if (!config.welcome_messages || !bot.isConnected) return;
+                bot.bot.chat(`${new_name} previously known as ${old_name} joined the server.`)
+                return;
+            })
+
+            this.Socket.on("newUser", (username) => {
+                if (!config.welcome_messages || !bot.isConnected) return;
+                bot.bot.chat(`Hello, ${username} welcome to the server.`)
+                return
+            })
+
+        }
+    };
+
+    private async websocketSend(data: any) {
+        if (!this.Socket.isConnected) return;
+        this.Socket.send(data)
+    };
+
+    public saveChat(params: SaveChatParams) {
+        this.websocketSend(params);
+    };
+
+    public saveAdvancement(params: SaveAdvancementArgs) {
+        this.websocketSend(params)
+    };
+
+    public saveKillOrDeath(params: SaveKillOrDeathArgs) {
+        this.websocketSend(params)
+    };
+
+    public saveJoin(params: SaveUserJoinParams) {
+        this.websocketSend(params);
+    }
+
+    public saveLeave(params: SaveUserLeaveParams) {
+        this.websocketSend(params)
+    };
+
+    public reportProblem(params: BotErrorParams) {
+        this.websocketSend(params)
+    };
+
+};

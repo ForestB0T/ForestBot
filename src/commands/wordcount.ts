@@ -1,15 +1,16 @@
-import type Bot from '../structure/mineflayer/Bot.js';
+import type { ForestBotApiClient } from 'forestbot-api';
 
 export default {
     commands: ['wordcount', 'words', 'count'],
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user: string, args: any[], bot: Bot) => {
+    execute: async (user, args, bot, api: ForestBotApiClient) => {
         const search = args[0]        
         const word = args[1];
 
         if (!search||!word) return;
-        const data = await bot.endpoints.getWordCount(word, bot.mc_server, search); 
+        const data = await api.getWordOccurenceCount(search, word);
+        
         if (!data || !data.word_count) return
 
         return !args[0]

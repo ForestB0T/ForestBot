@@ -1,27 +1,27 @@
-import type Bot from "../structure/mineflayer/Bot";
-import time     from "../functions/utils/time.js";
+import { ForestBotApiClient } from "forestbot-api";
+import time from "../functions/utils/time.js";
 
 export default {
-    commands: ['joindate', 'jd'],
+    commands: ['joindate', 'jd', 'firstseen'],
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user: string, args: any[], bot: Bot) => {
+    execute: async (user, args, bot, api: ForestBotApiClient) => {
         const search = args[0] ? args[0] : user;
 
-        const data = await bot.endpoints.getJoindate(search, bot.mc_server);
-        if (!data) return 
-        
-        
+        const data = await api.getJoindate(search);
+
+        if (!data) return
+
         let joindateStr: string;
 
-        if (data.joindate.match(/^\d+$/)) { 
-            joindateStr = `${time.convertUnixTimestamp(data.joindate / 1000)}, (${time.timeAgoStr(parseInt(data.joindate))})`;
+        if (data.joindate.toString().match(/^\d+$/)) {
+            joindateStr = `${time.convertUnixTimestamp(parseInt(data.joindate.toString()) / 1000)}, (${time.timeAgoStr(parseInt(data.joindate.toString()))})`;
         } else {
-            joindateStr = data.joindate;
+            joindateStr = data.joindate as string;
         }
 
         return !args[0]
-            ? bot.bot.whisper(user, `${joindateStr}`)
-            : bot.bot.chat(`${search}: ${joindateStr}`);
+            ? bot.bot.whisper(user, `I first saw ${user}, ${joindateStr}`)
+            : bot.bot.chat(`I first saw ${search}, ${joindateStr}`);
     }
 } as MCommand

@@ -1,5 +1,6 @@
-import type Bot from "./Bot";
-import { config } from "../../config.js";
+import type Bot from "../Bot";
+import { config } from "../../../config.js";
+import { Logger, api } from "../../../index.js";
 
 const spam: Map<string, number> = new Map();
 
@@ -42,7 +43,8 @@ export default async function mcCommandHandler(user: string, message: string, bo
                     cooldown_time: config.anti_spam_cooldown,
                     spam_limit: config.anti_spam_msg_limit
                 })) {
-                    value.execute(user, args, bot);
+                    Logger.command(user, message);
+                    value.execute(user, args, bot, api);
                 }
                 
             }

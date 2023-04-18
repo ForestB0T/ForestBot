@@ -6,17 +6,18 @@
     "api_url": "https://api.forestbot.org",
     "websocket_url": "wss://api.forestbot.org/authenticate",
 
+    "useLogger": true,
+
     "prefix": "!",
     "useCustomChatPrefix": false,
     "customChatPrefix": "&d&l",
     "whisperCommand": "msg",
     
-    "useRawChat": false,
     "antiafk": false,
 
     "use_mc_whitelist": true,
     
-    "reconnect_time": 36000,
+    "reconnect_time": 40000,
 
     "anti_spam_cooldown": 10000,
     "anti_spam_msg_limit": 5,
@@ -28,9 +29,10 @@
     "useCommands": true,
 
     "commands": {
-        "bp": true,
-        "kill": true,
-        "coords": true,
+        "urban": true,
+        "kill": false,
+        "ping": true,
+        "coords": false,
         "discord": true,
         "help": true,
         "joindate": true,
@@ -40,13 +42,9 @@
         "lastseen": true,
         "mount": true,
         "msgcount": true,
-        "owner": true,
-        "ping": true,
         "playtime": true,
         "quote": true,
-        "sleep": true,
         "top": true,
-        "urban": true,
         "wp": true
     },
     

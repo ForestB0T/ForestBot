@@ -1,4 +1,6 @@
 import type Forestbot from "../../structure/mineflayer/Bot";
+import { Logger } from "../../index.js";
+import { config } from "../../config.js";
 
 const seenPlayerList = new Set<string>();
 
@@ -29,7 +31,8 @@ export default {
         z = Math.round(z * 10) / 10;
 
         const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-        Bot.bot.chat(greeting.replace("$username", username));
+        if (config.welcome_messages) Bot.bot.chat(greeting.replace("$username", username));
+        Logger.world(`[${username}] (${x}, ${y}, ${z}) Spotted.`); 
 
         setTimeout(() => {
             seenPlayerList.delete(uuid)

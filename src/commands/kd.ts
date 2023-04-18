@@ -1,13 +1,13 @@
-import type Bot from "../structure/mineflayer/Bot";
+import type { ForestBotApiClient } from "forestbot-api";
 
 export default {
     commands: ['kd', 'kills', 'deaths'],
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user: string, args: any[], bot: Bot) => {
+    execute: async (user, args, bot, api: ForestBotApiClient) => {
         const search = args[0] ? args[0] : user;
 
-        const data = await bot.endpoints.getKd(search, bot.mc_server)
+        const data = await api.getKd(search);
         if (!data) return
 
         return !args[0]

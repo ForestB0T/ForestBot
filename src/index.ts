@@ -1,12 +1,23 @@
-import Bot              from "./structure/mineflayer/Bot.js";
-import WebSocketHandler from "./structure/websocket/WebSocket.js";
-import * as Config      from "./config.js";
-export * as endpoints   from "./structure/endpoints/endpoints.js";
-export * as logger      from "./functions/utils/logger.js"
+export { Logger }  from "./structure/logger/Logger.js";
+import Bot         from "./structure/mineflayer/Bot.js";
+import * as Config from "./config.js";
+import apiHandler  from "./structure/endpoints/endpoints.js";
+import chalk from "chalk";
 
-/**
- * Main config and colors .json files.
- */
+console.log(`
+    ${chalk.red(`
+    ███████╗ ██████╗ ██████╗ ███████╗███████╗████████╗██████╗  ██████╗ ████████╗
+    ██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝██╔══██╗██╔═══██╗╚══██╔══╝
+    █████╗  ██║   ██║██████╔╝█████╗  ███████╗   ██║   ██████╔╝██║   ██║   ██║   
+    ██╔══╝  ██║   ██║██╔══██╗██╔══╝  ╚════██║   ██║   ██╔══██╗██║   ██║   ██║   
+    ██║     ╚██████╔╝██║  ██║███████╗███████║   ██║   ██████╔╝╚██████╔╝   ██║   
+    ╚═╝      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝   ╚═╝   ╚═════╝  ╚═════╝    ╚═╝                                                                         
+    `)}
+
+
+                             made by Febzey#1854
+`);
+
 
 /**
  * @class Options
@@ -21,10 +32,7 @@ export const options = new Config.Options();
 export const bot = new Bot(options.mineflayer);
 
 /**
- * @class WebSocketHandler
- * Main websocket for data.
+ * @class ForestBotApiClient
+ * This is the main api handler for our websocket and api endpoints.
  */
-export const websocket = new WebSocketHandler({
-    apiKey: process.env.apiKey,
-    url: options.websocket_url
-})
+export const api = new apiHandler(options.api);

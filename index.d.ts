@@ -8,7 +8,7 @@ type MCommand = {
     commands: string[],
     minArgs:  number,
     maxArgs:  number,
-    execute:  (user: string, args: any[], bot: Bot) => Promise<any>|any
+    execute:  (user: string, args: any[], bot: Bot, api: ForestBotApiClient) => Promise<void>
 }
 
 type Config = {
@@ -19,12 +19,13 @@ type Config = {
     api_url: string
     websocket_url: string
 
+    useLogger: boolean
+
     prefix: "!" | "?" | "-" | "="
     useCustomChatPrefix:    boolean 
     customChatPrefix:       string
     whisperCommand:         string
 
-    useRawChat: boolean
     antiafk: boolean
 
     use_mc_whitelist:       boolean
@@ -39,28 +40,7 @@ type Config = {
     whitelisted_commands:   string[]
 
     useCommands: boolean;
-    commands: {
-        bp:       boolean;
-        kill:     boolean;
-        coords:   boolean;
-        discord:  boolean;
-        help:     boolean;
-        joindate: boolean;
-        joins:    boolean;
-        kd:       boolean;
-        lastdeath:boolean;
-        lastseen: boolean;
-        mount:    boolean;
-        msgcount: boolean;
-        owner:    boolean;
-        ping:     boolean;
-        playtime: boolean;
-        quote:    boolean;
-        sleep:    boolean;
-        top:      boolean;
-        urban:    boolean;
-        wp:       boolean;
-    }
+    commands: {};
 
     disabled_events:        string[]
 
@@ -83,40 +63,4 @@ type antiSpamArgsType = {
     Bot:           Bot,
     cooldown_time: number,
     spam_limit:    number
-}
-
-type endpoints = {
-    savePlaytime:   (users: string[], mc_server: string) => Promise<any>
-    savePvpKill:    (victim: string, murderer: string, deathmsg: string, mc_server: string) => Promise<any>
-    savePveKill:    (victim: string, deathmsg: string, mc_server: string) => Promise<any>
-    saveChat:       (user: string, msg: string, mc_server: string) => Promise<any>
-    saveAdvancement: (user: string, advancement: string, mc_server: string) => Promise<any>
-
-    saveIam: (user: string, description: string) => Promise<any>
-
-    updateLeave:    (user: string, mc_server: string) => Promise<any>
-    updateJoin:     (user: string, uuid: string, mc_server: string) => Promise<any>
-
-    updateplayerlist: (users: [{name: string, ping: number}], mc_server: string) => Promise<any>
-
-    getNameFind: (user: string, mc_server: string) => Promise<any>
-    getWhoIs: (user: string) => Promise<any>
-    getChannels:    (mc_server: string) => Promise<any>
-    getPlaytime:    (user: string, mc_server: string) => Promise<any>
-    getJoindate:    (user: string, mc_server: string) => Promise<any>
-    getJoins:       (user: string, mc_server: string) => Promise<any>
-    getKd:          (user: string, mc_server: string) => Promise<any>
-    getLastDeath:   (user: string, mc_server: string) => Promise<any>
-    getLastMessage: (user: string, mc_server: string) => Promise<any>
-    getFirstMessage: (user: string, mc_server: string) => Promise<any>
-
-    getLastSeen:    (user: string, mc_server: string) => Promise<any>
-    getMessageCnt:  (user: string, mc_server: string) => Promise<any>
-    getQuote:       (user: string, mc_server: string) => Promise<any>
-    getUniquePcnt:  (mc_server: string) => Promise<any>
-    getTopStat:     (stat: string, mc_server: string) => Promise<any>
-
-    getWordCount: (word: string, serv: string, user: string) => Promise<any>
-
-    pingApi: () => Promise<any>
 }

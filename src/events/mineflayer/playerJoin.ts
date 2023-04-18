@@ -1,6 +1,6 @@
 import type { Player } from "mineflayer";
 import type Forestbot from "../../structure/mineflayer/Bot";
-import { websocket } from "../../index.js";
+import { Logger, api } from "../../index.js";
 
 export default {
     name: "playerJoined",
@@ -16,7 +16,21 @@ export default {
             uuid: player.uuid
         }
 
-        websocket.send({
+        Logger.join(user.username,user.uuid);
+
+        // websocket.send({
+        //     type: "minecraft",
+        //     action: "savejoin",
+        //     data: {
+        //         user: user.username,
+        //         uuid: user.uuid,
+        //         mc_server: Bot.mc_server,
+        //         time: `${Date.now()}`
+        //     },
+        //     mcServer: Bot.mc_server
+        // })
+
+        const saveUserJoinParams = {
             type: "minecraft",
             action: "savejoin",
             data: {
@@ -26,7 +40,10 @@ export default {
                 time: `${Date.now()}`
             },
             mcServer: Bot.mc_server
-        })
+        }
+
+        api.saveJoin(saveUserJoinParams)
+
 
         return;
     }

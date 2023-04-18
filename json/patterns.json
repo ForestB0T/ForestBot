@@ -12,6 +12,16 @@
         },
         {
             "name": "chat",
+            "regex": "^(\\S+)\\s(?:.+:\\s)?(.+)$",
+            "options": {
+                "parse": true,
+                "repeat": true
+            },
+            "example": "Iberium &: message",
+            "disabled": false
+        },
+        {
+            "name": "chat",
             "regex": "^(?:[^ ]* )?([^ ]+)(?: [^ ]*) ?» ?(.*)$",
             "options": {
                 "parse": true,
@@ -38,7 +48,7 @@
                 "repeat": true
             },
             "example": "<user123> Can someone help me with this quest?",
-            "disabled": false
+            "disabled": true
         },
         {
             "name": "chat",
@@ -68,7 +78,7 @@
                 "repeat": true
             },
             "example": "[Global] player5 : Anyone want to team up for a raid?",
-            "disabled": false
+            "disabled": true
         },
         {
             "name": "whisperTo",

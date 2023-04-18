@@ -1,3 +1,4 @@
+import { ForestBotApiClient } from 'forestbot-api';
 import type Bot from '../structure/mineflayer/Bot.js';
 //import { time } from '../index.js';
 
@@ -28,7 +29,7 @@ export default {
     commands: ['kill'],
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user: string, args: any[], bot: Bot) => {
+    execute: async (user, args, bot, api: ForestBotApiClient) => {
         if (bot.useWhitelist && !bot.userWhitelist.has(user)) return;
         // let r = deathQuotes[Math.floor(Math.random() * deathQuotes.length)];
         // //bot.bot.chat(r);

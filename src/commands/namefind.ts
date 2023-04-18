@@ -1,15 +1,15 @@
-import type Bot from '../structure/mineflayer/Bot.js';
+import type { ForestBotApiClient } from 'forestbot-api';
 
 export default {
     commands: ['search', 'lookup', 'find'],
     minArgs: 0,
-    maxArgs: 255,
-    execute: async (user: string, args: any[], bot: Bot) => {
+    maxArgs: 1,
+    execute: async (user, args, bot, api: ForestBotApiClient) => {
         const search = args[0] ? args[0] : user;
 
         if (!args[0]) return;
-        const data = await bot.endpoints.getNameFind(args[0], bot.mc_server)
-        if (!data || data.Error||data.error) return bot.bot.chat(`No matches.`)
+        const data = await api.getNameFind(args[0]);
+        if (!data || data.usernames.length <= 0) return bot.bot.chat(`No matches.`)
 
         const usernames = data.usernames;
 

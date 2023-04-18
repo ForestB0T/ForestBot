@@ -1,25 +1,28 @@
-import type Bot   from "../../structure/mineflayer/Bot.js"
-import { logger } from "../../index.js";
+import type Bot from "../../structure/mineflayer/Bot.js"
+import { Logger, api } from "../../index.js";
 
 let intrvl: NodeJS.Timer;
 
-export default { 
+export default {
     name: "login",
     once: true,
-    run: async  (args:[], Bot: Bot) => {
-        logger.log(`> Connected to ${Bot.options.host} successfully`, "green", true);
+    run: async (args: [], Bot: Bot) => {
+        Logger.login(`Connected to ${Bot.options.host} successfully`);
 
         if (intrvl) {
             clearInterval(intrvl);
         };
 
         intrvl = setInterval(async () => {
-            await Bot.endpoints.savePlaytime(
-                Object.keys(Bot.bot.players),
-                Bot.mc_server
-            );
+            await api.postUpdatePlayerList({
+                users: Bot.getPlayers(),
+                mc_server: Bot.mc_server
+            });
 
-            await Bot.endpoints.updateplayerlist(Bot.getPlayers(), Bot.mc_server);
+            await api.postSavePlaytime({
+                players: Object.keys(Bot.bot.players),
+                mc_server: Bot.mc_server
+            })
 
         }, 60000);
 

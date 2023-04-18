@@ -1,13 +1,13 @@
-import { bot, websocket } from "../../index.js";
-import { config } from "../../config.js";
+import { bot, Logger, api } from "../../index.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
-import mcCommandHandler from "../../structure/mineflayer/commandHandler.js";
+import mcCommandHandler from "../../structure/mineflayer/utils/commandHandler.js";
 import parseUsername from "../../structure/mineflayer/utils/parseUsername.js";
-import chalk from "chalk";
+
+const log = Logger;
 /**
  * This event is basically only used to capture kill messages.
  */
-const dividers = ["[w]", "»", "From", "To", ">", ":", "left", "Left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you."];
+const blacklistedWords = ["[w]", "From", "To", "left", "Left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you."];
 
 export default {
     name: "messagestr",
@@ -16,7 +16,77 @@ export default {
         const message = args[0] as string;
         const words = message.split(" ");
 
+        const chatArgs = [...args];
+
+        let username: string;
+        let msgg: string;
+        let uuid: string;
+
+        const msg = chatArgs[0];
+        const chat_dividers = ["»", ">", ":", ">>"];
+
+
         try {
+
+            /**
+             * 
+             * Handling player inbound chat.
+             * 
+             */
+            if (chat_dividers.some(divider => msg.includes(divider))) {
+                for (const char of msg) {
+                    if (!chat_dividers.includes(char)) continue;
+                    const dividerIndex = msg.indexOf(char);
+
+                    if (!dividerIndex) continue;
+                    if (dividerIndex >= 30) continue;
+
+                    const senderRaw = msg.slice(0, dividerIndex).trim();
+                    const senderRawSplit = senderRaw.split(" ");
+
+                    for (let i = senderRawSplit.length - 1; i >= 0; i--) {
+                        const possibleUsername = parseUsername(senderRawSplit[i], Bot.bot);
+                        if (Bot.bot.players[possibleUsername]) {
+                            uuid = Bot.bot.players[possibleUsername].uuid;
+                            username = Bot.bot.players[possibleUsername].username
+                            msgg = msg.slice(dividerIndex + 1).trim();
+                            break;
+                        };
+                    };
+
+                    break;
+                }
+
+                if (username && msgg && uuid) {
+
+                    log.chat(username, msgg, uuid);
+
+                    api.saveChat({
+                        type: "minecraft",
+                        action: "savechat",
+                        data: {
+                            name: username,
+                            message: msgg,
+                            mc_server: Bot.mc_server,
+                            uuid: uuid,
+                        },
+                        mcServer: Bot.mc_server
+                    })
+
+
+                    if (username === Bot.bot.username) return;
+                    await mcCommandHandler(username, msgg, Bot);
+                    return;
+                }
+
+            }
+
+
+            /**
+             * 
+             * Handling inbound player advancements.
+             * 
+             */
             if (
                 message.includes("has reached the goal") ||
                 message.includes("has made the advancement") ||
@@ -24,9 +94,8 @@ export default {
             ) {
                 const userToSave = Bot.bot.players[words[1]] ? words[1] : words[0];
                 const uuid = Bot.bot.players[userToSave].uuid;
-                
 
-                websocket.send({
+                const saveAdvancementArgs = {
                     type: "minecraft",
                     action: "saveadvancement",
                     data: {
@@ -36,39 +105,27 @@ export default {
                         time: Date.now(),
                         uuid
                     }
-                });
+                }
 
-                console.log(chalk.yellow(`${message}`));
+                api.saveAdvancement(saveAdvancementArgs)
 
-                return;
-            }
-
-            if (config.useRawChat && args[1] === "chat") {
-                let username = (Object.values(Bot.bot.players).find(val => val.uuid === args[3])).username;
-                username = parseUsername(username, Bot.bot);
-
-                console.log(chalk.red(`${username}`), chalk.white(`: ${message}`));
-
-                websocket.send({
-                    type: "minecraft",
-                    action: "savechat",
-                    data: {
-                        name: username,
-                        message: message,
-                        mc_server: Bot.mc_server
-                    },
-                    mcServer: Bot.mc_server
-                })
-
-                if (username === Bot.bot.username) return;
-                await mcCommandHandler(username, message, Bot);
+                log.advancement(message);
                 return;
             }
 
 
-            if (dividers.some((divider) => message.includes(divider))) return;
+            /**
+             * Returning if any blacklisted words are found.
+             */
+            if (blacklistedWords.some((w) => message.includes(w))) return;
 
 
+            /**
+             * 
+             * Handling player inbound deaths and kills.
+             * @param victim 
+             * 
+             */
             const saveKill = async (victim: string) => {
                 const victimIndex = words.indexOf(victim);
                 let murderer = null;
@@ -83,10 +140,9 @@ export default {
                     }
                 }
 
-                console.log(chalk.red(`${message}`));
+                log.death(message);
 
-
-                websocket.send({
+                const SaveKillOrDeathArgs = {
                     type: "minecraft",
                     action: "savedeath",
                     data: {
@@ -96,11 +152,13 @@ export default {
                         time: Date.now(),
                         type: murderer ? "pvp" : "pve",
                         mc_server: bot.mc_server,
-                        victimUUID: Bot.bot.players[victim].uuid??null,
-                        murdererUUID: murderer ? Bot.bot.players[murderer].uuid??null : null
+                        victimUUID: Bot.bot.players[victim].uuid ?? null,
+                        murdererUUID: murderer ? Bot.bot.players[murderer].uuid ?? null : null
                     },
                     mcServer: Bot.mc_server
-                })
+                }
+
+                api.saveKillOrDeath(SaveKillOrDeathArgs)
 
 
             }
@@ -113,8 +171,18 @@ export default {
                 saveKill(words[1])
                 return;
             }
+
             return;
 
-        } catch (err) { return console.log(err) }
+
+
+        } catch (err) {
+            /**
+             * Handling and cathing any errors.
+             */
+
+            if (err.toString().includes("reading 'uuid'")) return;
+            console.log(err)
+        }
     }
 }

@@ -1,10 +1,11 @@
+import { ForestBotApiClient } from 'forestbot-api';
 import type Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['ping'],
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user: string, args: any[], bot: Bot) => {
+    execute: async (user, args, bot, api: ForestBotApiClient) => {
         const search = args[0] ? args[0] : user;
         try {
             let str = ``

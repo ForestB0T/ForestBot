@@ -1,3 +1,4 @@
+import { ForestBotApiClient } from 'forestbot-api';
 import type Bot from '../structure/mineflayer/Bot.js';
 
 let isMounted: boolean = false;
@@ -6,7 +7,7 @@ export default {
     commands: ['mount', 'ride'],
     minArgs: 0,
     maxArgs: 0,
-    execute: (user: string, args: any[], bot: Bot) => {
+    execute: async (user, args, bot, api: ForestBotApiClient) => {
         const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.displayName === "Boat");
 
         bot.bot.whisper(user, "Searching for nearest boat...")

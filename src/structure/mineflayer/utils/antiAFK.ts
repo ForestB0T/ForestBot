@@ -1,8 +1,9 @@
 import MineflayerBot, { ControlState } from 'mineflayer';
 import chalk from 'chalk';
+import { Logger } from "../../../index.js";
 
 export default function antiafk(bot: MineflayerBot.Bot) {
-  console.log(chalk.blue("anti afk started..."));
+  Logger.world("AntiAFK Started...");
   let moveinterval = 2; 
   let maxrandom = 5; 
   let lasttime = -1;

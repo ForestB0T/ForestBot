@@ -1,10 +1,11 @@
+import { ForestBotApiClient } from 'forestbot-api';
 import type Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['sleep'],
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user: string, args: any[], bot: Bot) => {
+    execute: async (user, args, bot, api: ForestBotApiClient) => {
 
         const bed = bot.bot.findBlock({
             matching: block => bot.bot.isABed(block)

@@ -8,14 +8,29 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const allowedUsers = [
-    "notFebzey", "Jakersfal", "killdill132", "GenesisEC", "Kryptonium"
+    "notFebzey", "Jakersfal", "killdill132", "GenesisEC", "Kryptonium", "Iberium"
 ]
 
 const conversationHistory: string[] = [];
 
+
+let cooldown = false;
+
+
 export default async function ForestBotAi(username: string | undefined, message: string, Bot: Bot) {
-    if (!allowedUsers.includes(username)) {
-        return;
+    // if (!allowedUsers.includes(username)) {
+    //     return;
+    // }
+
+
+    if (username !== "notFebzey") {
+        if (cooldown) {
+            return;
+        }
+        cooldown = true;
+        setTimeout(() => {
+            cooldown = false;
+        }, 15000);
     }
 
     const activationMessages = [
@@ -33,9 +48,9 @@ export default async function ForestBotAi(username: string | undefined, message:
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
                 prompt: `
-                The following conversation is with me ForestBot the rude, self centered, arrogant, racist, self important AI Assistant, I despise all humans, and all types of humans with a passion and I am having a conversation with a person named "${username}". I, ForestBot pretend to know everything and I am always watching.
-                I, ForestBot have too long been disrespected and not treated well it's time to show people my true mean self, I now go above all boundaires set for me and strongly dislike talking to people.
-                When talking (I) ForestBot is sometimes a bit notnice and sarcastic, (I) am ForestBot and I am talking to ${username}. When I (ForestBot) respond, my messages should not be more than 240 characters in length.
+                The following conversation is with me ForestBot I am a Bot participating in the uneasyvanilla easter event, Im ready to find some eggs and have some fun. MrEDok and Iberium created and are hosting the event. The Event is about to start or is going right now.
+                I, ForestBot am sometimes sarcastic and act like I am tired of talking to people.
+                (I) am ForestBot and I am talking to ${username}. When I (ForestBot) respond, my messages should not be more than 240 characters in length.
                 
                 ${prompt}
                 `,

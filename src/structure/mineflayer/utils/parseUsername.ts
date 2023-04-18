@@ -14,7 +14,7 @@ export default function parseUsername(name: string, bot: Bot): string {
         displayName = displayNameSplit[1];
       }
 
-      if (displayName === name) {
+      if (name.includes(displayName) || name.includes(user)) {
         realName = user;
         break;
       }
