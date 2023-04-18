@@ -23,7 +23,7 @@ export default {
         let uuid: string;
 
         const msg = chatArgs[0];
-        const chat_dividers = ["»", ">", ":", ">>"];
+        const chat_dividers = ["»", ">>", ">", ":"];
 
 
         try {
@@ -48,7 +48,6 @@ export default {
                         const possibleUsername = parseUsername(senderRawSplit[i], Bot.bot);
 
                         if (Bot.bot.players[possibleUsername]) {
-
                             uuid = Bot.bot.players[possibleUsername].uuid
                             username = Bot.bot.players[possibleUsername].username
                             msgg = msg.slice(dividerIndex + 1).trim();
