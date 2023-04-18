@@ -46,9 +46,18 @@ export default {
 
                     for (let i = senderRawSplit.length - 1; i >= 0; i--) {
                         const possibleUsername = parseUsername(senderRawSplit[i], Bot.bot);
-                        uuid = Bot.bot.players[possibleUsername].uuid??"no uuid";
-                        username = Bot.bot.players[possibleUsername].username??possibleUsername
-                        msgg = msg.slice(dividerIndex + 1).trim();
+
+                        if (Bot.bot.players[possibleUsername]) {
+
+                            uuid = Bot.bot.players[possibleUsername].uuid
+                            username = Bot.bot.players[possibleUsername].username
+                            msgg = msg.slice(dividerIndex + 1).trim();
+                            break;
+                        } else {
+                            uuid = "no uuid present.";
+                            username = possibleUsername;
+                            msgg = msg.slice(dividerIndex + 1).trim();
+                        }
                     };
 
                     break;
