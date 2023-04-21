@@ -104,13 +104,13 @@ export default class apiHandler extends ForestBotApiClient {
                 if (!config.welcome_messages || !bot.isConnected) return;
                 bot.bot.chat(`${new_name} previously known as ${old_name} joined the server.`)
                 return;
-            })
+            });
 
             this.Socket.on("newUser", (username) => {
                 if (!config.welcome_messages || !bot.isConnected) return;
                 bot.bot.chat(`Hello, ${username} this is my first time seeing you. so welcome to the server! Use !help to learn more about me.`)
                 return
-            })
+            });
 
         }
     };
@@ -134,7 +134,7 @@ export default class apiHandler extends ForestBotApiClient {
 
     public saveJoin(params: SaveUserJoinParams) {
         this.websocketSend(params);
-    }
+    };
 
     public saveLeave(params: SaveUserLeaveParams) {
         this.websocketSend(params)
