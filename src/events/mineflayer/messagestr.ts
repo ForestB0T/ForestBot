@@ -25,15 +25,54 @@ export default {
         let msg = chatArgs[0];
         const chat_dividers = ["»", ">>", ">", ":"];
 
-
+        const thereMightBeAUUIDhere = chatArgs[3];
+        
         try {
+
+
+            const saveMessage = async () => {
+                if (username && msgg && uuid) {
+
+                    log.chat(username, msgg, uuid);
+
+                    api.saveChat({
+                        type: "minecraft",
+                        action: "savechat",
+                        data: {
+                            name: username,
+                            message: msgg,
+                            mc_server: Bot.mc_server,
+                            uuid: uuid,
+                        },
+                        mcServer: Bot.mc_server
+                    })
+
+
+                    if (username === Bot.bot.username) return;
+                    await mcCommandHandler(username, msgg, Bot);
+                    return;
+                }
+            }
 
             /**
              * 
              * Handling player inbound chat.
              * 
              */
+            for (const player of Object.values(Bot.bot.players)) {
+                if (thereMightBeAUUIDhere === player.uuid) {
+                    msgg = chatArgs[0];
+                    uuid = player.uuid;
+                    username = player.username;
+                    saveMessage();
+                    return;
+                }
+            }
+            
+            
             if (chat_dividers.some(divider => msg.includes(divider))) {
+                if (username && msgg && uuid) return;
+
                 for (const char of msg) {
                     if (!chat_dividers.includes(char)) continue;
                     const dividerIndex = msg.indexOf(char);
@@ -64,29 +103,9 @@ export default {
                         }
                     };
 
+                    saveMessage();
+
                     break;
-                }
-
-                if (username && msgg && uuid) {
-
-                    log.chat(username, msgg, uuid);
-
-                    api.saveChat({
-                        type: "minecraft",
-                        action: "savechat",
-                        data: {
-                            name: username,
-                            message: msgg,
-                            mc_server: Bot.mc_server,
-                            uuid: uuid,
-                        },
-                        mcServer: Bot.mc_server
-                    })
-
-
-                    if (username === Bot.bot.username) return;
-                    await mcCommandHandler(username, msgg, Bot);
-                    return;
                 }
 
             }
