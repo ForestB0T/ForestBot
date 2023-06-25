@@ -18,6 +18,8 @@ export default {
 
         const chatArgs = [...args];
 
+        console.log(chatArgs)
+
         let username: string;
         let msgg: string;
         let uuid: string;
