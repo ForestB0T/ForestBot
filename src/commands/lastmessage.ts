@@ -14,8 +14,6 @@ export default {
         const lastMessage = data.data.messages[0];
         const lastMsgStr = `"${lastMessage.message}" ${lastMessage.date !== null ? `(${time.timeAgoStr(parseInt(lastMessage.date.toString()))})` : ""}`
 
-        return !args[0]
-            ? bot.bot.whisper(user, `${lastMsgStr}`)
-            : bot.bot.chat(`${lastMessage.name}: ${lastMsgStr}`)
+        return bot.bot.chat(`${lastMessage.name}: ${lastMsgStr}`)
     }
 } as MCommand

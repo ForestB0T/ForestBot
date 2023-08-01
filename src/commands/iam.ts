@@ -14,10 +14,8 @@ export default {
                 description: args.join(" ")
             });
 
-            return !args[0]
-                ? bot.bot.whisper(user, `!whois set.`)
-                : bot.bot.chat(`${user}, your !whois has been set.`)
-
+            bot.bot.chat(`${user}, your !whois has been set.`);
+            return
         } catch {
             return;
         }

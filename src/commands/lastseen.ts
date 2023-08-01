@@ -28,8 +28,6 @@ export default {
             lastseenString = data.lastseen.toString();
         }
 
-        return !args[0]
-            ? bot.bot.whisper(user, `${lastseenString}`)
-            : bot.bot.chat(`${search}: ${lastseenString}`);
+        return bot.bot.chat(`${search}: ${lastseenString}`);
     }
 } as MCommand

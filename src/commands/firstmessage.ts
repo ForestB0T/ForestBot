@@ -23,8 +23,7 @@ export default {
 
         const firstMsgStr = `"${firstMessage.message}" (${date})`
 
-        return !args[0]
-        ? bot.bot.whisper(user, `${firstMsgStr}`)
-        : bot.bot.chat(`${firstMessage.name}: ${firstMsgStr}`)
+        bot.bot.chat(`${firstMessage.name}: ${firstMsgStr}`)
+        return;
     }
 } as MCommand

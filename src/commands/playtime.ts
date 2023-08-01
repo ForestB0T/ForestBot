@@ -13,9 +13,7 @@ export default {
 
         const playtime = time.dhms(data.playtime);
 
-        return !args[0]
-            ? bot.bot.whisper(user, "Your playtime is: " + playtime)
-            : bot.bot.chat(`${search}: ${playtime}`)
+        return bot.bot.chat(`${search}: ${playtime}`)
 
     }
 } as MCommand

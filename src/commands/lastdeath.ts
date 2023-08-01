@@ -12,9 +12,7 @@ export default {
 
         if (!data) return
 
-        return !args[0]
-            ? bot.bot.whisper(user, `${data.death}, ${time.timeAgoStr(parseInt(data.time.toString()))}`)
-            : bot.bot.chat(`${data.death}, ${time.timeAgoStr(parseInt(data.time.toString()))}`)
+        return bot.bot.chat(`${data.death}, ${time.timeAgoStr(parseInt(data.time.toString()))}`)
 
     }
 } as MCommand

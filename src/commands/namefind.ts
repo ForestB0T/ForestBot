@@ -13,8 +13,6 @@ export default {
 
         const usernames = data.usernames;
 
-        return !args[0]
-        ? bot.bot.whisper(user, `You could be looking for: ${usernames.join(", ")}`)
-        : bot.bot.chat(`You could be looking for: ${usernames.join(", ")}`)
+        return bot.bot.chat(`You could be looking for: ${usernames.join(", ")}`)
     }
 } as MCommand

@@ -10,8 +10,6 @@ export default {
         const data = await api.getJoins(search);
         if (!data) return
 
-        return !args[0]
-            ? bot.bot.whisper(user, `${data.joins} times`)
-            : bot.bot.chat(`${search}: ${data.joins} times`)
+        return bot.bot.chat(`${search}: ${data.joins} times`)
     }
 } as MCommand

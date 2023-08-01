@@ -13,8 +13,6 @@ export default {
 
         const description = data.description;
 
-        return !args[0]
-        ? bot.bot.whisper(user, `${description}`)
-        : bot.bot.chat(`${description}`)
+        return bot.bot.chat(`${description}`)
     }
 } as MCommand

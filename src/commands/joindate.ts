@@ -19,9 +19,7 @@ export default {
         } else {
             joindateStr = data.joindate as string;
         }
-
-        return !args[0]
-            ? bot.bot.whisper(user, `I first saw ${user}, ${joindateStr}`)
-            : bot.bot.chat(`I first saw ${search}, ${joindateStr}`);
+        bot.bot.chat(`I first saw ${search}, ${joindateStr}`);
+        return;
     }
 } as MCommand

@@ -13,9 +13,7 @@ export default {
         
         if (!data || !data.word_count) return
 
-        return !args[0]
-            ? bot.bot.whisper(user, `"${word}" occurences: ${data.word_count}`)
-            : bot.bot.chat(`${search}: "${word}" occurences: ${data.word_count}`)
+        return bot.bot.chat(`${search}: "${word}" occurences: ${data.word_count}`)
 
     }
 } as MCommand

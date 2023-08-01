@@ -10,8 +10,6 @@ export default {
         const data = await api.getMessageCount(search);
         if (!data) return
 
-        return !args[0]
-            ? bot.bot.whisper(user, `${data.messagecount} messages`)
-            : bot.bot.chat(`${search}: ${data.messagecount} messages`);
+        return bot.bot.chat(`${search}: ${data.messagecount} messages`);
     }
 } as MCommand

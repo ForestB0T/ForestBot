@@ -10,9 +10,7 @@ export default {
         const data = await api.getKd(search);
         if (!data) return
 
-        return !args[0]
-            ? bot.bot.whisper(user, `Kills: ${data.kills} Deaths: ${data.deaths}`)
-            : bot.bot.chat(`${search}: Kills: ${data.kills} Deaths: ${data.deaths}`)
+        return bot.bot.chat(`${search}: Kills: ${data.kills} Deaths: ${data.deaths}`)
 
     }
 } as MCommand
