@@ -61,7 +61,6 @@ export default {
                     msgg = chatArgs[0];
                     uuid = player.uuid;
                     username = player.username;
-                    if (msgg.indexOf(username, 0)) msgg = msgg.replace(/^[^\s]+\s*/, '');
                     saveMessage();
                     return;
                 }
@@ -70,6 +69,12 @@ export default {
 
             if (chat_dividers.some(divider => msg.includes(divider))) {
                 if (username && msgg && uuid) return;
+
+                console.log(
+                    username, "username",
+                    msgg, " message",
+
+                )
 
                 for (const char of msg) {
                     if (!chat_dividers.includes(char)) continue;
