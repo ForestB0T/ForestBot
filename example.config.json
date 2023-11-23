@@ -1,15 +1,15 @@
 {
     "mc_server": "newtest",
-    "host": "192.168.100.108",
+    "host": "192.168.100.131",
     "port": 25565,
-    "version": "1.19.3",
-    "api_url": "https://api.forestbot.org",
-    "websocket_url": "wss://api.forestbot.org/authenticate",
+    "version": "1.20",
+    "api_url": "http://192.168.100.132:8000",
+    "websocket_url": "ws://192.168.100.132:8000/authenticate",
 
     "useLogger": true,
 
     "prefix": "!",
-    "useCustomChatPrefix": false,
+    "useCustomChatPrefix": true,
     "customChatPrefix": "&d&l",
     "whisperCommand": "msg",
     

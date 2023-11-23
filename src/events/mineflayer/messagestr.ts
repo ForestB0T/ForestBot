@@ -15,20 +15,15 @@ export default {
     run: async (args: any[], Bot: Bot) => {
         const message = args[0] as string;
         const words = message.split(" ");
-
         const chatArgs = [...args];
-
-        console.log(chatArgs)
+        const chat_dividers = ["»", ">>", ">", ":"];
+        const thereMightBeAUUIDhere = chatArgs[3];
 
         let username: string;
         let msgg: string;
         let uuid: string;
-
         let msg = chatArgs[0];
-        const chat_dividers = ["»", ">>", ">", ":"];
 
-        const thereMightBeAUUIDhere = chatArgs[3];
-        
         try {
 
 
@@ -66,12 +61,13 @@ export default {
                     msgg = chatArgs[0];
                     uuid = player.uuid;
                     username = player.username;
+                    if (msgg.indexOf(username, 0)) msgg = msgg.replace(/^[^\s]+\s*/, '');
                     saveMessage();
                     return;
                 }
             }
-            
-            
+
+
             if (chat_dividers.some(divider => msg.includes(divider))) {
                 if (username && msgg && uuid) return;
 
@@ -81,8 +77,8 @@ export default {
 
                     if (msg[dividerIndex + 1] === ">") {
                         msg = msg.replace(">", "");
-                      }
-                      
+                    }
+
 
                     if (!dividerIndex) continue;
                     if (dividerIndex >= 30) continue;
