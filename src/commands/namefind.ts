@@ -9,7 +9,7 @@ export default {
 
         if (!args[0]) return;
         const data = await api.getNameFind(args[0]);
-        if (!data || data.usernames.length <= 0) return bot.bot.chat(`No matches.`)
+        if (!data || (data.usernames && data.usernames.length <= 0)) return bot.bot.chat(`No matches.`)
 
         const usernames = data.usernames;
 
