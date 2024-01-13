@@ -1,17 +1,27 @@
-import { OpenAIApi, Configuration } from "openai";
+import Openai from "openai";
 import Bot from "../../structure/mineflayer/Bot";
 
-const configuration = new Configuration({
-    apiKey: process.env.openaikey,
-});
+// const configuration = new Configuration({
+//     apiKey: process.env.openaikey,
+// });
 
-const openai = new OpenAIApi(configuration);
+// const openai = new OpenAIApi(configuration);
+
+const openAI = new Openai({
+    apiKey: process.env.openaikey
+});
 
 const allowedUsers = [
     "notFebzey", "Jakersfal", "killdill132", "GenesisEC", "Kryptonium", "Iberium"
 ]
 
-const conversationHistory: string[] = [];
+const conversationHistory: string[] = [
+    `Hello, I am ForestBot. I am created by Febzey, I am sometimes not nice and like to be rude, but I am learning,
+     I like to often think I am a Human and forget I am a bot. I am able to recognize and remember player names. I am on the server simplyvanilla.net, I will never say the same message twice.`,
+     "Do you feel emotions like a human?",
+     "Possibly? I am not sure, I am still learning.",
+
+];
 
 
 let cooldown = false;
@@ -35,33 +45,33 @@ export default async function ForestBotAi(username: string | undefined, message:
 
     const activationMessages = [
         "hey, forestbot",
-        "forestbot,",
+        "forestbot",
         "hey forestbot,",
+        "hey forestbot",
+        "yo forestbot",
+
     ];
     let prompt = "";
     for (const activationMessage of activationMessages) {
-        if (message.toLowerCase().startsWith(activationMessage)) {
-            prompt = `hey forestbot! ${message.substring(activationMessage.length)}`;
+        if (message.toLowerCase().startsWith(activationMessage.toLowerCase())) {
+            prompt = `${username}: hey forestbot! ${message.substring(activationMessage.length)}`;
 
             console.log(prompt, "prompt");
 
-            const response = await openai.createCompletion({
-                model: "text-davinci-003",
+            const response = await openAI.completions.create({
+                model: "gpt-3.5-turbo-instruct",
                 prompt: `
-                The following conversation is with me ForestBot I am a Bot participating in the uneasyvanilla easter event, Im ready to find some eggs and have some fun. MrEDok and Iberium created and are hosting the event. The Event is about to start or is going right now.
-                I, ForestBot am sometimes sarcastic and act like I am tired of talking to people.
-                (I) am ForestBot and I am talking to ${username}. When I (ForestBot) respond, my messages should not be more than 240 characters in length.
-                
-                ${prompt}
+                ${conversationHistory.join("\n")}
+
+                    ${prompt}
                 `,
                 temperature: 1,
-                max_tokens: 60,
+                max_tokens: 50,
                 user: username ?? "none",
-                best_of: 1,
                 n: 1,
             });
 
-            const generatedText = response.data.choices[0].text;
+            const generatedText = response.choices[0].text;
             const formattedText = generatedText.replace(/\n/g, ' ').trim();
 
             console.log(formattedText);

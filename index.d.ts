@@ -26,6 +26,8 @@ type Config = {
     customChatPrefix:       string
     whisperCommand:         string
 
+    useForestBotAI:         boolean
+
     antiafk: boolean
 
     use_mc_whitelist:       boolean

@@ -1,3 +1,5 @@
+import { config } from "../../config.js";
+import ForestBotAi from "../../functions/chatgpt/ai.js";
 import { bot, Logger, api } from "../../index.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
 import mcCommandHandler from "../../structure/mineflayer/utils/commandHandler.js";
@@ -61,6 +63,13 @@ export default {
                     msgg = chatArgs[0];
                     uuid = player.uuid;
                     username = player.username;
+
+                    if (msgg.startsWith(`<${username}>`)) msgg = msgg.replace(`<${username}>`, "").trim();
+
+                    if (config.useForestBotAI) {
+                        await ForestBotAi(username, msgg, Bot);
+                    };
+
                     saveMessage();
                     return;
                 }

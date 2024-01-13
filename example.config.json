@@ -1,0 +1,57 @@
+{
+    "mc_server": "newtest",
+    "host": "192.168.100.131",
+    "port": 25565,
+    "version": "1.20",
+    "api_url": "http://192.168.100.132:8000",
+    "websocket_url": "ws://192.168.100.132:8000/authenticate",
+
+    "useLogger": true,
+
+    "prefix": "!",
+    "useCustomChatPrefix": false,
+    "customChatPrefix": "&d&l",
+    "whisperCommand": "msg",
+
+    "useForestBotAI": false,
+    
+    "antiafk": false,
+
+    "use_mc_whitelist": true,
+    
+    "reconnect_time": 40000,
+
+    "anti_spam_cooldown": 10000,
+    "anti_spam_msg_limit": 5,
+
+    "welcome_messages": false,
+
+    "whitelisted_commands": [],
+
+    "useCommands": true,
+
+    "commands": {
+        "urban": true,
+        "kill": false,
+        "ping": true,
+        "coords": false,
+        "discord": true,
+        "help": true,
+        "joindate": true,
+        "joins": true,
+        "kd": true,
+        "lastdeath": true,
+        "lastseen": true,
+        "mount": true,
+        "msgcount": true,
+        "playtime": true,
+        "quote": true,
+        "top": true,
+        "wp": true
+    },
+    
+    "disabled_events": ["entitySpawn"],
+
+    "allow_chatbridge_input": true,
+    "rotateHeadOnJoin": false
+}

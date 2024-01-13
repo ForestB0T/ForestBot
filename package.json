@@ -19,7 +19,7 @@
     "minecraft-protocol": "^1.40.3",
     "mineflayer": "^4.14.0",
     "node-fetch": "^3.2.2",
-    "openai": "^3.2.1",
+    "openai": "^4.24.7",
     "urban-dictionary": "^3.0.2"
   }
 }
