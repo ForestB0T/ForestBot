@@ -7,7 +7,7 @@ const log = Logger;
 /**
  * This event is basically only used to capture kill messages.
  */
-const blacklistedWords = ["[w]", "[Administrator]", "[+]", "From", "To", "left", "Left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you."];
+const blacklistedWords = ["[w]", "[Administrator]", "[+]", "From", "To", "left", "Left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you.", "[Rcon]"];
 
 export default {
     name: "messagestr",
@@ -15,20 +15,15 @@ export default {
     run: async (args: any[], Bot: Bot) => {
         const message = args[0] as string;
         const words = message.split(" ");
-
         const chatArgs = [...args];
-
-        console.log(chatArgs)
+        const chat_dividers = ["»", ">>", ">", ":"];
+        const thereMightBeAUUIDhere = chatArgs[3];
 
         let username: string;
         let msgg: string;
         let uuid: string;
-
         let msg = chatArgs[0];
-        const chat_dividers = ["»", ">>", ">", ":"];
 
-        const thereMightBeAUUIDhere = chatArgs[3];
-        
         try {
 
 
@@ -70,10 +65,16 @@ export default {
                     return;
                 }
             }
-            
-            
+
+
             if (chat_dividers.some(divider => msg.includes(divider))) {
                 if (username && msgg && uuid) return;
+
+                console.log(
+                    username, "username",
+                    msgg, " message",
+
+                )
 
                 for (const char of msg) {
                     if (!chat_dividers.includes(char)) continue;
@@ -81,8 +82,8 @@ export default {
 
                     if (msg[dividerIndex + 1] === ">") {
                         msg = msg.replace(">", "");
-                      }
-                      
+                    }
+
 
                     if (!dividerIndex) continue;
                     if (dividerIndex >= 30) continue;

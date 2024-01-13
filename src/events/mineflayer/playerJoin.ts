@@ -18,18 +18,6 @@ export default {
 
         Logger.join(user.username,user.uuid);
 
-        // websocket.send({
-        //     type: "minecraft",
-        //     action: "savejoin",
-        //     data: {
-        //         user: user.username,
-        //         uuid: user.uuid,
-        //         mc_server: Bot.mc_server,
-        //         time: `${Date.now()}`
-        //     },
-        //     mcServer: Bot.mc_server
-        // })
-
         const saveUserJoinParams = {
             type: "minecraft",
             action: "savejoin",

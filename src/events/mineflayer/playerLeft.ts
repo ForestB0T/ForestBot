@@ -16,17 +16,6 @@ export default {
 
         Logger.leave(user.username, user.uuid);
 
-        // websocket.send({
-        //     type: "minecraft",
-        //     action: "saveleave",
-        //     data: {
-        //         username: user.username,
-        //         mc_server: Bot.mc_server,
-        //         time: `${Date.now()}`
-        //     },
-        //     mcServer: Bot.mc_server
-        // })
-
         const saveUserLeaveParams = {
             type: "minecraft",
             action: "saveleave",
