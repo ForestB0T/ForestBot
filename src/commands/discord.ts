@@ -3,6 +3,7 @@ import type Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['discord'],
+    description: "Use !discord to get the discord link.",
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

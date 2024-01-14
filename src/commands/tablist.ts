@@ -14,6 +14,7 @@ function generateRandomHash() {
 
 export default {
     commands: ['tab', 'tablist'],
+    description: "Use !tab to get the current tablist as png image",
     minArgs: 0,
     maxArgs: 255,
     execute: async (user, args, bot: Bot, api: ForestBotApiClient) => {

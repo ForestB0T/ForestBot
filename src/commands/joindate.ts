@@ -3,6 +3,7 @@ import time from "../functions/utils/time.js";
 
 export default {
     commands: ['joindate', 'jd', 'firstseen'],
+    description: "Use !joindate to get the join date of a player.",
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

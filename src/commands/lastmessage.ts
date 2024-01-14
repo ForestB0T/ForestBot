@@ -3,6 +3,7 @@ import { ForestBotApiClient } from 'forestbot-api';
 
 export default {
     commands: ['lastmessage', 'lm'],
+    description: "Use !lastmessage to get the last message of a player.",
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

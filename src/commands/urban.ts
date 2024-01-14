@@ -6,6 +6,7 @@ const disallowedDefs = ["mule"]
 
 export default {
     commands: ['urban'],
+    description: "Use !urban <word> to get the urban dictionary definition of a word.",
     minArgs: 0,
     maxArgs: 1,
     execute: async (user: string, args: any[], bot: Bot) => {

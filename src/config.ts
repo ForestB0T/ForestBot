@@ -39,6 +39,7 @@ class MineflayerOptions implements BotOptions {
   version  = config.version
   port     = config.port
   viewDistance = 0
+  disableChatSigning = true
 }
 
 class ApiConfig implements ForestBotApiConfig {

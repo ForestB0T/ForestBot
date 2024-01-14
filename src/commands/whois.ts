@@ -2,6 +2,7 @@ import type { ForestBotApiClient } from 'forestbot-api';
 
 export default {
     commands: ['whois'],
+    description: "Use !whois to get a user's description.",
     minArgs: 0,
     maxArgs: 255,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

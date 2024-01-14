@@ -3,6 +3,7 @@ import type { ForestBotApiClient } from 'forestbot-api';
 
 export default {
     commands: ['lastseen', 'seen', 'ls'],
+    description: "Use !lastseen to get the last time a player was seen.",
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

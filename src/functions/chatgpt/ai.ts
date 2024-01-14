@@ -33,22 +33,18 @@ export default async function ForestBotAi(username: string | undefined, message:
     // }
 
 
-    if (username !== "notFebzey") {
-        if (cooldown) {
-            return;
-        }
-        cooldown = true;
-        setTimeout(() => {
-            cooldown = false;
-        }, 15000);
-    }
+    // if (username !== "notFebzey") {
+    //     if (cooldown) {
+    //         return;
+    //     }
+    //     cooldown = true;
+    //     setTimeout(() => {
+    //         cooldown = false;
+    //     }, 5000);
+    // }
 
     const activationMessages = [
-        "hey, forestbot",
-        "forestbot",
-        "hey forestbot,",
-        "hey forestbot",
-        "yo forestbot",
+        "hey, forestbot ","forestbot ","hey forestbot, ","hey forestbot ","yo forestbot ",
 
     ];
     let prompt = "";
@@ -59,7 +55,7 @@ export default async function ForestBotAi(username: string | undefined, message:
             console.log(prompt, "prompt");
 
             const response = await openAI.completions.create({
-                model: "gpt-3.5-turbo-instruct",
+                model: "text-davinci-002",
                 prompt: `
                 ${conversationHistory.join("\n")}
 

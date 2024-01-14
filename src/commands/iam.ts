@@ -2,6 +2,7 @@ import type { ForestBotApiClient } from "forestbot-api";
 
 export default {
     commands: ['iam'],
+    description: "Use !iam to set your !whois description.",
     minArgs: 0,
     maxArgs: 255,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

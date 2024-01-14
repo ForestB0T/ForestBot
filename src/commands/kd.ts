@@ -2,6 +2,7 @@ import type { ForestBotApiClient } from "forestbot-api";
 
 export default {
     commands: ['kd', 'kills', 'deaths'],
+    description: "Use !kd to get the number of kills and deaths a user has.",
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

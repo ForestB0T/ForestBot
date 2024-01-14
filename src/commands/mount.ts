@@ -5,6 +5,7 @@ let isMounted: boolean = false;
 
 export default {
     commands: ['mount', 'ride'],
+    description: "Use !mount to mount the nearest boat.",
     minArgs: 0,
     maxArgs: 0,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

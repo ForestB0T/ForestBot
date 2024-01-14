@@ -3,6 +3,7 @@ import type { ForestBotApiClient } from 'forestbot-api';
 
 export default {
     commands: ['playtime', 'pt'],
+    description: "Use !playtime to get the playtime of a player.",
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

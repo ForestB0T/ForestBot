@@ -2,6 +2,7 @@ import type { ForestBotApiClient } from "forestbot-api";
 
 export default {
     commands: ['joins'],
+    description: "Use !joins to get the number of times a user has joined the server.",
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

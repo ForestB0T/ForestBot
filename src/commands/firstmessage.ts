@@ -3,6 +3,7 @@ import time     from '../functions/utils/time.js';
 
 export default {
     commands: ['firstmessage', 'fm'],
+    description: "Use !firstmessage to get the first message of a player.",
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

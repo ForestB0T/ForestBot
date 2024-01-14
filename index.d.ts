@@ -6,6 +6,7 @@ type User = {
 
 type MCommand = {
     commands: string[],
+    description:? string,
     minArgs:  number,
     maxArgs:  number,
     execute:  (user: string, args: any[], bot: Bot, api: ForestBotApiClient) => Promise<void>

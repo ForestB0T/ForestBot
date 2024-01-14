@@ -3,6 +3,7 @@ import type Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ["owner", "master"],
+    description: "Use !owner to get the owner of the bot.",
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {
