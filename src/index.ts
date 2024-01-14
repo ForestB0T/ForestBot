@@ -15,7 +15,7 @@ console.log(`
     `)}
 
 
-                             made by Febzey#1854
+                             made by Febzey
 `);
 
 
