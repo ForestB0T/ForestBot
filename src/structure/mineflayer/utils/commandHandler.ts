@@ -16,6 +16,7 @@ function antiSpamHandler(args: antiSpamArgsType) {
 
     if (sUser >= spam_limit) {
         Bot.updateLists(user, "add", "blacklist");
+        Bot.bot.chat(`I am ignoring you ${user} because you are spamming.`);
         return false;
     }
 
