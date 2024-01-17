@@ -4,8 +4,8 @@ import antiafk from "../../structure/mineflayer/utils/antiAFK.js";
 import { Logger, api } from "../../index.js";
 
 function getRandomInterval() {
-    // Generate a random number between 7 and 25 (in milliseconds)
-    return Math.floor(Math.random() * (25 * 60 * 1000 - 7 * 60 * 1000 + 1)) + 7 * 60 * 1000;
+    // Generate a random number between 3 minutes and 10 minutes (in milliseconds)
+    return Math.floor(Math.random() * (10 * 60 * 1000 - 3 * 60 * 1000 + 1)) + 3 * 60 * 1000;
 }
 
 let currentIndex = 0;
@@ -45,7 +45,7 @@ export default {
 
         setInterval(async () => { 
             Bot.bot.chat(`My Prefix for commands has changed to " ${config.prefix} "`)
-        }, 5 * 60 * 1000);
+        }, 6 * 60 * 1000);
 
         return
     }
