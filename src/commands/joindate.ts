@@ -1,9 +1,10 @@
 import { ForestBotApiClient } from "forestbot-api";
 import time from "../functions/utils/time.js";
+import { config } from '../config.js';
 
 export default {
     commands: ['joindate', 'jd', 'firstseen'],
-    description: "Use !joindate to get the join date of a player.",
+    description: `Use ${config.prefix}joindate to get the join date of a player.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

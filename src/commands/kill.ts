@@ -1,6 +1,7 @@
 import { ForestBotApiClient } from 'forestbot-api';
 import type Bot from '../structure/mineflayer/Bot.js';
 //import { time } from '../index.js';
+import { config } from '../config.js';
 
 let deathQuotes =
 [
@@ -27,6 +28,7 @@ let deathQuotes =
 
 export default {
     commands: ['kill'],
+    description:  `Use ${config.prefix}kill to attempt to kill the bot`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

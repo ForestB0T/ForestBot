@@ -1,9 +1,10 @@
 import { ForestBotApiClient } from 'forestbot-api';
 import type Bot from '../structure/mineflayer/Bot.js';
+import { config } from '../config.js';
 
 export default {
     commands: ['bp', 'bestping'],
-    description: "Use !bp to get the user with best ping.",
+    description: `Use ${config.prefix}bp to get the user with best ping.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

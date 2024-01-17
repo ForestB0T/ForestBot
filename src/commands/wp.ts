@@ -1,8 +1,9 @@
 import type Bot from '../structure/mineflayer/Bot.js';
+import { config } from '../config.js';
 
 export default {
     commands: ['wp', 'worstping'],
-    description: "Use !wp to get the worst ping.",
+    description: `Use ${config.prefix}wp to get the worst ping.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user: string, args: any[], bot: Bot) => {

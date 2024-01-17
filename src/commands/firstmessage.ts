@@ -1,9 +1,10 @@
 import { ForestBotApiClient } from 'forestbot-api';
 import time     from '../functions/utils/time.js';
+import { config } from '../config.js';
 
 export default {
     commands: ['firstmessage', 'fm'],
-    description: "Use !firstmessage to get the first message of a player.",
+    description: `Use ${config.prefix}firstmessage to get the first message of a player.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

@@ -1,9 +1,10 @@
 import { ForestBotApiClient } from 'forestbot-api';
 import type Bot from '../structure/mineflayer/Bot.js';
+import { config } from '../config.js';
 
 export default {
     commands: ["owner", "master"],
-    description: "Use !owner to get the owner of the bot.",
+    description: `Use ${config.prefix}owner to get the owner of the bot.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

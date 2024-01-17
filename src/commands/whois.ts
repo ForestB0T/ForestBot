@@ -1,8 +1,9 @@
 import type { ForestBotApiClient } from 'forestbot-api';
+import { config } from '../config.js';
 
 export default {
     commands: ['whois'],
-    description: "Use !whois to get a user's description.",
+    description: `Use ${config.prefix}whois to get a user's description.`,
     minArgs: 0,
     maxArgs: 255,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

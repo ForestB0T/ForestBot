@@ -1,8 +1,9 @@
 import type { ForestBotApiClient } from 'forestbot-api';
+import { config } from '../config.js';
 
 export default {
     commands: ['search', 'lookup', 'find'],
-    description: "Use !search to find a user's username history.",
+    description: `Use ${config.prefix}search to find a user's username history.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

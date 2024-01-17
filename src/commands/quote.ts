@@ -1,8 +1,9 @@
 import type { ForestBotApiClient } from 'forestbot-api';
+import { config } from '../config.js';
 
 export default {
     commands: ['quote', 'q'],
-    description: "Use !quote to get a random quote from a user.",
+    description: `Use ${config.prefix}quote to get a random quote from a user.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

@@ -1,9 +1,10 @@
 import { ForestBotApiClient } from 'forestbot-api';
 import type Bot from '../structure/mineflayer/Bot.js';
+import { config } from '../config.js';
 
 export default {
     commands: ['sleep'],
-    description: "Use !sleep to get the bot to sleep.",
+    description: `Use ${config.prefix}sleep to get the bot to sleep.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

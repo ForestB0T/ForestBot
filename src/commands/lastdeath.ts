@@ -1,9 +1,10 @@
 import time from '../functions/utils/time.js';
 import type { ForestBotApiClient } from 'forestbot-api';
+import { config } from '../config.js';
 
 export default {
     commands: ['lastdeath', 'ld'],
-    description: "Use !lastdeath to get the last death of a player.",
+    description: `Use ${config.prefix}lastdeath to get the last death of a player.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

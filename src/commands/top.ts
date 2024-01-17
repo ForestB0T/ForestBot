@@ -1,8 +1,9 @@
 import type { ForestBotApiClient } from 'forestbot-api';
+import { config } from '../config.js';
 
 export default {
     commands: ['top'],
-    description: "Use !top to get the top 5 players for a stat.",
+    description: `Use ${config.prefix}top kills|deaths|joins|playtime to get the top 5 players for a stat.`,
     minArgs: 0,
     maxArgs: 2,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

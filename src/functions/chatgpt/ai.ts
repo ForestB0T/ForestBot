@@ -50,12 +50,12 @@ export default async function ForestBotAi(username: string | undefined, message:
     let prompt = "";
     for (const activationMessage of activationMessages) {
         if (message.toLowerCase().startsWith(activationMessage.toLowerCase())) {
-            prompt = `${username}: hey forestbot! ${message.substring(activationMessage.length)}`;
+            prompt = `${username}: ${message.substring(activationMessage.length)}`;
 
             console.log(prompt, "prompt");
 
             const response = await openAI.completions.create({
-                model: "text-davinci-002",
+                model: "gpt-3.5-turbo-instruct",
                 prompt: `
                 ${conversationHistory.join("\n")}
 

@@ -1,8 +1,9 @@
 import type { ForestBotApiClient } from 'forestbot-api';
+import { config } from '../config.js';
 
 export default {
     commands: ['wordcount', 'words', 'count'],
-    description: "Use !wordcount <player> <word> to get the number of times a word has been said in chat.",
+    description: `Use ${config.prefix}wordcount <player> <word> to get the number of times a word has been said in chat.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {

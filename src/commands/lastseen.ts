@@ -1,9 +1,10 @@
 import time from '../functions/utils/time.js';
 import type { ForestBotApiClient } from 'forestbot-api';
+import { config } from '../config.js';
 
 export default {
     commands: ['lastseen', 'seen', 'ls'],
-    description: "Use !lastseen to get the last time a player was seen.",
+    description: `Use ${config.prefix}lastseen to get the last time a player was seen.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {
