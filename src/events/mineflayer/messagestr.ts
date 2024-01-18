@@ -52,7 +52,7 @@ export default {
                     //please check if message starts with ! but also had a message after it like !message use a regex
                     //we need to also check if there is words next to ! 
                     if (/^![^\s]/.test(msgg)) { 
-                        Bot.bot.chat(`/msg ${username} Please use the prefix ? for commands.`);
+                        Bot.bot.chat(`/msg ${username} Please use the prefix ${config.prefix} for commands.`);
                     }
 
                     await mcCommandHandler(username, msgg, Bot);

@@ -40,7 +40,7 @@ export default {
             const command = Array.from(Bot.commands.values()).find(cmd => cmd.description === currentCommand);
             const cmd_name = command.commands[0];
 
-            if (!config.commands[cmd_name]) return;
+            if (Object.keys(config.commands).some(k=>k===cmd_name) && !config.commands[cmd_name]) return;
 
             Bot.bot.chat(currentCommand);
             // Increment the index for the next iteration
