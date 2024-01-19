@@ -9,9 +9,11 @@
     "useLogger": true,
 
     "prefix": "!",
-    "useCustomChatPrefix": false,
+    "useCustomChatPrefix": true,
     "customChatPrefix": "&d&l",
     "whisperCommand": "msg",
+
+    "announce": false,
 
     "useForestBotAI": false,
     
@@ -28,7 +30,7 @@
 
     "whitelisted_commands": [],
 
-    "useCommands": true,
+    "useCommands": false,
 
     "commands": {
         "urban": true,

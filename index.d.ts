@@ -9,6 +9,7 @@ type MCommand = {
     description:? string,
     minArgs:  number,
     maxArgs:  number,
+    whitelisted?: boolean,
     execute:  (user: string, args: any[], bot: Bot, api: ForestBotApiClient) => Promise<void>
 }
 
@@ -27,9 +28,11 @@ type Config = {
     customChatPrefix:       string
     whisperCommand:         string
 
+    announce:               boolean
+
     useForestBotAI:         boolean
 
-    antiafk: boolean
+    antiafk:                boolean
 
     use_mc_whitelist:       boolean
 
@@ -42,8 +45,8 @@ type Config = {
 
     whitelisted_commands:   string[]
 
-    useCommands: boolean;
-    commands: {};
+    useCommands:            boolean;
+    commands:               {};
 
     disabled_events:        string[]
 

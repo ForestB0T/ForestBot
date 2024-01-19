@@ -80,7 +80,7 @@ export default class apiHandler extends ForestBotApiClient {
         super(params)
 
         if (params.useWebsocket && params.webSocket_url) {
-
+            //what the fuck
             this.Socket.on("open", () => {
                 this.Socket.isConnected = true;
                 Logger.success("Websocket connected.")
