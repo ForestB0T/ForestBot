@@ -12,7 +12,7 @@ ForestBot relies heavily on https://github.com/ForestB0T/hub
 
 ## Usage
 
-To use ForestBot, head to the ForestBot website and reqeust him for your Minecraft Server
+To use ForestBot, head to the ForestBot website and request him for your active playerbase Minecraft Server.
 
 You can view your stats and learn more by visiting the ForestBot website at https://forestbot.org.
 
