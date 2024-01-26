@@ -48,7 +48,8 @@ export default {
 
 
                     if (username === Bot.bot.username) return;
-                    
+
+
                     await mcCommandHandler(username, msgg, Bot);
                     return;
                 }

@@ -9,6 +9,7 @@ function getRandomInterval() {
 }
 
 let currentIndex = 0;
+let announceInterval: NodeJS.Timeout = null;
 
 export default {
     name: "spawn",
@@ -28,32 +29,33 @@ export default {
             antiafk(Bot.bot);
         }
 
+        //When bot restarts. this interval will be cleared.
+        if (announceInterval) clearInterval(announceInterval);
+
         const commandDescriptions = Array.from(Bot.commands.values()).map(cmd => cmd.description);
 
-        setInterval(async () => {
-            // Get the current command description
-            const currentCommand = commandDescriptions[currentIndex];
-
-            // Output the current command description
-
-            //find where our currentCommand is in the bot.commands map. it will be the description of a command
-            const command = Array.from(Bot.commands.values()).find(cmd => cmd.description === currentCommand);
-            const cmd_name = command.commands[0];
-
-            if (!config.commands[cmd_name]) return;
-
-            Bot.bot.chat(currentCommand);
-            // Increment the index for the next iteration
-            currentIndex = (currentIndex + 1) % commandDescriptions.length;
-
-            
-
-
-        }, getRandomInterval());
-
-        setInterval(async () => { 
-            Bot.bot.chat(`My Prefix for commands has changed to " ${config.prefix} "`)
-        }, 10 * 60 * 1000);
+        if (config.announce) {
+            announceInterval = setInterval(async () => {
+                // Get the current command description
+                const currentCommand = commandDescriptions[currentIndex];
+    
+                // Output the current command description
+    
+                //find where our currentCommand is in the bot.commands map. it will be the description of a command
+                const command = Array.from(Bot.commands.values()).find(cmd => cmd.description === currentCommand);
+                const cmd_name = command.commands[0];
+    
+                if (Object.keys(config.commands).some(k=>k===cmd_name) && !config.commands[cmd_name]) return;
+    
+                Bot.bot.chat(currentCommand);
+                // Increment the index for the next iteration
+                currentIndex = currentIndex + 1 >= commandDescriptions.length ? 0 : currentIndex + 1;
+    
+                
+    
+    
+            }, getRandomInterval());
+        }
 
         return
     }
