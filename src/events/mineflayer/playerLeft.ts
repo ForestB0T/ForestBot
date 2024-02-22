@@ -16,18 +16,12 @@ export default {
 
         Logger.leave(user.username, user.uuid);
 
-        const saveUserLeaveParams = {
-            type: "minecraft",
-            action: "saveleave",
-            data: {
-                username: user.username,
-                mc_server: Bot.mc_server,
-                time: `${Date.now()}`
-            },
-            mcServer: Bot.mc_server
-        }
-
-        api.saveLeave(saveUserLeaveParams);
+        await api.websocket.sendPlayerLeave({
+            username: user.username,
+            uuid: user.uuid,
+            timestamp: Date.now().toString(),
+            server: Bot.mc_server
+        })
 
         return;
     }

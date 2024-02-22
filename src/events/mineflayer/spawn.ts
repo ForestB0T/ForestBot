@@ -2,6 +2,7 @@ import type Bot from "../../structure/mineflayer/Bot.js"
 import { config } from "../../config.js";
 import antiafk from "../../structure/mineflayer/utils/antiAFK.js";
 import { Logger, api } from "../../index.js";
+import { Player } from "forestbot-api-wrapper-v2";
 
 function getRandomInterval() {
     // Generate a random number between 3 minutes and 10 minutes (in milliseconds)
@@ -10,6 +11,8 @@ function getRandomInterval() {
 
 let currentIndex = 0;
 let announceInterval: NodeJS.Timeout = null;
+let playerListUpdateInterval: NodeJS.Timeout = null;
+
 
 export default {
     name: "spawn",
@@ -17,10 +20,17 @@ export default {
     run: async (args: any[], Bot: Bot) => {
         Logger.spawn(`${Bot.bot.username} has spawned`);
 
-        await api.postUpdatePlayerList({
-            users: Bot.getPlayers(),
-            mc_server: Bot.mc_server
-        });
+        //Updating playerlist for tablist, while also upating playtime every 60000 milliseconds
+        await api.websocket.sendPlayerListUpdate(Bot.getPlayers());
+
+        if (playerListUpdateInterval) {
+            clearInterval(playerListUpdateInterval)
+        };
+
+        playerListUpdateInterval = setInterval(async () => {
+            await api.websocket.sendPlayerListUpdate(Bot.getPlayers());
+        }, 60000);
+        
 
         Bot.restartCount = 0;
         Bot.isConnected = true;

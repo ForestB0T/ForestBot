@@ -8,6 +8,7 @@ import mineflayer            from "mineflayer";
 import mc                    from "minecraft-protocol";
 import * as fs               from "fs";
 import time                  from "../../functions/utils/time.js";
+import { Player } from "forestbot-api-wrapper-v2";
 
 
 const { ping } = mc;
@@ -74,13 +75,13 @@ export default class Bot {
             return;
         }
 
-        if (!(await api.pingApi())) {
-            Logger.warn(`Connection to "${config.api_url}" api failed, maybe the api is offline? Attempting to restart...`);
-            this.endAndRestart();
-            return;
-        } else {
-            Logger.success("Connection to api successful");
-        }
+        // if (!(await api.pingApi())) {
+        //     Logger.warn(`Connection to "${config.api_url}" api failed, maybe the api is offline? Attempting to restart...`);
+        //     this.endAndRestart();
+        //     return;
+        // } else {
+        //     Logger.success("Connection to api successful");
+        // }
 
         const bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
 
@@ -122,13 +123,17 @@ export default class Bot {
      * Get an array of players, and their ping.
      * @returns [{ name: string, ping: number }]
      */
-    public getPlayers(): [{ name: string, ping: number }] {
-        let arr = []
-
-        for (const player of Object.keys(this.bot.players)) {
-            arr.push({ name: player, ping: this.bot.players[player].ping });
+    public getPlayers(): Player[] {
+        let players: Player[] = []
+        for (const player of Object.values(this.bot.players)) {
+            players.push({
+                username: player.username,
+                uuid: player.uuid,
+                latency: player.ping,
+                server: this.mc_server,
+            })
         }
-        return arr as [{ name: string, ping: number }];
+        return players;
     }
 
 

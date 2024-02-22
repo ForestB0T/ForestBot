@@ -1,8 +1,8 @@
 import "dotenv/config";
-import { readFile }           from "fs/promises";
-import type { BotOptions }    from "mineflayer";
-import { Logger }             from "./index.js";
-import { ForestBotApiConfig } from "forestbot-api";
+import { readFile }            from "fs/promises";
+import type { BotOptions }     from "mineflayer";
+import { Logger }              from "./index.js";
+import { ForestBotAPIOptions } from "forestbot-api-wrapper-v2";
 
 let config: Config = await JSON.parse(await readFile("./config.json", "utf8"));
 
@@ -42,14 +42,14 @@ class MineflayerOptions implements BotOptions {
   disableChatSigning = true
 }
 
-class ApiConfig implements ForestBotApiConfig {
-  apiKey        = process.env.apiKey
-  baseUrl       = config.api_url
-  useWebsocket  = true
-  webSocket_url = config.websocket_url
-  mc_server     = config.mc_server
-};
+class ApiConfig implements ForestBotAPIOptions {
+  apiUrl = config.api_url
+  apiKey = process.env.apiKey
+  logerrors = true
+  use_websocket = true
+  mc_server = config.mc_server
 
+};
 
 export class Options {
   mineflayer = new MineflayerOptions();

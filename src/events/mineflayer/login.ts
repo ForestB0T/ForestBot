@@ -9,22 +9,22 @@ export default {
     run: async (args: [], Bot: Bot) => {
         Logger.login(`Connected to ${Bot.options.host} successfully`);
 
-        if (intrvl) {
-            clearInterval(intrvl);
-        };
+        // if (intrvl) {
+        //     clearInterval(intrvl);
+        // };
 
-        intrvl = setInterval(async () => {
-            await api.postUpdatePlayerList({
-                users: Bot.getPlayers(),
-                mc_server: Bot.mc_server
-            });
+        // intrvl = setInterval(async () => {
+        //     await api.postUpdatePlayerList({
+        //         users: Bot.getPlayers(),
+        //         mc_server: Bot.mc_server
+        //     });
 
-            await api.postSavePlaytime({
-                players: Object.keys(Bot.bot.players),
-                mc_server: Bot.mc_server
-            })
+        //     await api.postSavePlaytime({
+        //         players: Object.keys(Bot.bot.players),
+        //         mc_server: Bot.mc_server
+        //     })
 
-        }, 60000);
+        // }, 60000);
 
 
     }
