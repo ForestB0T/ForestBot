@@ -2,8 +2,7 @@
 import { Logger, bot } from "../../index.js";
 import { config } from "../../config.js";
 
-import type { ForestBotAPIOptions } from "forestbot-api-wrapper-v2";
-import ForestBotAPI from "forestbot-api-wrapper-v2/build/index.js";
+import { ForestBotAPI, ForestBotAPIOptions } from "forestbot-api-wrapper-v2";
 
 export default class apiHandler extends ForestBotAPI {
 
@@ -33,6 +32,7 @@ export default class apiHandler extends ForestBotAPI {
                 bot.bot.chat(`/msg ${data.user.username} Use !help to learn more about me and what I can do!`);
             }
         })
+
 
         //TODO:
         //work on sending discord messages to game chat.

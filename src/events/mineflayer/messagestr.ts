@@ -181,12 +181,12 @@ export default {
                     await api.websocket.sendPlayerDeath({
                         victim: victim,
                         death_message: message,
-                        murderer: murderer,
+                        murderer: { Valid: true, String: murderer},
                         time: Date.now(),
                         type: "pvp",
                         mc_server: Bot.mc_server,
                         victimUUID: Bot.bot.players[victim].uuid ?? null,
-                        murdererUUID: Bot.bot.players[murderer].uuid ?? null,
+                        murdererUUID: { Valid: true, String: Bot.bot.players[murderer].uuid ?? ""},
                         id: undefined
                     })
 

@@ -23,7 +23,7 @@ export default {
             username: user.username,
             uuid: user.uuid,
             timestamp: Date.now().toString(),
-            server: Bot.mc_server
+            server: Bot.mc_server, 
         })
 
 

@@ -2,7 +2,7 @@ import "dotenv/config";
 import { readFile }            from "fs/promises";
 import type { BotOptions }     from "mineflayer";
 import { Logger }              from "./index.js";
-import { ForestBotAPIOptions } from "forestbot-api-wrapper-v2";
+import type { ForestBotAPIOptions } from "forestbot-api-wrapper-v2";
 
 let config: Config = await JSON.parse(await readFile("./config.json", "utf8"));
 
@@ -44,6 +44,8 @@ class MineflayerOptions implements BotOptions {
 
 class ApiConfig implements ForestBotAPIOptions {
   apiUrl = config.api_url
+  isBotClient = true
+  websocket_url = config.websocket_url
   apiKey = process.env.apiKey
   logerrors = true
   use_websocket = true
