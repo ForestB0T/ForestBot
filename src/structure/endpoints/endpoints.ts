@@ -33,12 +33,6 @@ export default class apiHandler extends ForestBotAPI {
             }
         })
 
-
-        //TODO:
-        //work on sending discord messages to game chat.
-        //all commands that use the api
-        //ping api before starting bot.
-
     };
 
 
