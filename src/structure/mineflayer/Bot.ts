@@ -96,7 +96,7 @@ export default class Bot {
         }
 
         bot.whisper = (user: string, msg: string) => {
-            newChat(`${chatPrefix}${msg}`)
+            newChat(`/${config.whisperCommand} ${user} ${msg}`)
         }
 
         this.bot = bot;
