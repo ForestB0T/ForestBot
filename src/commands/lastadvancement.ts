@@ -11,12 +11,9 @@ export default {
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
         const search = args[0] ? args[0] : user;
 
-        console.log(search, user)
-
         const uuid = await api.convertUsernameToUuid(search);
         const data = await api.getAdvancements(uuid, config.mc_server, 1, 'DESC');
 
-        console.log(data);
         if (!data || data.length === 0) {
             if (search === user) {
                 bot.bot.whisper(user, `You have no advancements, or unexpected error occurred.`);

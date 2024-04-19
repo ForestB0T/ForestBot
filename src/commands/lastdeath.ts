@@ -13,7 +13,7 @@ export default {
 
         const uuid = await api.convertUsernameToUuid(search);
         const data = await api.getDeaths(uuid, config.mc_server, 1, 'DESC', "all");
-        if (!data || data.length === 0) {
+        if (!data || data.length === 0 || !data[0].death_message) {
             if (search === user) {
                 bot.bot.whisper(user, `You have no deaths, or unexpected error occurred.`);
             } else {

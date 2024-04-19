@@ -11,12 +11,33 @@ export default {
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
         const search = args[0] ? args[0] : user;
 
-        // const data = await api.getLastMessage(search);
-        // if (!data || !data.success) return
+        const data = await api.getMessages(search, config.mc_server, 1, 'DESC');
 
-        // const lastMessage = data.data.messages[0];
-        // const lastMsgStr = `"${lastMessage.message}" ${lastMessage.date !== null ? `(${time.timeAgoStr(parseInt(lastMessage.date.toString()))})` : ""}`
+        if (!data || data.length === 0) {
+            if (search === user) {
+                bot.bot.whisper(user, `You have no messages, or unexpected error occurred.`);
+            } else {
+                bot.bot.whisper(user, `${search} has no messages, or unexpected error occurred.`);
+            }
+            return;
+        }
 
-        // return bot.bot.chat(`${lastMessage.name}: ${lastMsgStr}`)
+        const lastMessage = data[0].message;
+
+        let date = "";
+
+        // need to check if the date.String is able to be converted to a number
+        // use a regex to check if it is only numbers
+        // if it is, convert it to a number
+        // if not, leave it as a string
+        if (data[0].date.String.match(/^[0-9]+$/)) {
+            date = time.timeAgoStr(parseInt(data[0].date.String));
+        } else {
+            date = data[0].date.String;
+        }
+
+        date = time.timeAgoStr(parseInt(data[0].date.String.toString()));
+
+        bot.bot.chat(`${search}: ${lastMessage}, ${date}`);
     }
 } as MCommand
