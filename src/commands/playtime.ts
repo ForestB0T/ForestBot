@@ -13,13 +13,17 @@ export default {
         const search = args[0] ? args[0] : user;
 
         const uuid = await getUuidFromUsername(search, bot);
-
         const data = await api.getPlaytime(uuid, bot.mc_server);
-        if (!data) return
+
+        if (!data || !data.playtime) { 
+            if (search === user) {
+                bot.bot.whisper(user, `I have no playtime recorded for you, or unexpected error occurred.`);
+            } else {
+                bot.bot.whisper(user, `I have no playtime recorded for ${search}, or unexpected error occurred.`);
+            }
+        }
 
         const playtime = time.dhms(data.playtime);
-
-        return bot.bot.chat(`${search}: ${playtime}`)
-
+        return bot.bot.chat(`${search}'s total playtime is ${playtime}`)
     }
 } as MCommand

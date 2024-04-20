@@ -8,6 +8,6 @@ export default {
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotApiClient) => {
-        return bot.bot.chat("I am a player ran bot and owned by Febzey#1854");
+        return bot.bot.chat("I am a player ran bot and owned by Febzey");
     }
  } as MCommand
