@@ -3,7 +3,7 @@ import {
     mc_blacklist,
     mc_whitelist }           from "../../config.js";
 import { readdir }           from "fs/promises";
-import { Logger, api }       from "../../index.js";
+import { Logger }       from "../../index.js";
 import mineflayer            from "mineflayer";
 import mc                    from "minecraft-protocol";
 import * as fs               from "fs";

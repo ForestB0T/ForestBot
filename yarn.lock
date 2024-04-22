@@ -273,10 +273,10 @@ follow-redirects@^1.14.0, follow-redirects@^1.14.4, follow-redirects@^1.15.6:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
   integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
 
-forestbot-api-wrapper-v2@^1.4.4:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/forestbot-api-wrapper-v2/-/forestbot-api-wrapper-v2-1.4.4.tgz#229f24d69387a9a439490de933d3c04034b03d2a"
-  integrity sha512-REOGWJOCQf3hgSm16DzoN5XbmIMTLq24OZ2lPUlp1pwNiK/ksQf4dUzy5skGhK9a7dvqUUGBWuGGKiVjjTbgsQ==
+forestbot-api-wrapper-v2@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/forestbot-api-wrapper-v2/-/forestbot-api-wrapper-v2-1.4.5.tgz#bdd0e8e10b3ff6abf77188dd254fb9b04238281b"
+  integrity sha512-TNqXhbNJU/8tYGXeshK/IlhsTTWu/rB1/l0xkxNkyruGMuwKuPgMh5OSf5Scu/7mRBqkfW5cXgXQ6DWk9y4XyA==
   dependencies:
     "@types/node" "^20.11.5"
     "@types/ws" "^8.5.10"
