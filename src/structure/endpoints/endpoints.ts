@@ -11,11 +11,11 @@ export default class apiHandler extends ForestBotAPI {
         super(options)
 
         this.on("websocket_open", () => {
-            console.log("websocket opened.")
+            Logger.websocket("Websocket connection opened")
         });
 
         this.on("websocket_error", (data: any) => {
-            console.log("WEBSOCKET_ERROR: ", data);
+            Logger.websocket("Websocket error: " + data)
         })
 
         this.on("new_name", (data) => {

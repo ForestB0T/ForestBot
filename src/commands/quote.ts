@@ -17,9 +17,12 @@ export default {
             } else {
                 bot.bot.whisper(user, `I have no quotes recorded for ${search}, or unexpected error occurred.`);
             }
+            return;
         }
 
         let date: string | undefined = undefined;
+
+        // there is an error here we need to figure out
 
         if (data.Date.Valid) {
             date = data.Date.String

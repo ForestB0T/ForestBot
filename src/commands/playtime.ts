@@ -18,8 +18,10 @@ export default {
         if (!data || !data.playtime) { 
             if (search === user) {
                 bot.bot.whisper(user, `I have no playtime recorded for you, or unexpected error occurred.`);
+                return
             } else {
                 bot.bot.whisper(user, `I have no playtime recorded for ${search}, or unexpected error occurred.`);
+                return
             }
         }
 

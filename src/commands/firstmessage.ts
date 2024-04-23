@@ -16,10 +16,11 @@ export default {
         if (!data || data.length === 0) {
             if (search === user) {
                 bot.bot.whisper(user, `You have no messages, or unexpected error occurred.`);
+                return
             } else {
                 bot.bot.whisper(user, `${search} has no messages, or unexpected error occurred.`);
+                return
             }
-            return;
         }
 
         const firstMessage = data[0].message;

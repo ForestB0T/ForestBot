@@ -121,7 +121,7 @@ export default class Bot {
 
     /**
      * Get an array of players, and their ping.
-     * @returns [{ name: string, ping: number }]
+     * @returns [{ username: string, uuid: string, latency: number, server: string }]
      */
     public getPlayers(): Player[] {
         let players: Player[] = []

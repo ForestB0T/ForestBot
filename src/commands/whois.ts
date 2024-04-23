@@ -16,6 +16,7 @@ export default {
             else {
                 return bot.bot.whisper(user, `${search} has not yet set a description with !iam`)
             }
+            
         }
 
         const descriptions = data.descriptions;

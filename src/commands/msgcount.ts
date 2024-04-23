@@ -16,6 +16,7 @@ export default {
             } else {
                 bot.bot.whisper(user, `I have not seen any messages from ${search}, or unexpected error occurred.`);
             }
+            return
         }
 
         return bot.bot.chat(`${search}: ${data.count} messages`);
