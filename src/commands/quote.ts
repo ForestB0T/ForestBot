@@ -11,6 +11,8 @@ export default {
         const search = args[0] ? args[0] : user;
     
         const data = await api.getQuote(search, config.mc_server);
+     
+        console.log(data, " quote dats")
         if (!data || !data.message) { 
             if (search === user) {
                 bot.bot.whisper(user, `I have no quotes recorded for you, or unexpected error occurred.`);
@@ -24,14 +26,18 @@ export default {
 
         // there is an error here we need to figure out
 
-        if (data.Date.Valid) {
-            date = data.Date.String
+        if (!data.date.Valid) {
+            date = ""
+        }else {
+            date = data.date.String
         }
     
         //check if date is a digit. 
         if (date && date.match(/^\d+$/)) { 
             //convert our timestamp to a human readable format
             date = time.timeAgoStr(parseInt(date));
+        } else {
+            date = ""
         }
 
         return bot.bot.chat(`${search}: ${data.message} ${date ? `(${date})` : ''}`);
