@@ -13,6 +13,7 @@ export default {
         const data = await api.getQuote(search, config.mc_server);
      
         console.log(data, " quote dats")
+
         if (!data || !data.message) { 
             if (search === user) {
                 bot.bot.whisper(user, `I have no quotes recorded for you, or unexpected error occurred.`);
@@ -26,10 +27,10 @@ export default {
 
         // there is an error here we need to figure out
 
-        if (!data.date.Valid) {
+        if (!data.Date.Valid) {
             date = ""
         }else {
-            date = data.date.String
+            date = data.Date.String
         }
     
         //check if date is a digit. 
