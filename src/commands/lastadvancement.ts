@@ -4,21 +4,21 @@ import { config } from '../config.js';
 import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
-    commands: ['lastadvancement', 'la', 'advancement'],
-    description: `Use ${config.prefix}lastadvancement to get the last advancement of a player.`,
+    commands: ['lastadvancement', 'ladv'],
+    description: `Use ${config.prefix}la to get the last advancement of a player.`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
         const search = args[0] ? args[0] : user;
 
-        const uuid = await api.convertUsernameToUuid(search);
+        const uuid = await api.convertUsernameToUuid(search)
         const data = await api.getAdvancements(uuid, config.mc_server, 1, 'DESC');
 
         if (!data || data.length === 0) {
             if (search === user) {
-                bot.bot.whisper(user, `You have no advancements, or unexpected error occurred.`);
+                bot.Whisper(user, `You have no advancements, or unexpected error occurred.`);
             } else {
-                bot.bot.whisper(user, `${search} has no advancements, or unexpected error occurred.`);
+                bot.Whisper(user, `${search} has no advancements, or unexpected error occurred.`);
             }
             return;
         };

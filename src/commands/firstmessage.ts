@@ -15,10 +15,10 @@ export default {
 
         if (!data || data.length === 0) {
             if (search === user) {
-                bot.bot.whisper(user, `You have no messages, or unexpected error occurred.`);
+                bot.Whisper(user, `You have no messages, or unexpected error occurred.`);
                 return
             } else {
-                bot.bot.whisper(user, `${search} has no messages, or unexpected error occurred.`);
+                bot.Whisper(user, `${search} has no messages, or unexpected error occurred.`);
                 return
             }
         }
@@ -31,13 +31,13 @@ export default {
         // use a regex to check if it is only numbers
         // if it is, convert it to a number
         // if not, leave it as a string
-        if (data[0].date.String.match(/^[0-9]+$/)) {
-            date = time.timeAgoStr(parseInt(data[0].date.String));
+        if (data[0].date.match(/^[0-9]+$/)) {
+            date = time.timeAgoStr(parseInt(data[0].date));
         } else {
-            date = data[0].date.String;
+            date = data[0].date;
         }
 
-        date = time.timeAgoStr(parseInt(data[0].date.String.toString()));
+        date = time.timeAgoStr(parseInt(data[0].date.toString()));
 
         bot.bot.chat(`${search}: ${firstMessage}, ${date}`);
     }

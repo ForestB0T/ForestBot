@@ -1,6 +1,6 @@
-import { ForestBotApiClient } from 'forestbot-api';
 import type Bot from '../structure/mineflayer/Bot.js';
 import { config } from '../config.js';
+import forestBotAPI from 'forestbot-api-wrapper-v2/build/wrapper.js';
 
 let isMounted: boolean = false;
 
@@ -9,24 +9,24 @@ export default {
     description: `Use ${config.prefix}mount to mount the nearest boat.`,
     minArgs: 0,
     maxArgs: 0,
-    execute: async (user, args, bot, api: ForestBotApiClient) => {
+    execute: async (user, args, bot, api: forestBotAPI) => {
         const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.displayName === "Boat");
 
-        bot.bot.whisper(user, "Searching for nearest boat...")
+        bot.Whisper(user, "Searching for nearest boat...")
 
 
         if (isMounted) {
             bot.bot.dismount();
             isMounted = false;
-            return bot.bot.whisper(user, "I dismounted the boat.")
+            return bot.Whisper(user, "I dismounted the boat.")
         }
 
         if (nearestBoat && !isMounted) {
             bot.bot.mount(nearestBoat);
             isMounted = true;
-            return bot.bot.whisper(user, "I mounted the nearest boat!")
+            return bot.Whisper(user, "I mounted the nearest boat!")
         } else {
-            return bot.bot.whisper(user, "I could not find a boat.")
+            return bot.Whisper(user, "I could not find a boat.")
         }
 
     }

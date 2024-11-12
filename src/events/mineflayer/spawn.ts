@@ -2,7 +2,6 @@ import type Bot from "../../structure/mineflayer/Bot.js"
 import { config } from "../../config.js";
 import antiafk from "../../structure/mineflayer/utils/antiAFK.js";
 import { Logger, api } from "../../index.js";
-import { Player } from "forestbot-api-wrapper-v2";
 
 function getRandomInterval() {
     // Generate a random number between 3 minutes and 10 minutes (in milliseconds)
@@ -45,25 +44,28 @@ export default {
         const commandDescriptions = Array.from(Bot.commands.values()).map(cmd => cmd.description);
 
         if (config.announce) {
+            const usedIndices = new Set<number>();
+
             announceInterval = setInterval(async () => {
-                // Get the current command description
-                const currentCommand = commandDescriptions[currentIndex];
-    
-                // Output the current command description
-    
-                //find where our currentCommand is in the bot.commands map. it will be the description of a command
-                const command = Array.from(Bot.commands.values()).find(cmd => cmd.description === currentCommand);
-                const cmd_name = command.commands[0];
-    
-                if (Object.keys(config.commands).some(k=>k===cmd_name) && !config.commands[cmd_name]) return;
-    
-                Bot.bot.chat(currentCommand);
-                // Increment the index for the next iteration
-                currentIndex = currentIndex + 1 >= commandDescriptions.length ? 0 : currentIndex + 1;
-    
-                
-    
-    
+            if (usedIndices.size === commandDescriptions.length) {
+                usedIndices.clear();
+            }
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * commandDescriptions.length);
+            } while (usedIndices.has(randomIndex));
+
+            usedIndices.add(randomIndex);
+
+            const currentCommand = commandDescriptions[randomIndex];
+            const command = Array.from(Bot.commands.values()).find(cmd => cmd.description === currentCommand);
+            const cmd_name = command.commands[0];
+
+            if (Object.keys(config.commands).some(k => k === cmd_name) && !config.commands[cmd_name]) return;
+
+            Bot.bot.chat(command.description);
+
             }, getRandomInterval());
         }
 

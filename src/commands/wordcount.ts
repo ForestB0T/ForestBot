@@ -12,12 +12,12 @@ export default {
         const word = args[1];
 
         if (!search||!word) {
-            return bot.bot.whisper(user, "Please provide a player and a word to search for.")
+            return bot.Whisper(user, "Please provide a player and a word to search for.")
         }
 
         const data = await api.getWordOccurence(search, config.mc_server, word);
         if (!data || data.count === undefined) {
-            return bot.bot.whisper(user, `${search} has not said ${word}`)
+            return bot.Whisper(user, `${search} has not said ${word}`)
         }
 
         bot.bot.chat(`${search} has said ${word} ${data.count} times`)

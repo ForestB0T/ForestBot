@@ -10,14 +10,14 @@ export default {
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
         const search = args[0] ? args[0] : user;
-        const uuid = await api.convertUsernameToUuid(search);
+        const uuid = await api.convertUsernameToUuid(search)
         const data = await api.getLastSeen(uuid, config.mc_server);
         
         if (!data || !data.lastseen) {
             if (search === user) {
-                bot.bot.whisper(user, `You haven't been seen by me or unexpected error occurred.`);
+                bot.Whisper(user, `You haven't been seen by me or unexpected error occurred.`);
             } else {
-                bot.bot.whisper(user, `${search} has not been seen by me, or unexpected error occurred.`);
+                bot.Whisper(user, `${search} has not been seen by me, or unexpected error occurred.`);
             }
             return;
         }

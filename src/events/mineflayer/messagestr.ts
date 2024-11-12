@@ -1,5 +1,4 @@
 import { config } from "../../config.js";
-import ForestBotAi from "../../functions/chatgpt/ai.js";
 import { bot, Logger, api } from "../../index.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
 import mcCommandHandler from "../../structure/mineflayer/utils/commandHandler.js";
@@ -37,7 +36,7 @@ export default {
                     await api.websocket.sendMinecraftChatMessage({
                         name: username,
                         message: msgg,
-                        date: { String: Date.now().toString(), Valid: true },
+                        date: Date.now().toString(),
                         mc_server: Bot.mc_server,
                         uuid: uuid,
                     })
@@ -62,10 +61,6 @@ export default {
                     username = player.username;
 
                     if (msgg.startsWith(`<${username}>`)) msgg = msgg.replace(`<${username}>`, "").trim();
-
-                    if (config.useForestBotAI) {
-                        await ForestBotAi(username, msgg, Bot);
-                    };
 
                     saveMessage();
                     return;
@@ -181,12 +176,12 @@ export default {
                     await api.websocket.sendPlayerDeath({
                         victim: victim,
                         death_message: message,
-                        murderer: { Valid: true, String: murderer},
+                        murderer: murderer,
                         time: Date.now(),
                         type: "pvp",
                         mc_server: Bot.mc_server,
                         victimUUID: Bot.bot.players[victim].uuid ?? null,
-                        murdererUUID: { Valid: true, String: Bot.bot.players[murderer].uuid ?? ""},
+                        murdererUUID: Bot.bot.players[murderer].uuid ?? "",
                         id: undefined
                     })
 

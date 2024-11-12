@@ -16,9 +16,9 @@ export default {
 
         if (!data || !data.message) { 
             if (search === user) {
-                bot.bot.whisper(user, `I have no quotes recorded for you, or unexpected error occurred.`);
+                bot.Whisper(user, `I have no quotes recorded for you, or unexpected error occurred.`);
             } else {
-                bot.bot.whisper(user, `I have no quotes recorded for ${search}, or unexpected error occurred.`);
+                bot.Whisper(user, `I have no quotes recorded for ${search}, or unexpected error occurred.`);
             }
             return;
         }
@@ -26,11 +26,11 @@ export default {
         let date: string | undefined = undefined;
 
         // there is an error here we need to figure out
-
-        if (!data.Date.Valid) {
+        
+        if (!data.date) {
             date = ""
         }else {
-            date = data.Date.String
+            date = data.date
         }
     
         //check if date is a digit. 

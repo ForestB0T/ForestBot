@@ -12,9 +12,9 @@ export default {
         const data = await api.getMessageCount(search, config.mc_server);
         if (!data || data.count == undefined) {
             if (search === user) {
-                bot.bot.whisper(user, `I have not seen any messages from you, or unexpected error occurred.`);
+                bot.Whisper(user, `I have not seen any messages from you, or unexpected error occurred.`);
             } else {
-                bot.bot.whisper(user, `I have not seen any messages from ${search}, or unexpected error occurred.`);
+                bot.Whisper(user, `I have not seen any messages from ${search}, or unexpected error occurred.`);
             }
             return
         }

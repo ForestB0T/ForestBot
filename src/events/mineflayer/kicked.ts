@@ -6,6 +6,7 @@ export default {
     name: 'kicked',
     once: false,
     run: async (content: BotEvents, Bot: Bot) => {
+        console.log(Object.values(content));
         Logger.kick(`${content.toString()}`);
         Bot.bot.end();
         return;

@@ -11,15 +11,16 @@ export default {
         const search = args[0] ? args[0] : user;
 
         const data = await api.getWhoIs(search);
+
         if (!data) {
-            if (search === user) return bot.bot.whisper(user, `You have not yet set a description with !iam`)
+            if (search === user) return bot.Whisper(user, `You have not yet set a description with !iam`)
             else {
-                return bot.bot.whisper(user, `${search} has not yet set a description with !iam`)
+                return bot.Whisper(user, `${search} has not yet set a description with !iam`)
             }
             
         }
 
-        bot.bot.chat(`${search} is ${data[0]}`)
+        bot.bot.chat(`${search} is ${data.description}`)
 
         return;
     }

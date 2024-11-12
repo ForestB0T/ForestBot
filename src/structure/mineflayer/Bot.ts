@@ -1,13 +1,14 @@
-import { 
-    config, 
+import {
+    config,
     mc_blacklist,
-    mc_whitelist }           from "../../config.js";
-import { readdir }           from "fs/promises";
-import { Logger }       from "../../index.js";
-import mineflayer            from "mineflayer";
-import mc                    from "minecraft-protocol";
-import * as fs               from "fs";
-import time                  from "../../functions/utils/time.js";
+    mc_whitelist
+} from "../../config.js";
+import { readdir } from "fs/promises";
+import { Logger } from "../../index.js";
+import mineflayer from "mineflayer";
+import mc from "minecraft-protocol";
+import * as fs from "fs";
+import time from "../../functions/utils/time.js";
 import { Player } from "forestbot-api-wrapper-v2";
 
 
@@ -22,28 +23,28 @@ export default class Bot {
     public bot: mineflayer.Bot;
 
     public readonly useWhitelist: boolean;
-    public readonly welcomeMsgs:  boolean;
-    public readonly mc_server:    string;
+    public readonly welcomeMsgs: boolean;
+    public readonly mc_server: string;
 
-    public userWhitelist:   Set<string>           = new Set();
-    public userBlacklist:   Set<string>           = new Set();
-    public whitelistedCmds: Set<string>           = new Set();
-    public commands:        Map<string, MCommand> = new Map();
-    
-    public restartCount:    number  = 0;
-    public isConnected:     boolean = false;
+    public userWhitelist: Set<string> = new Set();
+    public userBlacklist: Set<string> = new Set();
+    public whitelistedCmds: Set<string> = new Set();
+    public commands: Map<string, MCommand> = new Map();
+
+    public restartCount: number = 0;
+    public isConnected: boolean = false;
     public allowConnection: boolean = true;
 
     constructor(public options: mineflayer.BotOptions) {
         this.useWhitelist = config.use_mc_whitelist;
-        this.mc_server    = config.mc_server;
-        this.welcomeMsgs  = config.welcome_messages;
+        this.mc_server = config.mc_server;
+        this.welcomeMsgs = config.welcome_messages;
 
         mc_blacklist.forEach(user => this.userBlacklist.add(user));
         mc_whitelist.forEach(user => this.userWhitelist.add(user));
         config.whitelisted_commands.forEach(command => this.whitelistedCmds.add(command));
 
-        this.startBot();
+        this.startBot()
     }
 
     /**
@@ -55,7 +56,6 @@ export default class Bot {
     public async startBot() {
         if (!this.allowConnection) return;
         this.restartCount++;
-
 
         Logger.login("Attempting to start mineflayer bot");
 
@@ -71,7 +71,7 @@ export default class Bot {
             if (!res) throw new Error("No Response.");
         } catch (err) {
             await time.sleep(config.reconnect_time);
-            this.startBot(); 
+            this.startBot();
             return;
         }
 
@@ -88,21 +88,13 @@ export default class Bot {
         this.loadCommands();
         this.handleEvents(bot);
 
-        const newChat = bot.chat;
-        const chatPrefix = config.useCustomChatPrefix ? config.customChatPrefix : "";
-
-        bot.chat = (msg: string) => {
-            newChat(`${chatPrefix}${msg}`)
-        }
-
-        bot.whisper = (user: string, msg: string) => {
-            newChat(`/${config.whisperCommand} ${user} ${msg}`)
-        }
-
-        this.bot = bot;
-        return bot;
+        return this.bot = bot
     }
 
+
+    public Whisper(user: string, message: string) { 
+        this.bot.chat(`/${config.whisperCommand} ${user} ${message}`);
+    }
 
     /**
      * 
@@ -178,7 +170,7 @@ export default class Bot {
     private async loadCommands() {
         for (const file of (await readdir("./build/commands")).filter(file => file.endsWith(".js"))) {
             const module: MCommand = (await import(`../../commands/${file}`)).default;
-            this.commands.set(module.commands[0], module); 
+            this.commands.set(module.commands[0], module);
         }
         Logger.success(`Loaded commands. Total: ${this.commands.size}`);
     }
