@@ -18,19 +18,13 @@ export default {
 
         Logger.join(user.username,user.uuid);
 
-        const saveUserJoinParams = {
-            type: "minecraft",
-            action: "savejoin",
-            data: {
-                user: user.username,
-                uuid: user.uuid,
-                mc_server: Bot.mc_server,
-                time: `${Date.now()}`
-            },
-            mcServer: Bot.mc_server
-        }
-
-        api.saveJoin(saveUserJoinParams)
+        //we want to send ping in this report :)
+        await api.websocket.sendPlayerJoin({
+            username: user.username,
+            uuid: user.uuid,
+            timestamp: Date.now().toString(),
+            server: Bot.mc_server, 
+        })
 
 
         return;

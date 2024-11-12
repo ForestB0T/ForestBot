@@ -1,147 +1,48 @@
-import { ForestBotApiClient, ForestBotApiConfig } from "forestbot-api";
+// import { ForestBotApiClient, ForestBotApiConfig } from "forestbot-api";
 import { Logger, bot } from "../../index.js";
 import { config } from "../../config.js";
 
-interface SaveChatParams {
-    type: string,
-    action: string,
-    data: {
-        name: string,
-        message: string,
-        mc_server: string,
-        uuid: string
-    },
-    mcServer: string
+import { DiscordChatMessage, ForestBotAPI, ForestBotAPIOptions, NewUserData, NewUserNameData } from "forestbot-api-wrapper-v2";
+
+export default class apiHandler extends ForestBotAPI {
+
+    public api: ForestBotAPI;
+    constructor(options: ForestBotAPIOptions) {
+        super(options)
+
+        this.on("websocket_open", () => {
+            Logger.websocket("Websocket connection opened")
+        });
+
+        this.on("websocket_close", (data: any) => {
+            Logger.websocket("Websocket connection has been closed!")
+        })
+
+        this.on("websocket_error", (data: any) => {
+            Logger.websocket("Websocket error: " + data)
+        })
+
+        this.on("new_name", (data: NewUserNameData) => {
+            if ((data.server === bot.mc_server && config.welcome_messages)) {
+                bot.bot.chat(`${data.new_name}, previously known as ${data.old_name} joined the server!`)
+            }
+        })
+
+        this.on("new_user", async (data: NewUserData) => {
+            if ((data.server === bot.mc_server) && config.welcome_messages) {
+                await new Promise((r) => setTimeout(r, 1000));
+                bot.bot.chat(`${data.user}, First time here? Welcome!`)
+            }
+        })
+
+        this.on("inbound_discord_chat", (data: DiscordChatMessage) => {
+            console.log(data)
+            if (data.mc_server === bot.mc_server && config.allow_chatbridge_input) {
+                bot.bot.chat(`[Discord] ${data.username}: ${data.message}`)
+            }
+        })
+
+    };
+
+
 }
-
-interface SaveAdvancementArgs {
-    type: string,
-    action: string,
-    data: {
-        username: string,
-        advancement: string,
-        mc_server: string,
-        time: number,
-        uuid: string
-    }
-}
-
-interface SaveKillOrDeathArgs {
-    type: string,
-    action: string,
-    data: {
-        victim: string,
-        death_message: string,
-        time: number,
-        type: string,
-        mc_server: string,
-        victimUUID: string,
-        murdererUUID: string,
-    },
-    mcServer: string
-}
-
-interface SaveUserJoinParams {
-    type: string,
-    action: string,
-    data: {
-        user: string,
-        uuid: string,
-        mc_server: string,
-        time: string,
-    },
-    mcServer: string
-}
-
-interface SaveUserLeaveParams {
-    type: string,
-    action: string,
-    data: {
-        username: string,
-        mc_server: string,
-        time: string,
-    },
-    mcServer: string
-}
-
-interface BotErrorParams {
-    type: string,
-    action: string,
-    data: {
-        mc_server: string,
-        time: string,
-    },
-    mcServer: string
-}
-
-export default class apiHandler extends ForestBotApiClient {
-
-    constructor(params: ForestBotApiConfig) {
-        super(params)
-
-        if (params.useWebsocket && params.webSocket_url) {
-            //what the fuck
-            this.Socket.on("open", () => {
-                this.Socket.isConnected = true;
-                Logger.success("Websocket connected.")
-            });
-
-            this.Socket.on("closed", async (reason: number) => {
-                Logger.error(`Websocket Disconnected: Code: ${reason}`);
-                this.Socket.isConnected = false;
-                await new Promise(r => setTimeout(r, 10000));
-                this.Socket.authenticate();
-            });
-
-            this.Socket.on("chat", (data) => {
-                if (!bot.isConnected || !config.allow_chatbridge_input) return;
-                const { username, message } = data;
-                bot.bot.chat(`${username}: ${message}`);
-                return
-            });
-
-            this.Socket.on("nameChange", (new_name, old_name) => {
-                if (!config.welcome_messages || !bot.isConnected) return;
-                bot.bot.chat(`${new_name} previously known as ${old_name} joined the server.`)
-                return;
-            });
-
-            this.Socket.on("newUser", (username) => {
-                if (!config.welcome_messages || !bot.isConnected) return;
-                bot.bot.chat(`Hello, ${username} this is my first time seeing you. so welcome to the server! Use !help to learn more about me.`)
-                return
-            });
-
-        }
-    };
-
-    private async websocketSend(data: any) {
-        if (!this.Socket.isConnected) return;
-        this.Socket.send(data)
-    };
-
-    public saveChat(params: SaveChatParams) {
-        this.websocketSend(params);
-    };
-
-    public saveAdvancement(params: SaveAdvancementArgs) {
-        this.websocketSend(params)
-    };
-
-    public saveKillOrDeath(params: SaveKillOrDeathArgs) {
-        this.websocketSend(params)
-    };
-
-    public saveJoin(params: SaveUserJoinParams) {
-        this.websocketSend(params);
-    };
-
-    public saveLeave(params: SaveUserLeaveParams) {
-        this.websocketSend(params)
-    };
-
-    public reportProblem(params: BotErrorParams) {
-        this.websocketSend(params)
-    };
-
-};

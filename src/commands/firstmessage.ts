@@ -1,31 +1,44 @@
-import { ForestBotApiClient } from 'forestbot-api';
-import time     from '../functions/utils/time.js';
+import { ForestBotAPI } from 'forestbot-api-wrapper-v2';
+import time from '../functions/utils/time.js';
 import { config } from '../config.js';
+import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['firstmessage', 'fm'],
     description: `Use ${config.prefix}firstmessage to get the first message of a player.`,
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user, args, bot, api: ForestBotApiClient) => {
+    execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
         const search = args[0] ? args[0] : user;
 
-        const data = await api.getFirstMessage(search);
+        const data = await api.getMessages(search, config.mc_server, 1, 'ASC');
 
-        if (!data||!data.success) return
-
-        const firstMessage = data.data.messages[0];
-
-        let date: string;
-        if (firstMessage.date) {
-            date = time.timeAgoStr(typeof firstMessage.date === "string" ? parseInt(firstMessage.date) : firstMessage.date);
-        } else {
-            date = "";
+        if (!data || data.length === 0) {
+            if (search === user) {
+                bot.Whisper(user, `You have no messages, or unexpected error occurred.`);
+                return
+            } else {
+                bot.Whisper(user, `${search} has no messages, or unexpected error occurred.`);
+                return
+            }
         }
 
-        const firstMsgStr = `"${firstMessage.message}" (${date})`
+        const firstMessage = data[0].message;
 
-        bot.bot.chat(`${firstMessage.name}: ${firstMsgStr}`)
-        return;
+        let date = "";
+
+        // need to check if the date.String is able to be converted to a number
+        // use a regex to check if it is only numbers
+        // if it is, convert it to a number
+        // if not, leave it as a string
+        if (data[0].date.match(/^[0-9]+$/)) {
+            date = time.timeAgoStr(parseInt(data[0].date));
+        } else {
+            date = data[0].date;
+        }
+
+        date = time.timeAgoStr(parseInt(data[0].date.toString()));
+
+        bot.bot.chat(`${search}: ${firstMessage}, ${date}`);
     }
 } as MCommand

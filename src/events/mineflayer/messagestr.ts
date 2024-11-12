@@ -1,5 +1,4 @@
 import { config } from "../../config.js";
-import ForestBotAi from "../../functions/chatgpt/ai.js";
 import { bot, Logger, api } from "../../index.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
 import mcCommandHandler from "../../structure/mineflayer/utils/commandHandler.js";
@@ -34,16 +33,12 @@ export default {
 
                     log.chat(username, msgg, uuid);
 
-                    api.saveChat({
-                        type: "minecraft",
-                        action: "savechat",
-                        data: {
-                            name: username,
-                            message: msgg,
-                            mc_server: Bot.mc_server,
-                            uuid: uuid,
-                        },
-                        mcServer: Bot.mc_server
+                    await api.websocket.sendMinecraftChatMessage({
+                        name: username,
+                        message: msgg,
+                        date: Date.now().toString(),
+                        mc_server: Bot.mc_server,
+                        uuid: uuid,
                     })
 
 
@@ -66,10 +61,6 @@ export default {
                     username = player.username;
 
                     if (msgg.startsWith(`<${username}>`)) msgg = msgg.replace(`<${username}>`, "").trim();
-
-                    if (config.useForestBotAI) {
-                        await ForestBotAi(username, msgg, Bot);
-                    };
 
                     saveMessage();
                     return;
@@ -136,19 +127,14 @@ export default {
                 const userToSave = Bot.bot.players[words[1]] ? words[1] : words[0];
                 const uuid = Bot.bot.players[userToSave].uuid;
 
-                const saveAdvancementArgs = {
-                    type: "minecraft",
-                    action: "saveadvancement",
-                    data: {
-                        username: userToSave,
-                        advancement: message,
-                        mc_server: Bot.mc_server,
-                        time: Date.now(),
-                        uuid
-                    }
-                }
+                await api.websocket.sendPlayerAdvancement({
+                    username: userToSave,
+                    advancement: message,
+                    time: Date.now(),
+                    mc_server: Bot.mc_server,
+                    uuid: uuid,
+                })
 
-                api.saveAdvancement(saveAdvancementArgs)
 
                 log.advancement(message);
                 return;
@@ -169,6 +155,8 @@ export default {
              */
             const saveKill = async (victim: string) => {
                 const victimIndex = words.indexOf(victim);
+
+                //Checking for a murderer
                 let murderer = null;
                 for (let i = victimIndex + 1; i < words.length; i++) {
                     if (Bot.bot.players[words[i]]) {
@@ -183,34 +171,51 @@ export default {
 
                 log.death(message);
 
-                const SaveKillOrDeathArgs = {
-                    type: "minecraft",
-                    action: "savedeath",
-                    data: {
-                        victim,
+                if (murderer) {
+
+                    await api.websocket.sendPlayerDeath({
+                        victim: victim,
                         death_message: message,
-                        murderer: murderer ? murderer : null,
+                        murderer: murderer,
                         time: Date.now(),
-                        type: murderer ? "pvp" : "pve",
-                        mc_server: bot.mc_server,
+                        type: "pvp",
+                        mc_server: Bot.mc_server,
                         victimUUID: Bot.bot.players[victim].uuid ?? null,
-                        murdererUUID: murderer ? Bot.bot.players[murderer].uuid ?? null : null
-                    },
-                    mcServer: Bot.mc_server
+                        murdererUUID: Bot.bot.players[murderer].uuid ?? "",
+                        id: undefined
+                    })
+
+                } else {
+
+                    await api.websocket.sendPlayerDeath({
+                        victim: victim,
+                        death_message: message,
+                        time: Date.now(),
+                        type: "pvp",
+                        mc_server: Bot.mc_server,
+                        victimUUID: Bot.bot.players[victim].uuid ?? null,
+                        id: undefined
+                    })
                 }
 
-                api.saveKillOrDeath(SaveKillOrDeathArgs)
-
 
             }
 
-            if (Bot.bot.players[words[0]] && !Bot.bot.players[words[1]]) {
-                saveKill(words[0])
-                return;
-            }
-            else if (Bot.bot.players[words[1]]) {
-                saveKill(words[1])
-                return;
+
+            const players = Object.values(Bot.bot.players);
+
+            for (const player of players) {
+                if (words[0] === player.username) {
+                    
+                    if (Bot.bot.players[words[0]] && !Bot.bot.players[words[1]]) {
+                        saveKill(words[0]);
+
+                    } else if (Bot.bot.players[words[1]]) {
+                        saveKill(words[1]);
+                    }
+                    
+                    return;
+                }
             }
 
             return;

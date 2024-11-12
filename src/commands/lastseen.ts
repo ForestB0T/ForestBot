@@ -1,24 +1,33 @@
 import time from '../functions/utils/time.js';
-import type { ForestBotApiClient } from 'forestbot-api';
+import type { ForestBotAPI } from 'forestbot-api-wrapper-v2';
 import { config } from '../config.js';
+import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['lastseen', 'seen', 'ls'],
     description: `Use ${config.prefix}lastseen to get the last time a player was seen.`,
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user, args, bot, api: ForestBotApiClient) => {
+    execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
         const search = args[0] ? args[0] : user;
-
-        const data = await api.getLastSeen(search);
-        if (!data) return
+        const uuid = await api.convertUsernameToUuid(search)
+        const data = await api.getLastSeen(uuid, config.mc_server);
+        
+        if (!data || !data.lastseen) {
+            if (search === user) {
+                bot.Whisper(user, `You haven't been seen by me or unexpected error occurred.`);
+            } else {
+                bot.Whisper(user, `${search} has not been seen by me, or unexpected error occurred.`);
+            }
+            return;
+        }
 
         const userIsOnline = bot.bot.players[search] ? true : false;
 
         if (userIsOnline && (data && data.lastseen.toString().match(/^\d+$/))) {
             const unixTime = parseInt(data.lastseen.toString());
             const lastseen = time.timeAgoStr(unixTime);
-            return bot.bot.chat(`${search} is online and logged in ${lastseen}`);
+            return bot.bot.chat(`${search} is playing right now and logged in ${lastseen}`);
         }
 
         let lastseenString: string;
@@ -30,6 +39,6 @@ export default {
             lastseenString = data.lastseen.toString();
         }
 
-        return bot.bot.chat(`${search}: ${lastseenString}`);
+        return bot.bot.chat(`I last seen ${search} ${lastseenString}`);
     }
 } as MCommand

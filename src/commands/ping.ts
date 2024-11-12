@@ -1,13 +1,13 @@
-import { ForestBotApiClient } from 'forestbot-api';
 import type Bot from '../structure/mineflayer/Bot.js';
 import { config } from '../config.js';
+import forestBotAPI from 'forestbot-api-wrapper-v2/build/wrapper.js';
 
 export default {
     commands: ['ping'],
     description: `Use ${config.prefix}ping to get the ping of a player.`,
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user, args, bot, api: ForestBotApiClient) => {
+    execute: async (user, args, bot, api: forestBotAPI) => {
         const search = args[0] ? args[0] : user;
         try {
             let str = ``

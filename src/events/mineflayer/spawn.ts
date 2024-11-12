@@ -10,6 +10,8 @@ function getRandomInterval() {
 
 let currentIndex = 0;
 let announceInterval: NodeJS.Timeout = null;
+let playerListUpdateInterval: NodeJS.Timeout = null;
+
 
 export default {
     name: "spawn",
@@ -17,10 +19,17 @@ export default {
     run: async (args: any[], Bot: Bot) => {
         Logger.spawn(`${Bot.bot.username} has spawned`);
 
-        await api.postUpdatePlayerList({
-            users: Bot.getPlayers(),
-            mc_server: Bot.mc_server
-        });
+        //Updating playerlist for tablist, while also upating playtime every 60000 milliseconds
+        await api.websocket.sendPlayerListUpdate(Bot.getPlayers());
+
+        if (playerListUpdateInterval) {
+            clearInterval(playerListUpdateInterval)
+        };
+
+        playerListUpdateInterval = setInterval(async () => {
+            await api.websocket.sendPlayerListUpdate(Bot.getPlayers());
+        }, 60000);
+        
 
         Bot.restartCount = 0;
         Bot.isConnected = true;
@@ -35,25 +44,28 @@ export default {
         const commandDescriptions = Array.from(Bot.commands.values()).map(cmd => cmd.description);
 
         if (config.announce) {
+            const usedIndices = new Set<number>();
+
             announceInterval = setInterval(async () => {
-                // Get the current command description
-                const currentCommand = commandDescriptions[currentIndex];
-    
-                // Output the current command description
-    
-                //find where our currentCommand is in the bot.commands map. it will be the description of a command
-                const command = Array.from(Bot.commands.values()).find(cmd => cmd.description === currentCommand);
-                const cmd_name = command.commands[0];
-    
-                if (Object.keys(config.commands).some(k=>k===cmd_name) && !config.commands[cmd_name]) return;
-    
-                Bot.bot.chat(currentCommand);
-                // Increment the index for the next iteration
-                currentIndex = currentIndex + 1 >= commandDescriptions.length ? 0 : currentIndex + 1;
-    
-                
-    
-    
+            if (usedIndices.size === commandDescriptions.length) {
+                usedIndices.clear();
+            }
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * commandDescriptions.length);
+            } while (usedIndices.has(randomIndex));
+
+            usedIndices.add(randomIndex);
+
+            const currentCommand = commandDescriptions[randomIndex];
+            const command = Array.from(Bot.commands.values()).find(cmd => cmd.description === currentCommand);
+            const cmd_name = command.commands[0];
+
+            if (Object.keys(config.commands).some(k => k === cmd_name) && !config.commands[cmd_name]) return;
+
+            Bot.bot.chat(command.description);
+
             }, getRandomInterval());
         }
 

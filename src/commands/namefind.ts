@@ -1,4 +1,4 @@
-import type { ForestBotApiClient } from 'forestbot-api';
+import type { ForestBotAPI } from "forestbot-api-wrapper-v2";
 import { config } from '../config.js';
 
 export default {
@@ -6,15 +6,15 @@ export default {
     description: `Use ${config.prefix}search to find a user's username history.`,
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user, args, bot, api: ForestBotApiClient) => {
-        const search = args[0] ? args[0] : user;
-
+    execute: async (user, args, bot, api: ForestBotAPI) => {
         if (!args[0]) return;
-        const data = await api.getNameFind(args[0]);
-        if (!data || (data.usernames && data.usernames.length <= 0)) return bot.bot.chat(`No matches.`)
+        const data = await api.getNameFinder(args[0], config.mc_server);
+
+        if (!data || !data.usernames || data.usernames.length == 0) {
+            return bot.bot.chat(`No matches found or an unexpected error occured.`);
+        }
 
         const usernames = data.usernames;
-
-        return bot.bot.chat(`You could be looking for: ${usernames.join(", ")}`)
+        return bot.bot.chat(`You could be looking for: ${usernames.join(", ")}`);
     }
 } as MCommand

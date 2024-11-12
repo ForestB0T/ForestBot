@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { config } from "../../config.js";
 
-type LogType = "success" |"info" | "error" | "warn" | "debug" | "chat" | "advancement" | "death" | "join" | "leave" | "kick" | "login" | "logout" | "move" | "spawn" | "world" | "command";
+type LogType = "websocket" | "success" |"info" | "error" | "warn" | "debug" | "chat" | "advancement" | "death" | "join" | "leave" | "kick" | "login" | "logout" | "move" | "spawn" | "world" | "command";
 
 
 /**
@@ -80,5 +80,9 @@ export class Logger {
 
     public static success(message: string, type: LogType = "success") {
         this.log(type, chalk.greenBright, message);
+    };
+
+    public static websocket(message: string, type: LogType = "websocket") {
+        this.log(type, chalk.yellow, message);
     };
 };
