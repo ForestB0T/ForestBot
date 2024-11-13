@@ -23,7 +23,13 @@ export default {
             return;
         }
 
-        const joindateStr = time.convertUnixTimestamp(parseInt(data.joindate.toString()) / 1000);
-        bot.bot.chat(`I first saw ${search}, ${joindateStr}`);
+        //check if joindate is only digits
+        let jd: string = "";
+        if (!/^\d+$/.test(data.joindate as string)) {
+            jd = time.convertUnixTimestamp(parseInt(data.joindate.toString()) / 1000)
+        } else {
+            jd = data.joindate as string;
+        }
+        bot.bot.chat(`I first saw ${search}, ${jd}`);
     }
 } as MCommand
