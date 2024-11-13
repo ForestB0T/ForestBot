@@ -5,7 +5,7 @@ import { Logger, api } from "../../../index.js";
 const spam: Map<string, number> = new Map();
 
 function antiSpamHandler(args: antiSpamArgsType) {
-    const { user, Bot, cooldown_time, spam_limit } = args;
+    const { user, bot, cooldown_time, spam_limit } = args;
     if (!spam.has(user)) spam.set(user, 1);
     else spam.set(user, spam.get(user) + 1);
 
@@ -15,8 +15,8 @@ function antiSpamHandler(args: antiSpamArgsType) {
     }
 
     if (sUser >= spam_limit) {
-        Bot.updateLists(user, "add", "blacklist");
-        Bot.bot.chat(`I am ignoring you ${user} because you are spamming.`);
+        bot.updateLists(user, "add", "blacklist");
+        bot.bot.chat(`I am ignoring you ${user} because you are spamming.`);
         return false;
     }
 
@@ -38,9 +38,11 @@ export default async function mcCommandHandler(user: string, message: string, bo
                 let args = message.split(" ");
                 args.shift();
 
+                if (bot.userBlacklist.has(user)) return;
+
                 if (antiSpamHandler({
                     user,
-                    Bot: bot,
+                    bot: bot,
                     cooldown_time: config.anti_spam_cooldown,
                     spam_limit: config.anti_spam_msg_limit
                 })) {
