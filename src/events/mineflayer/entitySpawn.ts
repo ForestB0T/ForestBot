@@ -31,7 +31,7 @@ export default {
         z = Math.round(z * 10) / 10;
 
         const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-        if (config.welcome_messages) Bot.bot.chat(greeting.replace("$username", username));
+        if (config.welcome_messages)// Bot.bot.chat(greeting.replace("$username", username));
         Logger.world(`[${username}] (${x}, ${y}, ${z}) Spotted.`); 
 
         setTimeout(() => {

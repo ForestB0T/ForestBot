@@ -1,5 +1,4 @@
-import { config } from "../../config.js";
-import { bot, Logger, api } from "../../index.js";
+import { Logger, api } from "../../index.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
 import mcCommandHandler from "../../structure/mineflayer/utils/commandHandler.js";
 import parseUsername from "../../structure/mineflayer/utils/parseUsername.js";

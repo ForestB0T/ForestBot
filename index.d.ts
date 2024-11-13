@@ -66,7 +66,7 @@ type Colors = {
 
 type antiSpamArgsType = {
     user:          string,
-    Bot:           Bot,
+    bot:           Bot,
     cooldown_time: number,
     spam_limit:    number
 }

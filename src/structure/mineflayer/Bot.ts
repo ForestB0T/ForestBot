@@ -62,7 +62,7 @@ export default class Bot {
         if (this.restartCount >= 10) {
             Logger.warn("Minecraft Server Connection is being refused, The server is most likely offline.");
             this.restartCount = 0;
-            setTimeout(() => { this.startBot() }, 9 * 60000)
+            setTimeout(() => { this.startBot() }, 10 * 60000)
             return
         }
 
@@ -74,14 +74,6 @@ export default class Bot {
             this.startBot();
             return;
         }
-
-        // if (!(await api.pingApi())) {
-        //     Logger.warn(`Connection to "${config.api_url}" api failed, maybe the api is offline? Attempting to restart...`);
-        //     this.endAndRestart();
-        //     return;
-        // } else {
-        //     Logger.success("Connection to api successful");
-        // }
 
         const bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
 

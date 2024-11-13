@@ -1,37 +1,27 @@
 {
-    "mc_server": "newtest",
-    "host": "192.168.100.131",
+    "mc_server": "newtest_new",
+    "host": "localhost",
     "port": 25565,
-    "version": "1.20",
-    "api_url": "http://192.168.100.132:8000",
-    "websocket_url": "ws://192.168.100.132:8000/authenticate",
-
+    "version": "1.20.6",
+    "api_url": "http://localhost:8000",
+    "websocket_url": "ws://localhost:8000",
     "useLogger": true,
-
     "prefix": "!",
     "useCustomChatPrefix": true,
     "customChatPrefix": "&d&l",
     "whisperCommand": "msg",
-
-    "announce": false,
-
-    "useForestBotAI": false,
-    
+    "announce": true,
     "antiafk": false,
-
     "use_mc_whitelist": true,
-    
-    "reconnect_time": 40000,
-
-    "anti_spam_cooldown": 10000,
+    "reconnect_time": 30000,
+    "anti_spam_cooldown": 0,
     "anti_spam_msg_limit": 5,
-
-    "welcome_messages": false,
-
+    "welcome_messages": true,
     "whitelisted_commands": [],
-
-    "useCommands": false,
-
+    "useCommands": true,
+    "disabled_events": ["entitySpawn"],
+    "allow_chatbridge_input": true,
+    "rotateHeadOnJoin": false,
     "commands": {
         "urban": true,
         "kill": false,
@@ -50,10 +40,5 @@
         "quote": true,
         "top": true,
         "wp": true
-    },
-    
-    "disabled_events": ["entitySpawn"],
-
-    "allow_chatbridge_input": true,
-    "rotateHeadOnJoin": false
+    }
 }
