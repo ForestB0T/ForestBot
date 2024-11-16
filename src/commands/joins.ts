@@ -4,7 +4,7 @@ import { config } from '../config.js';
 
 export default {
     commands: ['joins'],
-    description: `Use ${config.prefix}joins to get the number of times a user has joined the server.`,
+    description: `Shows the number of times a user has joined. Usage: ${config.prefix}joins <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

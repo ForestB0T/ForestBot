@@ -5,7 +5,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['lastadvancement', 'ladv'],
-    description: `Use ${config.prefix}ladv to get the last advancement of a player.`,
+    description: `Retrieves the most recent advancement of a user. Usage: ${config.prefix}lastadvancement <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

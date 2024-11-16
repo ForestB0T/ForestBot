@@ -4,7 +4,7 @@ import Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['addfaq'],
-    description: `Use ${config.prefix}addfaq to add a FAQ. !addfaq <text>`,
+    description: `Adds a new FAQ entry. Usage: ${config.prefix}faq <text>`,
     minArgs: 0,
     maxArgs: 255,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

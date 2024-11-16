@@ -5,7 +5,7 @@ import Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['joindate', 'jd', 'firstseen'],
-    description: `Use ${config.prefix}joindate to get the join date of a player.`,
+    description: `Retrieves the join date of a user. Usage: ${config.prefix}joindate <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

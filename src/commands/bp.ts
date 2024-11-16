@@ -3,7 +3,7 @@ import { config } from '../config.js';
 
 export default {
     commands: ['bp', 'bestping'],
-    description: `Use ${config.prefix}bp to get the user with best ping.`,
+    description: `See who has the best ping. Usage: ${config.prefix}bp`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api) => {

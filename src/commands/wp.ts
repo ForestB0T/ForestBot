@@ -3,7 +3,7 @@ import { config } from '../config.js';
 
 export default {
     commands: ['wp', 'worstping'],
-    description: `Use ${config.prefix}wp to get the worst ping.`,
+    description: `See who has the worst ping. Usage: ${config.prefix}wp`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user: string, args: any[], bot: Bot) => {

@@ -3,7 +3,7 @@ import { config } from '../config.js';
 
 export default {
     commands: ['advancements', 'totaladvancements'],
-    description: `Use ${config.prefix}advancements to get the number of advancements a user has.`,
+    description: `Retrives the number of advancements a user has. Usage: ${config.prefix}advancements <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotAPI) => {

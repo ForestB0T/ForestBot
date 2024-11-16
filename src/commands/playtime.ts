@@ -5,7 +5,7 @@ import Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['playtime', 'pt'],
-    description: `Use ${config.prefix}playtime to get the playtime of a player.`,
+    description: `Retrieves the total playtime of a user. Usage: ${config.prefix}playtime <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot:Bot, api: ForestBotAPI) => {

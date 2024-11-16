@@ -6,7 +6,7 @@ import type Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['lastkill', 'lk'],
-    description: `Use ${config.prefix}lastkill to get the last kill of a player.`,
+    description: `Retrieves the last kill a user got. Usage: ${config.prefix}lastkill <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

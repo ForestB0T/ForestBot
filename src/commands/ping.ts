@@ -4,7 +4,7 @@ import forestBotAPI from 'forestbot-api-wrapper-v2/build/wrapper.js';
 
 export default {
     commands: ['ping'],
-    description: `Use ${config.prefix}ping to get the ping of a player.`,
+    description: `Check your ping or another user's. Usage: ${config.prefix}ping <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: forestBotAPI) => {

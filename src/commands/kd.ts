@@ -4,7 +4,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['kd', 'kills', 'deaths'],
-    description: `Use ${config.prefix}kd to get the number of kills and deaths a user has.`,
+    description: `Displays the kill/death ratio of a user. Usage: ${config.prefix}kd <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -21,7 +21,7 @@ export default {
             return;
         }
 
-        return bot.bot.chat(`${search}: Kills: ${data.kills} Deaths: ${data.deaths}`)
-
+        const kdRatio = data.kills / data.deaths;
+        return bot.bot.chat(`${search}: Kills: ${data.kills} Deaths: ${data.deaths} KD: ${kdRatio.toFixed(2)}`);
     }
 } as MCommand

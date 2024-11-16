@@ -3,7 +3,7 @@ import { config } from '../config.js';
 
 export default {
     commands: ['discord'],
-    description: `Use ${config.prefix}discord to get the discord link.`,
+    description: `Shares the Discord server invite link. Usage: ${config.prefix}discord`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot) => {

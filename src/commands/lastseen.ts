@@ -5,7 +5,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['lastseen', 'seen', 'ls'],
-    description: `Use ${config.prefix}lastseen to get the last time a player was seen.`,
+    description: `Displays the last time a user was seen online. Usage: ${config.prefix}lastseen <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

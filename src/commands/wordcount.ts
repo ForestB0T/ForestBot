@@ -4,7 +4,7 @@ import Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['wordcount', 'words', 'count'],
-    description: `Use ${config.prefix}wordcount <player> <word> to get the number of times a word has been said in chat.`,
+    description: `Shows the number of times a user has said a word. Usage: ${config.prefix}wordcount <username> <word>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

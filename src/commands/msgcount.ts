@@ -3,7 +3,7 @@ import { config } from '../config.js';
 
 export default {
     commands: ['msgcount', 'messages'],
-    description: `Use ${config.prefix}msgcount to get the number of messages a user has sent.`,
+    description: `Retrives the number of messages a user has sent. Usage: ${config.prefix}msgcount <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotAPI) => {

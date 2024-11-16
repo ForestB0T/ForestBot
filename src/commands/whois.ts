@@ -4,7 +4,7 @@ import Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['whois'],
-    description: `Use ${config.prefix}whois to get a user's description.`,
+    description: `Shows the description of a user. Usage: ${config.prefix}whois <username>`,
     minArgs: 0,
     maxArgs: 255,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

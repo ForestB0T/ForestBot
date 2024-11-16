@@ -7,7 +7,7 @@ const log = Logger;
 /**
  * This event is basically only used to capture kill messages.
  */
-const blacklistedWords = ["[w]", "[Administrator]", "[+]", "From", "To", "left", "Left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you.", "[Rcon]"];
+const blacklistedWords = ["[w]", "[Administrator]", "[+]", "From", "left", "Left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you.", "[Rcon]"];
 
 export default {
     name: "messagestr",
@@ -143,7 +143,8 @@ export default {
             /**
              * Returning if any blacklisted words are found.
              */
-            if (blacklistedWords.some((w) => message.includes(w))) return;
+            //   if (blacklistedWords.some((w) => message.includes(w))) return;
+            if (message.split(/\s+/).some(word => blacklistedWords.includes(word))) return;
 
 
             /**
@@ -205,14 +206,14 @@ export default {
 
             for (const player of players) {
                 if (words[0] === player.username) {
-                    
+
                     if (Bot.bot.players[words[0]] && !Bot.bot.players[words[1]]) {
                         saveKill(words[0]);
 
                     } else if (Bot.bot.players[words[1]]) {
                         saveKill(words[1]);
                     }
-                    
+
                     return;
                 }
             }

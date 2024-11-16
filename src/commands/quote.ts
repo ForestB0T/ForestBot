@@ -4,7 +4,7 @@ import time from "../functions/utils/time.js";
 
 export default {
     commands: ['quote', 'q'],
-    description: `Use ${config.prefix}quote to get a random quote from a user.`,
+    description: `Retrieves a random quote from a user. Usage: ${config.prefix}quote <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotAPI) => {

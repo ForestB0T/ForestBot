@@ -5,7 +5,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['lastmessage', 'lm'],
-    description: `Use ${config.prefix}lastmessage to get the last message of a player.`,
+    description: `Retrieves the last message of a user. Usage: ${config.prefix}lastmessage <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

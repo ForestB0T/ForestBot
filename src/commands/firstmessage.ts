@@ -5,7 +5,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['firstmessage', 'fm'],
-    description: `Use ${config.prefix}firstmessage to get the first message of a player.`,
+    description: `Retrieves the first message of a user. Usage: ${config.prefix}firstmessage <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

@@ -4,7 +4,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['top'],
-    description: `Use ${config.prefix}top kills|deaths|joins|playtime to get the top 5 players for a stat.`,
+    description: `Shows the top 5 players in a certain statistic. Usage: ${config.prefix}top <kills/deaths/joins/playtime>`,
     minArgs: 0,
     maxArgs: 2,
     execute: async (user, args, bot: Bot, api: forestBotAPI) => {

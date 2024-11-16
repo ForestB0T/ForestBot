@@ -5,7 +5,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['faq', 'getfaq'],
-    description: `Use ${config.prefix}getfaq to get a FAQ. !getfaq <id>`,
+    description: `Retrieves a FAQ entry by ID. Usage: ${config.prefix}faq <id>`,
     minArgs: 1,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -15,7 +15,7 @@ export default {
         try {
             const data = await api.getFaq(id, bot.mc_server);
             if (!data) return bot.Whisper(user, `There was an error getting your FAQ, it may not exist.`);
-            bot.bot.chat(`Entry #${data.id}: ${data.faq}`);
+            bot.bot.chat(`Entry #${data.id}/#${data.total}: ${data.faq}`);
             return
         } catch {
             return

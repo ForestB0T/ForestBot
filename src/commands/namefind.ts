@@ -3,7 +3,7 @@ import { config } from '../config.js';
 
 export default {
     commands: ['search', 'lookup', 'find'],
-    description: `Use ${config.prefix}search to find likely username`,
+    description: `Retrives likely usernames related to your search. Usage: ${config.prefix}search <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotAPI) => {

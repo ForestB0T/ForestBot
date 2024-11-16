@@ -3,7 +3,7 @@ import { config } from '../config.js';
 
 export default {
     commands: ['sleep'],
-    description: `Use ${config.prefix}sleep to get the bot to sleep.`,
+    description: `Put the bot to sleep. Usage: ${config.prefix}sleep`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api) => {
