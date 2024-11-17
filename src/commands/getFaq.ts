@@ -15,7 +15,7 @@ export default {
         try {
             const data = await api.getFaq(id, bot.mc_server);
             if (!data) return bot.Whisper(user, `There was an error getting your FAQ, it may not exist.`);
-            bot.bot.chat(`Entry #${data.id}/#${data.total}: ${data.faq}`);
+            bot.bot.chat(`Entry #${data.id}/${data.total}: ${data.faq}`);
             return
         } catch {
             return
