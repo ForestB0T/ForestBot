@@ -13,6 +13,13 @@ type MCommand = {
     execute:  (user: string, args: any[], bot: Bot, api: ForestBotApiClient) => Promise<void>
 }
 
+interface OfflineMessage {
+    sender: string;
+    recipient: string;
+    message: string;
+    timestamp: number;
+}
+
 type Config = {
     mc_server: string
     host: string

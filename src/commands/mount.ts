@@ -10,7 +10,7 @@ export default {
     minArgs: 0,
     maxArgs: 0,
     execute: async (user, args, bot, api: forestBotAPI) => {
-        const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.displayName === "Boat");
+        const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.displayName === "Minecart");
 
         bot.Whisper(user, "Searching for nearest minecart")
 

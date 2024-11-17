@@ -1,0 +1,14 @@
+[
+  {
+    "sender": "senderUsername",
+    "recipient": "recipientUsername",
+    "message": "This is the message content.",
+    "timestamp": 1633024800000
+  },
+  {
+    "sender": "anotherSender",
+    "recipient": "anotherRecipient",
+    "message": "Another message content.",
+    "timestamp": 1633024900000
+  }
+]
