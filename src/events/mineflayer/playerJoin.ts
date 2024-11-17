@@ -2,6 +2,7 @@ import type { Player } from "mineflayer";
 import type Forestbot from "../../structure/mineflayer/Bot";
 import { Logger, api } from "../../index.js";
 import { readFile, writeFile } from "fs/promises";
+import time from "../../functions/utils/time.js";
 
 
 export default {
@@ -43,7 +44,9 @@ export default {
 
         for (const msg of playerMessages) {
             await new Promise((resolve) => setTimeout(resolve, 4000));
-            Bot.Whisper(user.username, `From ${msg.sender}: ${msg.message}`);
+
+            const niceTime =time.convertUnixTimestamp(parseInt(msg.timestamp.toString()) / 1000);
+            Bot.Whisper(user.username, `From ${msg.sender}: ${msg.message} | ${niceTime}`);
         }
 
         // remove the messages from the offline_messages.json file
