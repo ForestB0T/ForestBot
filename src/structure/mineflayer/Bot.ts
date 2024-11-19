@@ -158,6 +158,7 @@ export default class Bot {
      * Load all commands in the commands folder,
      * then add them to a map to be later used in the command handler.
      * 
+     * 
      */
     private async loadCommands() {
         for (const file of (await readdir("./build/commands")).filter(file => file.endsWith(".js"))) {
