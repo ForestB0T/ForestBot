@@ -7,6 +7,8 @@ export default {
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot) => {
-        return bot.bot.chat(`https://forestbot.org/u/${args[0]}`);
+
+        const userToSearch = args[0] ? args[0] : user;
+        return bot.bot.chat(`https://forestbot.org/u/${userToSearch}`);
     }
  } as MCommand
