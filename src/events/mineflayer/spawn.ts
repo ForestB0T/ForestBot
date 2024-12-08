@@ -4,8 +4,8 @@ import antiafk from "../../structure/mineflayer/utils/antiAFK.js";
 import { Logger, api } from "../../index.js";
 
 function getRandomInterval() {
-    // Generate a random number between 3 minutes and 10 minutes (in milliseconds)
-    return Math.floor(Math.random() * (10 * 60 * 1000 - 3 * 60 * 1000 + 1)) + 3 * 60 * 1000;
+    // Generate a random number between 15 minutes and 45 minutes (in milliseconds)
+    return Math.floor(Math.random() * (45 * 60 * 1000 - 15 * 60 * 1000 + 1)) + 15 * 60 * 1000;
 }
 
 let currentIndex = 0;
