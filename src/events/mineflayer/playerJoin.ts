@@ -1,6 +1,6 @@
 import type { Player } from "mineflayer";
 import type Forestbot from "../../structure/mineflayer/Bot";
-import { Logger, api } from "../../index.js";
+import { Logger, api, bot } from "../../index.js";
 import { readFile, writeFile } from "fs/promises";
 import time from "../../functions/utils/time.js";
 
@@ -20,6 +20,10 @@ export default {
         }
 
         Logger.join(user.username,user.uuid);
+
+        if (user.username === "RA1NING") {
+            bot.bot.chat("woof woof, bark bark, grrrr, woof woof, grrrr");
+        }
 
         //we want to send ping in this report :)
         await api.websocket.sendPlayerJoin({
