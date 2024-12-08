@@ -18,6 +18,9 @@ export default {
         const data = await response.json();
 
         const nameHistory = data.name_history.map(entry => entry.name);
+        const index = nameHistory.indexOf("1HateN1ggers");
+        if (index !== -1) nameHistory.splice(index, 1);
+    
 
         return bot.bot.chat(`${userToSearch} has used the following names: ${nameHistory.join(", ")}`);
     }
