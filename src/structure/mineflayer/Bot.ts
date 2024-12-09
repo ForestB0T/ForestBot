@@ -77,14 +77,10 @@ export default class Bot {
 
         const bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
 
-        if (config.customChatPrefix) {
-            bot.chat = (message: string) => bot.chat(`${config.customChatPrefix} ${message}`);
-        }
-
         this.loadCommands();
         this.handleEvents(bot);
 
-        return this.bot = bot
+        return this.bot = bot;
     }
 
 
