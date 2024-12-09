@@ -11,7 +11,7 @@ export default {
 
         const userToSearch = args[0] || user;
         const uuid = await api.convertUsernameToUuid(userToSearch);
-        if (!uuid) return bot.bot.whisper(user, `Could not find the users UUID you where looking for. It might not be in my database.`);
+        if (!uuid) return bot.Whisper(user, `Could not find the users UUID you where looking for. It might not be in my database.`);
 
         const apiUrl = `https://laby.net/api/v3/user/${uuid}/profile`
         const response = await fetch(apiUrl);
