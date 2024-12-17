@@ -12,9 +12,6 @@ export default {
     minArgs: 1,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: forestBotAPI) => {
-
-        if (bot.useWhitelist && !bot.userWhitelist.has(user)) return;
-
         const username = args[0];
         const player = bot.bot.players[username];
 
