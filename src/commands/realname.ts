@@ -26,8 +26,7 @@ export default {
                 if ((displayName.extra[0] as any).text !== player.username) {
                     const displayNameArr = displayName.toString().split(" ");
                     if (displayNameArr.includes(username)) {
-                        bot.bot.chat(`${(displayName.extra[0] as any).text} is a nickname for ${player.username}`);
-
+                        bot.bot.chat(`${username} is a nickname for ${player.username}`);
                     }
                 } 
 
