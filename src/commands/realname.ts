@@ -13,10 +13,9 @@ export default {
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: forestBotAPI) => {
         const username = args[0];
-        const player = bot.bot.players[username];
-
+        
+        
         if (!username) return bot.Whisper(user, `Please provide a username to check the real name of.`);
-        if (!player) return bot.Whisper(user, `I could not find the player: ${username}`);
 
 
         for (const player of Object.values(bot.bot.players)) {
@@ -24,7 +23,7 @@ export default {
             const displayName = player.displayName;
             if (!displayName.extra) return;
             if (displayName.extra.length > 0 && 'text' in displayName.extra[0]) {
-                if (displayName.extra[0].text === username) {
+                if ((displayName.extra[0].text as string).includes(username)) {
                     return bot.Whisper(user, `The real name of ${username} is: ${player.username}`);
                 } else {
                     return bot.Whisper(user, `I could not find the player: ${username}`);
@@ -32,9 +31,5 @@ export default {
             }
 
         }
-
-
-        return bot.Whisper(user, `The real name of ${username} is: ${player.username}`);
-
     }
  } as MCommand
