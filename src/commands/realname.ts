@@ -23,11 +23,14 @@ export default {
             const displayName = player.displayName;
             if (!displayName.extra) return;
             if (displayName.extra.length > 0 && 'text' in displayName.extra[0]) {
-                if ((displayName.extra[0].text as string).includes(username)) {
-                    return bot.Whisper(user, `The real name of ${username} is: ${player.username}`);
-                } else {
-                    return bot.Whisper(user, `I could not find the player: ${username}`);
-                }
+                if ((displayName.extra[0] as any).text !== player.username) {
+                    const displayNameArr = displayName.toString().split(" ");
+                    if (displayNameArr.includes(username)) {
+                        bot.bot.chat(`${(displayName.extra[0] as any).text} is a nickname for ${player.username}`);
+
+                    }
+                } 
+
             }
 
         }
