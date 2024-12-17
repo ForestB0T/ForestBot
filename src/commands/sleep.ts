@@ -6,7 +6,7 @@ export default {
     description: `Put the bot to sleep. Usage: ${config.prefix}sleep`,
     minArgs: 0,
     maxArgs: 1,
-    execute: async (user, args, bot, api) => {
+    execute: async (user, args, bot: Bot, api) => {
 
         const bed = bot.bot.findBlock({
             matching: block => bot.bot.isABed(block)
@@ -14,10 +14,10 @@ export default {
 
         if (bed) {
             try {
-                await bot.bot.sleep(bed);
-                bot.bot.chat("Goodnight! Zzz")
+                await bot.bot.activateBlock(bed);
+                bot.bot.chat("goodnight zzz")
             } catch (err) {
-                return
+                return console.log(err, " activation error")
             }
         } else {
             return bot.bot.chat("I couldn't find a bed :(")
@@ -25,4 +25,4 @@ export default {
 
         return
     }
- } as MCommand
+} as MCommand

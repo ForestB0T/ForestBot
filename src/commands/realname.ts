@@ -13,13 +13,8 @@ export default {
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: forestBotAPI) => {
         const username = args[0];
-        
-        
         if (!username) return bot.Whisper(user, `Please provide a username to check the real name of.`);
-
-
         for (const player of Object.values(bot.bot.players)) {
-
             const displayName = player.displayName;
             if (!displayName.extra) return;
             if (displayName.extra.length > 0 && 'text' in displayName.extra[0]) {
@@ -29,9 +24,7 @@ export default {
                         bot.bot.chat(`${username} is a nickname for ${player.username}`);
                     }
                 } 
-
             }
-
         }
     }
  } as MCommand
