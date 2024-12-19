@@ -8,9 +8,15 @@ export default {
     run: (args: any[], Bot: Bot) => {        
         const content: BotEvents = args[0];
         Bot.isConnected = false;
+        
+        // lets send a leave packet to our websocket server to let it know the bot has left the server.
+        // when it is the bot that left the server, we will also save user sessions to the database.
+        
         Bot.bot.quit();
         Bot.endAndRestart();
         Logger.warn("Bot has ended attempting to restart soon.");
+
+
         return;
     }
 };

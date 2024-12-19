@@ -15,7 +15,7 @@ export default {
         if (bed) {
             try {
                 await bot.bot.activateBlock(bed);
-                bot.bot.chat("goodnight zzz")
+                bot.Whisper(user, "goodnight zzz")
             } catch (err) {
                 return console.log(err, " activation error")
             }

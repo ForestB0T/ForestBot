@@ -19,18 +19,18 @@ export default {
             uuid: player.uuid
         }
 
-        Logger.join(user.username,user.uuid);
+        Logger.join(user.username, user.uuid);
 
-        if (user.username === "RA1NING") {
-            bot.bot.chat("woof woof, bark bark, grrrr, woof woof, grrrr");
-        }
+        // if (user.username === "RA1NING") {
+        //     // bot.bot.Whisper("woof woof, bark bark, grrrr, woof woof, grrrr");
+        // }
 
         //we want to send ping in this report :)
         await api.websocket.sendPlayerJoin({
             username: user.username,
             uuid: user.uuid,
             timestamp: Date.now().toString(),
-            server: Bot.mc_server, 
+            server: Bot.mc_server,
         })
 
         // lets check the ./json/offline_messages.json file for any messages for this user while they where offline
@@ -49,7 +49,7 @@ export default {
         for (const msg of playerMessages) {
             await new Promise((resolve) => setTimeout(resolve, 4000));
 
-            const niceTime =time.convertUnixTimestamp(parseInt(msg.timestamp.toString()) / 1000);
+            const niceTime = time.convertUnixTimestamp(parseInt(msg.timestamp.toString()) / 1000);
             Bot.Whisper(user.username, `From ${msg.sender}: ${msg.message} | ${niceTime}`);
         }
 

@@ -6,7 +6,7 @@ import { DiscordChatMessage, ForestBotAPI, ForestBotAPIOptions, NewUserData, New
 
 export default class apiHandler extends ForestBotAPI {
 
-    public api: ForestBotAPI;
+   // public api: ForestBotAPI;
     constructor(options: ForestBotAPIOptions) {
         super(options)
 
