@@ -27,7 +27,7 @@ export default class apiHandler extends ForestBotAPI {
             Logger.websocket("Websocket connection has been closed!")
 
             if (reconnectCount >= 5) {
-                Logger.websocket("Websocket connection has been closed 5 times in a row. Will try again in 60 seconds.")
+                Logger.websocket(`Websocket connection has been closed ${reconnectCount} times in a row. Will try again in 60 seconds.`)
                 websocketReconnectCooldown = 60000;
             }
 
