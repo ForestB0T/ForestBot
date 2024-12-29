@@ -25,10 +25,10 @@ export default {
         let msg = chatArgs[0];
 
         try {
-
-
             const saveMessage = async () => {
                 if (username && msgg) {
+
+                    uuid = uuid ?? Bot.bot.players[username].uuid;
 
                     if (Bot.userBlacklist.has(uuid)) return;
 
