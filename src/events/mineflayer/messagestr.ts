@@ -7,7 +7,7 @@ const log = Logger;
 /**
  * This event is basically only used to capture kill messages.
  */
-const blacklistedWords = ["[w]", "[Administrator]", "[+]", "From", "left", "Left", "joined", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you.", "[Rcon]"];
+const blacklistedWords = ["[w]", "[Administrator]", "[+]", "From", "left", "Left", "joined", "banned", "tempbanned", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you.", "[Rcon]"];
 
 export default {
     name: "messagestr",
@@ -28,7 +28,11 @@ export default {
 
 
             const saveMessage = async () => {
-                if (username && msgg && uuid) {
+                if (username && msgg) {
+
+                    let uuid = Bot.bot.players[username].uuid
+
+                    if (Bot.userBlacklist.has(uuid)) return;
 
                     log.chat(username, msgg, uuid);
 
@@ -40,10 +44,9 @@ export default {
                         uuid: uuid,
                     })
 
-
                     if (username === Bot.bot.username) return;
 
-                    await mcCommandHandler(username, msgg, Bot);
+                    await mcCommandHandler(username, msgg, Bot, uuid);
                     return;
                 }
             }
@@ -70,12 +73,6 @@ export default {
             if (chat_dividers.some(divider => msg.includes(divider))) {
                 if (username && msgg && uuid) return;
 
-                console.log(
-                    username, "username",
-                    msgg, " message",
-
-                )
-
                 for (const char of msg) {
                     if (!chat_dividers.includes(char)) continue;
                     const dividerIndex = msg.indexOf(char);
@@ -83,7 +80,6 @@ export default {
                     if (msg[dividerIndex + 1] === ">") {
                         msg = msg.replace(">", "");
                     }
-
 
                     if (!dividerIndex) continue;
                     if (dividerIndex >= 30) continue;

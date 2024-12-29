@@ -3,7 +3,6 @@ import type { ForestBotAPI } from 'forestbot-api-wrapper-v2';
 import { config } from '../config.js';
 import type Bot from '../structure/mineflayer/Bot.js';
 
-
 export default {
     commands: ['firstkill', 'fk'],
     description: `Retrieves the first kill a user got. Usage: ${config.prefix}firstkill <username>`,

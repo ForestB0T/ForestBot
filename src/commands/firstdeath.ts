@@ -10,11 +10,6 @@ export default {
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
         const search = args[0] ? args[0] : user;
-
-
-        //TODO! we just need to get the lastdeath time and the last death string from the get all user stats helper.
-        // REMEMBER al of our main player stats now come from just one single endpoint. not a bunch of different ones.
-
         const uuid = await api.convertUsernameToUuid(search)
         const data = await api.getDeaths(uuid, config.mc_server, 1, 'ASC', "all");
 

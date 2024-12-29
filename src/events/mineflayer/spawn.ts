@@ -1,17 +1,12 @@
-import type Bot from "../../structure/mineflayer/Bot.js"
-import { config } from "../../config.js";
-import antiafk from "../../structure/mineflayer/utils/antiAFK.js";
+import type Bot        from "../../structure/mineflayer/Bot.js"
+import { config }      from "../../config.js";
+import antiafk         from "../../structure/mineflayer/utils/antiAFK.js";
 import { Logger, api } from "../../index.js";
 
-function getRandomInterval() {
-    // Generate a random number between 15 minutes and 45 minutes (in milliseconds)
-    return Math.floor(Math.random() * (45 * 60 * 1000 - 15 * 60 * 1000 + 1)) + 15 * 60 * 1000;
-}
+const getRandomInterval = () => Math.floor(Math.random() * (45 * 60 * 1000 - 15 * 60 * 1000 + 1)) + 15 * 60 * 1000;
 
-let currentIndex = 0;
 let announceInterval: NodeJS.Timeout = null;
 let playerListUpdateInterval: NodeJS.Timeout = null;
-
 
 export default {
     name: "spawn",
@@ -19,7 +14,6 @@ export default {
     run: async (args: any[], Bot: Bot) => {
         Logger.spawn(`${Bot.bot.username} has spawned`);
 
-        //Updating playerlist for tablist, while also upating playtime every 60000 milliseconds
         await api.websocket.sendPlayerListUpdate(Bot.getPlayers());
 
         if (playerListUpdateInterval) {
@@ -38,10 +32,11 @@ export default {
             antiafk(Bot.bot);
         }
 
-        //When bot restarts. this interval will be cleared.
         if (announceInterval) clearInterval(announceInterval);
 
-        const commandDescriptions = Array.from(Bot.commands.values()).map(cmd => cmd.description);
+        const commandDescriptions = Array.from(Bot.commands.values())
+            .filter(cmd => !cmd.whitelisted)
+            .map(cmd => cmd.description);
 
         if (config.announce) {
             const usedIndices = new Set<number>();
@@ -51,7 +46,7 @@ export default {
                 usedIndices.clear();
             }
 
-            let randomIndex;
+            let randomIndex: number;
             do {
                 randomIndex = Math.floor(Math.random() * commandDescriptions.length);
             } while (usedIndices.has(randomIndex));
@@ -62,6 +57,10 @@ export default {
             const command = Array.from(Bot.commands.values()).find(cmd => cmd.description === currentCommand);
             const cmd_name = command.commands[0];
 
+            // DO not announce whitelisted commands
+            if (command.whitelisted) return;
+
+            // Do not announce disabled commands
             if (Object.keys(config.commands).some(k => k === cmd_name) && !config.commands[cmd_name]) return;
 
             Bot.bot.chat(command.description);

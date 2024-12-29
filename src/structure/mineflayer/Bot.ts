@@ -1,7 +1,8 @@
 import {
     config,
     mc_blacklist,
-    mc_whitelist
+    mc_whitelist,
+    reloadConfig
 } from "../../config.js";
 import { readdir } from "fs/promises";
 import { Logger } from "../../index.js";
@@ -22,9 +23,9 @@ export default class Bot {
 
     public bot: mineflayer.Bot;
 
-    public readonly useWhitelist: boolean;
-    public readonly welcomeMsgs: boolean;
-    public readonly mc_server: string;
+    public useWhitelist: boolean;
+    public welcomeMsgs: boolean;
+    public mc_server: string;
 
     public userWhitelist: Set<string> = new Set();
     public userBlacklist: Set<string> = new Set();
@@ -36,6 +37,12 @@ export default class Bot {
     public allowConnection: boolean = true;
 
     constructor(public options: mineflayer.BotOptions) {
+        this.loadConfigs()
+        this.startBot()
+    }
+
+    public async loadConfigs() {
+        await reloadConfig();
         this.useWhitelist = config.use_mc_whitelist;
         this.mc_server = config.mc_server;
         this.welcomeMsgs = config.welcome_messages;
@@ -44,7 +51,7 @@ export default class Bot {
         mc_whitelist.forEach(user => this.userWhitelist.add(user));
         config.whitelisted_commands.forEach(command => this.whitelistedCmds.add(command));
 
-        this.startBot()
+        Logger.info("Loaded Configs - Blacklist: " + this.userBlacklist.size + " Whitelist: " + this.userWhitelist.size + " Whitelisted Commands: " + this.whitelistedCmds.size);
     }
 
     /**

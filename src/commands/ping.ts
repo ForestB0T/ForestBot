@@ -7,6 +7,7 @@ export default {
     description: `Check your ping or another user's. Usage: ${config.prefix}ping <username>`,
     minArgs: 0,
     maxArgs: 1,
+    whitelisted: false,
     execute: async (user, args, bot, api: forestBotAPI) => {
         const search = args[0] ? args[0] : user;
         try {

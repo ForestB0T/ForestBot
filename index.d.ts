@@ -1,7 +1,33 @@
+
 type User = {
     username: string,
     uuid:     string,
     message?: string
+}
+
+interface BotInterface {
+    bot: MineflayerBot;
+
+    useWhitelist: boolean;
+    welcomeMsgs: boolean;
+    mc_server: string;
+
+    userWhitelist: Set<string>;
+    userBlacklist: Set<string>;
+    whitelistedCmds: Set<string>;
+    commands: Map<string, MCommand>;
+
+    restartCount: number;
+    isConnected: boolean;
+    allowConnection: boolean;
+
+    startBot(): Promise<void>;
+    Whisper(user: string, message: string): void;
+    endAndRestart(): Promise<void>;
+    getPlayers(): Player[];
+    updateLists(user: string, action: "add" | "remove", type: "blacklist" | "whitelist"): Promise<void>;
+    loadCommands(): Promise<void>;
+    handleEvents(bot: MineflayerBot): Promise<void>;
 }
 
 type MCommand = {

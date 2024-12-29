@@ -1,9 +1,8 @@
-import type { Player } from "mineflayer";
-import type Forestbot from "../../structure/mineflayer/Bot";
-import { Logger, api, bot } from "../../index.js";
+import type { Player }         from "mineflayer";
+import type Forestbot          from "../../structure/mineflayer/Bot";
+import { Logger, api, bot }    from "../../index.js";
 import { readFile, writeFile } from "fs/promises";
-import time from "../../functions/utils/time.js";
-
+import time                    from "../../functions/utils/time.js";
 
 export default {
     name: "playerJoined",
@@ -21,20 +20,13 @@ export default {
 
         Logger.join(user.username, user.uuid);
 
-        // if (user.username === "RA1NING") {
-        //     // bot.bot.Whisper("woof woof, bark bark, grrrr, woof woof, grrrr");
-        // }
-
-        //we want to send ping in this report :)
         await api.websocket.sendPlayerJoin({
             username: user.username,
             uuid: user.uuid,
             timestamp: Date.now().toString(),
-            server: Bot.mc_server,
+            server: Bot.mc_server
         })
 
-        // lets check the ./json/offline_messages.json file for any messages for this user while they where offline
-        // if there are messages, we will send them to the user
         const offlineMessages: OfflineMessage[] = (await JSON.parse(await readFile("./json/offline_messages.json", "utf-8")));
         if (!offlineMessages) {
             return;
@@ -53,7 +45,6 @@ export default {
             Bot.Whisper(user.username, `From ${msg.sender}: ${msg.message} | ${niceTime}`);
         }
 
-        // remove the messages from the offline_messages.json file
         const newMessages = offlineMessages.filter((msg) => msg.recipient !== user.username);
         await writeFile("./json/offline_messages.json", JSON.stringify(newMessages, null, 2));
 

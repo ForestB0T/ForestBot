@@ -1,6 +1,6 @@
 import type Forestbot from "../../structure/mineflayer/Bot";
-import { Logger } from "../../index.js";
-import { config } from "../../config.js";
+import { Logger }     from "../../index.js";
+import { config }     from "../../config.js";
 
 const seenPlayerList = new Set<string>();
 
