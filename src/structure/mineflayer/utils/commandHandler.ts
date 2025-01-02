@@ -8,7 +8,7 @@ import { config } from "../../../config.js";
 import { Logger, api } from "../../../index.js";
 
 interface UserCommandData {
-    lastCommands: string[];
+    lastCommands: { commandKey: string, time: number }[];
     lastCommandTime: number;
     commandCount: number;
 }
@@ -23,6 +23,7 @@ function antiSpamHandler(
 
     const cooldownTime = config.anti_spam_cooldown; // 5 seconds
     const spamLimit = config.anti_spam_msg_limit; // 5 commands within cooldown time
+    const blacklistTime = 1 * 60 * 1000; // 2 minutes
 
     // Initialize user data if not present
     if (!userCommandTracker.has(uuid)) {
@@ -46,15 +47,15 @@ function antiSpamHandler(
     userData.lastCommandTime = currentTime;
 
     // Track last 10 commands
-    userData.lastCommands.push(commandKey);
+    userData.lastCommands.push({ commandKey, time: currentTime });
     if (userData.lastCommands.length > 5) {
         userData.lastCommands.shift();
     }
 
-    // Check for repeated commands
-    if (userData.lastCommands.length === 5 && userData.lastCommands.every(cmd => cmd === commandKey)) {
+    // Check for repeated commands within 2 minutes
+    if (userData.lastCommands.length === 5 && userData.lastCommands.every(cmd => cmd.commandKey === commandKey && currentTime - cmd.time <= blacklistTime)) {
         userCommandTracker.delete(uuid);
-        return { action: "blacklist", reason: "repeated command spam" };
+        return { action: "blacklist", reason: "repeated command spam within 2 minutes" };
     }
 
     if (userData.lastCommands.length === 5) {
@@ -81,6 +82,8 @@ export default async function mcCommandHandler(
     const matchedCommand = Array.from(bot.commands.values()).find(cmd =>
         cmd.commands.some(alias => command.toLowerCase() === `${commandPrefix}${alias}`)
     );
+
+    console.log(matchedCommand)
 
     if (!matchedCommand) return; // No valid command found
 
