@@ -74,9 +74,6 @@ export default async function mcCommandHandler(
 ): Promise<void> {
     if (!config.useCommands) return;
     
-
-    console.log(user, message, uuid, "mcCommandHandler")
-
     const commandPrefix = config.prefix;
     const [command, ...args] = message.trim().split(" ");
     const commandKey = `${command.toLowerCase()} ${args.join(" ").toLowerCase()}`;
