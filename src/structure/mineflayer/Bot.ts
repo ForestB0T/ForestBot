@@ -15,6 +15,12 @@ import { Player } from "forestbot-api-wrapper-v2";
 
 const { ping } = mc;
 
+const effectIds = [
+    { id: 1023, name: "wither_spawned"},
+    { id: 1028, name: "ender_dragon_death"},
+    { id: 1038, name: "end_portal_opened"}
+]
+
 /**
  * @class Bot
  * Main class for mineflayer bot.

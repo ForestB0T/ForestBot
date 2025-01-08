@@ -24,29 +24,36 @@ export default {
         let uuid: string;
         let msg = chatArgs[0];
 
+
+        const stringed = JSON.stringify(chatArgs[2]);
+        const parsed = JSON.parse(stringed);
+        // Check if parsed.with exists and has at least two elements
+        if (parsed?.with && parsed.with.length > 1 && parsed.with[1]?.json) {
+            msgg = Object.values(parsed.with[1].json)[0] as string
+        }
+
+
         try {
-            const saveMessage = async () => {
-                if (username && msgg) {
+            const saveMessage = async (u?: string, uu?: string, msg?: string) => {
+                uuid = uuid ?? Bot.bot.players[username].uuid;
+                username = u ?? username;
+                msgg = msg ?? msgg;
 
-                    uuid = uuid ?? Bot.bot.players[username].uuid;
+                if (Bot.userBlacklist.has(uuid)) return;
 
-                    if (Bot.userBlacklist.has(uuid)) return;
+                log.chat(username, msgg, uuid);
 
-                    log.chat(username, msgg, uuid);
+                await api.websocket.sendMinecraftChatMessage({
+                    name: username,
+                    message: msgg,
+                    date: Date.now().toString(),
+                    mc_server: Bot.mc_server,
+                    uuid: uuid,
+                })
 
-                    await api.websocket.sendMinecraftChatMessage({
-                        name: username,
-                        message: msgg,
-                        date: Date.now().toString(),
-                        mc_server: Bot.mc_server,
-                        uuid: uuid,
-                    })
-
-                    if (username === Bot.bot.username) return;
-
-                    await mcCommandHandler(username, msgg, Bot, uuid);
-                    return;
-                }
+                if (username === Bot.bot.username) return;
+                await mcCommandHandler(username, msgg, Bot, uuid);
+                return;
             }
 
             /**
@@ -62,7 +69,7 @@ export default {
 
                     if (msgg.startsWith(`<${username}>`)) msgg = msgg.replace(`<${username}>`, "").trim();
 
-                    saveMessage();
+                    saveMessage(username, uuid, msgg);
                     return;
                 }
             }
@@ -70,7 +77,6 @@ export default {
 
             if (chat_dividers.some(divider => msg.includes(divider))) {
                 if (username && msgg && uuid) return;
-
                 for (const char of msg) {
                     if (!chat_dividers.includes(char)) continue;
                     const dividerIndex = msg.indexOf(char);
@@ -85,22 +91,22 @@ export default {
                     const senderRaw = msg.slice(0, dividerIndex).trim();
                     const senderRawSplit = senderRaw.split(" ");
 
+
                     for (let i = senderRawSplit.length - 1; i >= 0; i--) {
                         const possibleUsername = parseUsername(senderRawSplit[i], Bot.bot);
-
                         if (Bot.bot.players[possibleUsername]) {
                             uuid = Bot.bot.players[possibleUsername].uuid
                             username = Bot.bot.players[possibleUsername].username
-                            msgg = msg.slice(dividerIndex + 1).trim();
+                            msgg = msgg ?? msg.slice(dividerIndex + 1).trim();
                             break;
                         } else {
                             uuid = "no uuid present.";
                             username = possibleUsername;
-                            msgg = msg.slice(dividerIndex + 1).trim();
+                            msgg = msgg ?? msg.slice(dividerIndex + 1).trim();
                         }
                     };
 
-                    saveMessage();
+                    saveMessage(username, uuid, msgg);
                     return
                 }
 

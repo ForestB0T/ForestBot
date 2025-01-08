@@ -73,6 +73,9 @@ export default async function mcCommandHandler(
     uuid: string
 ): Promise<void> {
     if (!config.useCommands) return;
+    
+
+    console.log(user, message, uuid, "mcCommandHandler")
 
     const commandPrefix = config.prefix;
     const [command, ...args] = message.trim().split(" ");
@@ -82,8 +85,6 @@ export default async function mcCommandHandler(
     const matchedCommand = Array.from(bot.commands.values()).find(cmd =>
         cmd.commands.some(alias => command.toLowerCase() === `${commandPrefix}${alias}`)
     );
-
-    console.log(matchedCommand)
 
     if (!matchedCommand) return; // No valid command found
 
