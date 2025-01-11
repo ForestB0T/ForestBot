@@ -9,6 +9,7 @@ export default {
     description: `Use ${config.prefix}mount to mount the nearest boat.`,
     minArgs: 0,
     maxArgs: 0,
+    whitelisted: true,
     execute: async (user, args, bot, api: forestBotAPI) => {
         const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.displayName === "Minecart");
 

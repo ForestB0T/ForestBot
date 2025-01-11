@@ -1,11 +1,11 @@
 import type Bot      from '../../structure/mineflayer/Bot.js';
 import { BotEvents } from 'mineflayer';
-import { Logger }    from '../../index.js';
+import { api, Logger }    from '../../index.js';
 
 export default {
     name: 'end',
     once: true,
-    run: (args: any[], Bot: Bot) => {        
+    run: async (args: any[], Bot: Bot) => {        
         const content: BotEvents = args[0];
         Bot.isConnected = false;
         
@@ -15,6 +15,14 @@ export default {
         Bot.bot.quit();
         Bot.endAndRestart();
         Logger.warn("Bot has ended attempting to restart soon.");
+
+
+        await api.websocket.sendPlayerLeave({
+            username: Bot.bot.username,
+            uuid: Bot.bot.player.uuid,
+            server: Bot.mc_server,
+            timestamp: `${Date.now()}`
+        });
 
 
         return;
