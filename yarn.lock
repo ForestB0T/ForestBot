@@ -257,10 +257,21 @@ follow-redirects@^1.14.0, follow-redirects@^1.15.6:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.9.tgz#a604fa10e443bf98ca94228d9eebcc2e8a2c8ee1"
   integrity sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==
 
-forestbot-api-wrapper-v2@^1.4.7, forestbot-api-wrapper-v2@^1.4.9:
+forestbot-api-wrapper-v2@^1.4.7:
   version "1.4.9"
   resolved "https://registry.yarnpkg.com/forestbot-api-wrapper-v2/-/forestbot-api-wrapper-v2-1.4.9.tgz#49d029074b0e2df2cac8a7d988c0ac4c4cbba696"
   integrity sha512-jwQlxe3K2CAGLO/ElFvclrC9mtz4JlPeTZF7sRYMb8xp3AGYxguhaIBv9lWY4w3cya9omFR6aAgRgSzcOF9XXw==
+  dependencies:
+    "@types/node" "^20.11.5"
+    "@types/ws" "^8.5.10"
+    axios "^1.6.5"
+    forestbot-api-wrapper-v2 "^1.4.7"
+    ws "^8.16.0"
+
+forestbot-api-wrapper-v2@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/forestbot-api-wrapper-v2/-/forestbot-api-wrapper-v2-1.5.0.tgz#84074157f846b881fab63f3474817a875058d73b"
+  integrity sha512-wlF2LR5b+zH5SAjqQApmnxrckUOyvyP8V2b9oA5Ua0TiUU83eDpYl3GqQJyIYblOiJ2iwNqldwmOE5giAXpbdA==
   dependencies:
     "@types/node" "^20.11.5"
     "@types/ws" "^8.5.10"
