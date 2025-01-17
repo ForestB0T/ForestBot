@@ -38,6 +38,6 @@ export default {
             date = ""
         }
 
-        return bot.bot.chat(`${data.name} ${data.message} ${date ? `(${date})` : ''}`);
+        return bot.bot.chat(`${data.name}: ${data.message} ${date ? `(${date})` : ''}`);
     }
 } as MCommand
