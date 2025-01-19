@@ -268,10 +268,10 @@ forestbot-api-wrapper-v2@^1.4.7:
     forestbot-api-wrapper-v2 "^1.4.7"
     ws "^8.16.0"
 
-forestbot-api-wrapper-v2@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/forestbot-api-wrapper-v2/-/forestbot-api-wrapper-v2-1.5.0.tgz#84074157f846b881fab63f3474817a875058d73b"
-  integrity sha512-wlF2LR5b+zH5SAjqQApmnxrckUOyvyP8V2b9oA5Ua0TiUU83eDpYl3GqQJyIYblOiJ2iwNqldwmOE5giAXpbdA==
+forestbot-api-wrapper-v2@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/forestbot-api-wrapper-v2/-/forestbot-api-wrapper-v2-1.5.2.tgz#20a54d745b98f1241f6f0f09ef8673424af260c1"
+  integrity sha512-rOzmNcagodYzTlWTPoVXoaGW/pOFn7HeCm9g6ECdu2IwkgX83dO1oc85eJ9u8YX7f6sO6/+7ilb++qBiV1VOKg==
   dependencies:
     "@types/node" "^20.11.5"
     "@types/ws" "^8.5.10"
