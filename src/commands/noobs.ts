@@ -14,7 +14,7 @@ export default {
 
         const replyMsg = `The 3 newest users online are: ${users.map((user, index) => {
             const joinDateStr = user.joindate && !isNaN(Number(user.joindate)) ? time.timeAgoStr(Number(user.joindate)) : 'unknown';
-            return `${user.username} (${joinDateStr}), `;
+            return `${user.username} (${joinDateStr}) `;
         }).join(', ')}`;
 
         bot.bot.chat(replyMsg);
