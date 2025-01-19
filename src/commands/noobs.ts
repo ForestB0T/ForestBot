@@ -12,10 +12,10 @@ export default {
         const onlineUsernames:string[] = Object.values(bot.bot.players).map(player => player.username);
         const users = await api.getUsersSortedByJoindate(bot.mc_server, 3, 'DESC', onlineUsernames);
 
-        const replyMsg = `The 3 newest users online are: ${users.map((user, index) => {
+        const replyMsg = `The 3 newest users online are:\n${users.map((user, index) => {
             const joinDateStr = user.joindate && !isNaN(Number(user.joindate)) ? time.timeAgoStr(Number(user.joindate)) : 'unknown';
-            return `${index + 1}. ${user.username} (${joinDateStr})`;
-        }).join(', ')}`;
+            return `${user.username} (${joinDateStr}), `;
+        }).join('\n')}`;
 
         bot.bot.chat(replyMsg);
     }
