@@ -1,12 +1,7 @@
 import type Forestbot from "../../structure/mineflayer/Bot";
 import { Logger }     from "../../index.js";
-import { config }     from "../../config.js";
 
 const seenPlayerList = new Set<string>();
-
-const greetings = [
-    "Hello, $username!",
-];
 
 export default {
     name: "entitySpawn",
@@ -30,8 +25,6 @@ export default {
         y = Math.round(y * 10) / 10;
         z = Math.round(z * 10) / 10;
 
-        const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-        if (config.welcome_messages)// Bot.bot.chat(greeting.replace("$username", username));
         Logger.world(`[${username}] (${x}, ${y}, ${z}) Spotted.`); 
 
         setTimeout(() => {

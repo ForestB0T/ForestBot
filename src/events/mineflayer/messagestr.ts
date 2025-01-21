@@ -24,6 +24,7 @@ export default {
         let uuid: string;
         let msg = chatArgs[0];
 
+        console.log(msg, "msg")
 
         const stringed = JSON.stringify(chatArgs[2]);
         const parsed = JSON.parse(stringed);
@@ -56,19 +57,46 @@ export default {
                 return;
             }
 
+
             /**
              * 
              * Handling player inbound chat.
              * 
              */
             for (const player of Object.values(Bot.bot.players)) {
+
+                /**
+                 * Handling rare case where the msg is like this "UsernameMessage"
+                 * we will take the "UsernameMessage" string it for a online user.
+                 */
+
+                if (msg.startsWith(player.username)) {
+                    const usernameLength = player.username.length;
+                    const msgLength = msg.length;
+
+                    if (usernameLength < msgLength) {
+                        const nextChar = msg[usernameLength];
+                        if (nextChar && nextChar !== ' ') {
+                            msgg = msg.slice(usernameLength).trim();
+                            uuid = player.uuid;
+                            username = player.username;
+                            saveMessage(username, uuid, msgg);
+                            return;
+                        }
+                    }
+                }
+
+
                 if (thereMightBeAUUIDhere === player.uuid) {
                     msgg = chatArgs[0];
                     uuid = player.uuid;
                     username = player.username;
 
                     if (msgg.startsWith(`<${username}>`)) msgg = msgg.replace(`<${username}>`, "").trim();
-
+                    console.log("-----------------")
+                    console.log(msgg, "msgg")
+                    console.log(username, "username")
+                    console.log("-----------------")
                     saveMessage(username, uuid, msgg);
                     return;
                 }
