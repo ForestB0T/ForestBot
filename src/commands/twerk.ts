@@ -18,6 +18,6 @@ export default {
                 clearInterval(interval);
                 bot.bot.setControlState('sneak', false);
             }
-        }, 500);
+        }, 100);
     }
 } as MCommand
