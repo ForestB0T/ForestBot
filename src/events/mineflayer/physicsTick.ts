@@ -5,7 +5,7 @@ import { api, Logger }    from '../../index.js';
 
 export default {
     name: 'physicsTick',
-    once: true,
+    once: false,
     run: async (args: any[], Bot: Bot) => {        
         const content: BotEvents = args[0];
         const closestEntity = Bot.bot.nearestEntity();
