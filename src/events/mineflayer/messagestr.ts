@@ -18,27 +18,38 @@ export default {
         const chatArgs = [...args];
         const chat_dividers = ["»", ">>", ">", ":"];
         const thereMightBeAUUIDhere = chatArgs[3];
-
         let username: string;
         let msgg: string;
         let uuid: string;
         let msg = chatArgs[0];
 
-        console.log(msg, "msg")
-
         const stringed = JSON.stringify(chatArgs[2]);
-        const parsed = JSON.parse(stringed);
+        const parsed = JSON.parse(stringed);        
+
         // Check if parsed.with exists and has at least two elements
         if (parsed?.with && parsed.with.length > 1 && parsed.with[1]?.json) {
             msgg = Object.values(parsed.with[1].json)[0] as string
         }
 
+        
+        if (parsed && parsed.with && parsed.with.length >= 1) {
+            const extras = parsed.with[0].extra as any[];
+            const extrasFixed = Array.isArray(extras) ? [...extras] : [];
+            const lastItem = extrasFixed.length > 0 ? extrasFixed[extrasFixed.length - 1] : null;
+
+            if (lastItem && lastItem.json && typeof lastItem.json === 'object') {
+            const dynamicMsg = Object.values(lastItem.json)[0] as string;
+            msgg = dynamicMsg??msgg;
+            }
+        }
+  
+          
 
         try {
-            const saveMessage = async (u?: string, uu?: string, msg?: string) => {
-                uuid = uuid ?? Bot.bot.players[username].uuid;
+            const saveMessage = async (u?: string, uuid?: string, msg?: string) => {
+                uuid = uuid ?? Bot.bot.players[u]?.uuid ?? thereMightBeAUUIDhere;
                 username = u ?? username;
-                msgg = msg !== "" ? msg : msgg;
+                msgg = msg !== "" && !msgg ? msg : msgg;
 
                 if (Bot.userBlacklist.has(uuid)) return;
 
@@ -71,16 +82,17 @@ export default {
                  */
 
                 if (msg.startsWith(player.username)) {
+                    let _msgg:string = msgg;
                     const usernameLength = player.username.length;
                     const msgLength = msg.length;
 
                     if (usernameLength < msgLength) {
                         const nextChar = msg[usernameLength];
                         if (nextChar && nextChar !== ' ') {
-                            msgg = msg.slice(usernameLength).trim();
+                            _msgg = msg.slice(usernameLength).trim();
                             uuid = player.uuid;
                             username = player.username;
-                            saveMessage(username, uuid, msgg);
+                            saveMessage(username, uuid, _msgg);
                             return;
                         }
                     }
@@ -88,23 +100,26 @@ export default {
 
 
                 if (thereMightBeAUUIDhere === player.uuid) {
-                    msgg = chatArgs[0];
+                    let message = chatArgs[0];
                     uuid = player.uuid;
                     username = player.username;
 
-                    if (msgg.startsWith(`<${username}>`)) msgg = msgg.replace(`<${username}>`, "").trim();
+                    if (message.startsWith(`<${username}>`)) message = message.replace(`<${username}>`, "").trim();
                     console.log("-----------------")
-                    console.log(msgg, "msgg")
+                    console.log(message, "msgg")
                     console.log(username, "username")
                     console.log("-----------------")
-                    saveMessage(username, uuid, msgg);
+                    saveMessage(username, uuid, message);
                     return;
                 }
             }
 
 
             if (chat_dividers.some(divider => msg.includes(divider))) {
-                if (username && msgg && uuid) return;
+
+                let _msgg: string = msgg;
+
+                if (username && _msgg && uuid) return;
                 for (const char of msg) {
                     if (!chat_dividers.includes(char)) continue;
                     const dividerIndex = msg.indexOf(char);
@@ -125,16 +140,16 @@ export default {
                         if (Bot.bot.players[possibleUsername]) {
                             uuid = Bot.bot.players[possibleUsername].uuid
                             username = Bot.bot.players[possibleUsername].username
-                            msgg = msgg ?? msg.slice(dividerIndex + 1).trim();
+                            _msgg = _msgg ?? msg.slice(dividerIndex + 1).trim();
                             break;
                         } else {
                             uuid = "no uuid present.";
                             username = possibleUsername;
-                            msgg = msgg ?? msg.slice(dividerIndex + 1).trim();
+                            _msgg = _msgg ?? msg.slice(dividerIndex + 1).trim();
                         }
                     };
 
-                    saveMessage(username, uuid, msgg);
+                    saveMessage(username, uuid, _msgg);
                     return
                 }
 
