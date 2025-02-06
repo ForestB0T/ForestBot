@@ -14,7 +14,7 @@ import { Player } from "forestbot-api-wrapper-v2";
 
 const { ping } = mc;
 
-/**
+/**W
  * @class Bot
  * Main class for mineflayer bot.
  */

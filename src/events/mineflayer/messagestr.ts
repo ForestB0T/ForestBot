@@ -43,8 +43,7 @@ export default {
             }
         }
   
-          
-
+        
         try {
             const saveMessage = async (u?: string, uuid?: string, msg?: string) => {
                 uuid = uuid ?? Bot.bot.players[u]?.uuid ?? thereMightBeAUUIDhere;

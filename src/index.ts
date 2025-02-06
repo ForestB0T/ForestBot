@@ -31,6 +31,7 @@ export const options = new Config.Options();
  */
 export const bot = new Bot(options.mineflayer);
 
+
 /**
  * @class ForestBotApiClient
  * This is the main api handler for our websocket and api endpoints.
