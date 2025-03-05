@@ -20,6 +20,7 @@ export default {
             clearInterval(playerListUpdateInterval)
         };
 
+
         playerListUpdateInterval = setInterval(async () => {
             await api.websocket.sendPlayerListUpdate(Bot.getPlayers());
         }, 60000);

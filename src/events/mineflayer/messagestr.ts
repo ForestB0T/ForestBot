@@ -23,32 +23,42 @@ export default {
         let uuid: string;
         let msg = chatArgs[0];
 
+        // console.log(args[0], " args msg")
+
         const stringed = JSON.stringify(chatArgs[2]);
-        const parsed = JSON.parse(stringed);        
+        const parsed = JSON.parse(stringed);
+
+        /**
+         * tryna get chat to work for nova-anarchy
+         */
+
 
         // Check if parsed.with exists and has at least two elements
         if (parsed?.with && parsed.with.length > 1 && parsed.with[1]?.json) {
+            console.log(Object.values(parsed.with[1].json), " got osmethn")
             msgg = Object.values(parsed.with[1].json)[0] as string
         }
 
-        
+        //console.log(parsed.json, " pares.json.with")
+
+
         if (parsed && parsed.with && parsed.with.length >= 1) {
             const extras = parsed.with[0].extra as any[];
             const extrasFixed = Array.isArray(extras) ? [...extras] : [];
             const lastItem = extrasFixed.length > 0 ? extrasFixed[extrasFixed.length - 1] : null;
 
             if (lastItem && lastItem.json && typeof lastItem.json === 'object') {
-            const dynamicMsg = Object.values(lastItem.json)[0] as string;
-            msgg = dynamicMsg??msgg;
+                const dynamicMsg = Object.values(lastItem.json)[0] as string;
+                msgg = dynamicMsg ?? msgg;
             }
         }
-  
-        
+
+
         try {
-            const saveMessage = async (u?: string, uuid?: string, msg?: string) => {
-                uuid = uuid ?? Bot.bot.players[u]?.uuid ?? thereMightBeAUUIDhere;
-                username = u ?? username;
-                msgg = msg !== "" && !msgg ? msg : msgg;
+            const saveMessage = async (username?: string, uuid?: string, msgg?: string) => {
+                // uuid = uuid ?? Bot.bot.players[u]?.uuid ?? thereMightBeAUUIDhere;
+                // username = u ?? username;
+                // msgg = msg !== "" && !msgg ? msg : msgg;
 
                 if (Bot.userBlacklist.has(uuid)) return;
 
@@ -67,6 +77,68 @@ export default {
                 return;
             }
 
+            // if (parsed && parsed.with) {
+            //     const extras = parsed.with[0].extra as any[];
+            //     const extrasFixed = Array.isArray(extras) ? [...extras] : [];
+            //     let combinedText = "";
+
+            //     for (const item of extrasFixed) {
+            //         if (item.text) {
+            //             combinedText += item.text;
+            //         }
+            //     }
+
+            //     console.log(combinedText, " combinedText")
+
+            //     if (combinedText) {
+            //         for (const player of Object.values(Bot.bot.players)) {
+            //             if (combinedText.toLowerCase().includes(player.username.toLowerCase())) {
+            //                 username = player.username;
+            //                 const usernameIndex = combinedText.toLowerCase().indexOf(player.username.toLowerCase());
+            //                 const messageStartIndex = usernameIndex + player.username.length;
+            //                 const possibleMessage = combinedText.slice(messageStartIndex).trim();
+            //                 if (possibleMessage) {
+            //                     msgg = possibleMessage;
+            //                 } else {
+            //                     msgg = "";
+            //                 }
+            //                 break;
+            //             }
+            //         }
+
+            //         console.log(username, " got username")
+            //         console.log(msgg, " got msgg")
+
+            //     } else {
+            //         const lastItem = extrasFixed.length > 0 ? extrasFixed[extrasFixed.length - 1] : null;
+            //         if (lastItem && lastItem.json && typeof lastItem.json === 'object') {
+            //             const dynamicMsg = Object.values(lastItem.json)[0] as string;
+            //             msgg = dynamicMsg ?? msgg;
+            //         }
+            //     }
+            // }
+
+            if (parsed && parsed.with && parsed.with.length >= 1) {
+                const extras = parsed.with[0].extra as any[];
+                let username = '';
+                let message = '';
+
+                for (const item of extras) {
+                    if (item.text && item.text.startsWith('] ')) {
+                        username = item.text.substring(2);
+                    }
+
+                    if (item.json && '' in item.json && item.json[''].startsWith('> ')) {
+                        message = item.json[''].substring(2);
+                    }
+                }
+
+                console.log(username, " got username")
+                console.log(message, " got message")
+
+                await saveMessage(username, undefined, message);
+                return;
+            }
 
             /**
              * 
@@ -81,7 +153,7 @@ export default {
                  */
 
                 if (msg.startsWith(player.username)) {
-                    let _msgg:string = msgg;
+                    let _msgg: string = msgg;
                     const usernameLength = player.username.length;
                     const msgLength = msg.length;
 
@@ -102,6 +174,9 @@ export default {
                     let message = chatArgs[0];
                     uuid = player.uuid;
                     username = player.username;
+
+                    console.log(uuid, " got uuid")
+                    console.log(username, " got username")
 
                     if (message.startsWith(`<${username}>`)) message = message.replace(`<${username}>`, "").trim();
                     console.log("-----------------")

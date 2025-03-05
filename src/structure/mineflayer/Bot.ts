@@ -85,7 +85,6 @@ export default class Bot {
 
         this.loadCommands();
         this.handleEvents(bot);
-
         return this.bot = bot;
     }
 
@@ -157,7 +156,6 @@ export default class Bot {
 
         return;
     }
-
 
     /**
      * 
