@@ -56,10 +56,6 @@ export default {
 
         try {
             const saveMessage = async (username?: string, uuid?: string, msgg?: string) => {
-                // uuid = uuid ?? Bot.bot.players[u]?.uuid ?? thereMightBeAUUIDhere;
-                // username = u ?? username;
-                // msgg = msg !== "" && !msgg ? msg : msgg;
-
                 if (Bot.userBlacklist.has(uuid)) return;
 
                 log.chat(username, msgg, uuid);
@@ -77,67 +73,28 @@ export default {
                 return;
             }
 
-            // if (parsed && parsed.with) {
-            //     const extras = parsed.with[0].extra as any[];
-            //     const extrasFixed = Array.isArray(extras) ? [...extras] : [];
-            //     let combinedText = "";
-
-            //     for (const item of extrasFixed) {
-            //         if (item.text) {
-            //             combinedText += item.text;
-            //         }
-            //     }
-
-            //     console.log(combinedText, " combinedText")
-
-            //     if (combinedText) {
-            //         for (const player of Object.values(Bot.bot.players)) {
-            //             if (combinedText.toLowerCase().includes(player.username.toLowerCase())) {
-            //                 username = player.username;
-            //                 const usernameIndex = combinedText.toLowerCase().indexOf(player.username.toLowerCase());
-            //                 const messageStartIndex = usernameIndex + player.username.length;
-            //                 const possibleMessage = combinedText.slice(messageStartIndex).trim();
-            //                 if (possibleMessage) {
-            //                     msgg = possibleMessage;
-            //                 } else {
-            //                     msgg = "";
-            //                 }
-            //                 break;
-            //             }
-            //         }
-
-            //         console.log(username, " got username")
-            //         console.log(msgg, " got msgg")
-
-            //     } else {
-            //         const lastItem = extrasFixed.length > 0 ? extrasFixed[extrasFixed.length - 1] : null;
-            //         if (lastItem && lastItem.json && typeof lastItem.json === 'object') {
-            //             const dynamicMsg = Object.values(lastItem.json)[0] as string;
-            //             msgg = dynamicMsg ?? msgg;
-            //         }
-            //     }
-            // }
-
             if (parsed && parsed.with && parsed.with.length >= 1) {
                 const extras = parsed.with[0].extra as any[];
                 let username = '';
                 let message = '';
 
-                for (const item of extras) {
-                    if (item.text && item.text.startsWith('] ')) {
-                        username = item.text.substring(2);
+                if (extras && extras.length >= 1) {
+                    for (const item of extras) {
+                        if (item.text && item.text.startsWith('] ')) {
+                            username = item.text.substring(2);
+                        }
+    
+                        if (item.json && '' in item.json && item.json[''].startsWith('> ')) {
+                            message = item.json[''].substring(2);
+                        }
                     }
-
-                    if (item.json && '' in item.json && item.json[''].startsWith('> ')) {
-                        message = item.json[''].substring(2);
+    
+                    if (username && message) {
+                        saveMessage(username, Bot.bot.players[username]?.uuid, message);
+                        return;
                     }
                 }
 
-                console.log(username, " got username")
-                console.log(message, " got message")
-
-                await saveMessage(username, undefined, message);
-                return;
             }
 
             /**
