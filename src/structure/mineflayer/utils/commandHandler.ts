@@ -7,60 +7,78 @@ interface AntiSpamResult {
 import { config } from "../../../config.js";
 import { Logger, api } from "../../../index.js";
 
+
+/**
+ * Anti spam handler very shit
+ */
 interface UserCommandData {
     lastCommands: { commandKey: string, time: number }[];
     lastCommandTime: number;
     commandCount: number;
 }
 
-// Tracks user command usage
 const userCommandTracker: Map<string, UserCommandData> = new Map();
-
 function antiSpamHandler(
     uuid: string,
     commandKey: string
 ): AntiSpamResult {
 
     const cooldownTime = config.anti_spam_cooldown; // 5 seconds
-    const spamLimit = config.anti_spam_msg_limit; // 5 commands within cooldown time
-    const blacklistTime = 1 * 60 * 1000; // 2 minutes
+    const spamLimit = config.anti_spam_msg_limit;   // 5 commands within cooldown time
+    const blacklistTime = 1 * 60 * 1000;            // 1 minute (adjusted in logic below)
 
     // Initialize user data if not present
     if (!userCommandTracker.has(uuid)) {
-        userCommandTracker.set(uuid, { lastCommands: [], lastCommandTime: 0, commandCount: 0 });
+        userCommandTracker.set(uuid, {
+            lastCommands: [],
+            lastCommandTime: 0,
+            commandCount: 0
+        });
     }
 
     const userData = userCommandTracker.get(uuid)!;
     const currentTime = Date.now();
 
-    // Check cooldown
+    // Cooldown check
     if (currentTime - userData.lastCommandTime < cooldownTime) {
         userData.commandCount++;
+
         if (userData.commandCount >= spamLimit) {
-            userCommandTracker.delete(uuid);
-            return { action: "blacklist", reason: "too many commands during cooldown" };
+            // Too many rapid commands — require wait instead of blacklist
+            return {
+                action: "wait",
+                reason: "Too many rapid commands, please slow down"
+            };
         }
-        return { action: "wait", reason: "command sent during cooldown" };
+
+        return {
+            action: "wait",
+            reason: "Command sent too quickly"
+        };
     }
 
-    userData.commandCount = 1; // Reset command count after cooldown
+    // Cooldown passed, reset command count
+    userData.commandCount = 1;
     userData.lastCommandTime = currentTime;
 
-    // Track last 10 commands
+    // Add command to history
     userData.lastCommands.push({ commandKey, time: currentTime });
     if (userData.lastCommands.length > 5) {
         userData.lastCommands.shift();
     }
 
-    // Check for repeated commands within 2 minutes
-    if (userData.lastCommands.length === 5 && userData.lastCommands.every(cmd => cmd.commandKey === commandKey && currentTime - cmd.time <= blacklistTime)) {
-        userCommandTracker.delete(uuid);
-        return { action: "blacklist", reason: "repeated command spam within 2 minutes" };
-    }
+    // Softer repeat-command spam logic
+    const repeated = userData.lastCommands.length === 5 &&
+        userData.lastCommands.every(cmd =>
+            cmd.commandKey === commandKey &&
+            currentTime - cmd.time <= 15 * 1000 // 15-second repeat window
+        );
 
-    if (userData.lastCommands.length === 5) {
-        userData.lastCommands = []; // Clear the lastCommands array
-        userCommandTracker.set(uuid, userData);
+    if (repeated) {
+        return {
+            action: "wait",
+            reason: "You're repeating the same command too quickly"
+        };
     }
 
     return { action: "allow" };
