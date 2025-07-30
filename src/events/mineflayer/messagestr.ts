@@ -7,7 +7,7 @@ const log = Logger;
 /**
  * This event is basically only used to capture kill messages.
  */
-const blacklistedWords = ["[w]", "[Administrator]", "banned", "tempbanned", "temp-banned", "[+]", "From", "left", "Left", "joined", "banned", "tempbanned", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you.", "[Rcon]"];
+const blacklistedWords = ["[w]", "[Administrator]", "arrived", "kicked", "muted", "banned", "tempbanned", "temp-banned", "[+]", "From", "left", "Left", "joined", "banned", "tempbanned", "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you.", "[Rcon]"];
 
 export default {
     name: "messagestr",
