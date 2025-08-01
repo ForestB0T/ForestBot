@@ -18,9 +18,64 @@ export default {
     const rawMessage = args[0] as string;
     const chatArgs = [...args];
     
+    // console.log(rawMessage, " rawMessage args[0]")
+    // console.log(chatArgs, " chatArgs args")
+
     try {
       // Early exit for blacklisted words
       if (rawMessage.split(/\s+/).some(word => blacklistedWords.includes(word))) {
+        return;
+      }
+
+      // Special handling for chatArgs structure: [username, 'chat', ChatMessage, uuid, ...]
+      if (
+        typeof chatArgs[0] === "string" &&
+        typeof chatArgs[2] === "object" &&
+        chatArgs[2]?.with &&
+        typeof chatArgs[3] === "string"
+      ) {
+        let uuid = chatArgs[3];
+        let username = chatArgs[0];
+        console.log("uuid", uuid, "username", username);
+        // If uuid matches a player, use that player's username
+        const playerByUuid = Object.values(Bot.bot.players).find(p => p.uuid === uuid);
+        if (playerByUuid) {
+          username = playerByUuid.username;
+        }
+
+        let message = "";
+
+        // Try to extract message from ChatMessage object
+        if (Array.isArray(chatArgs[2].with) && chatArgs[2].with.length > 0) {
+          const msgObj = chatArgs[2].with[0];
+          if (typeof msgObj.text === "string") {
+            message = msgObj.text;
+          } else if (typeof msgObj.toString === "function") {
+            message = msgObj.toString();
+          }
+        } else if (typeof chatArgs[2].toString === "function") {
+          message = chatArgs[2].toString();
+        }
+
+        // Fallback: if message is empty, use rawMessage
+        if (!message) message = rawMessage;
+
+        // Save the message if valid
+        if (username && message && message !== ":" && message !== "") {
+          if (!Bot.userBlacklist.has(uuid)) {
+            log.chat(username, message, uuid);
+            await api.websocket.sendMinecraftChatMessage({
+              name: username,
+              message,
+              date: Date.now().toString(),
+              mc_server: Bot.mc_server,
+              uuid,
+            });
+            if (username !== Bot.bot.username) {
+              await mcCommandHandler(username, message, Bot, uuid);
+            }
+          }
+        }
         return;
       }
 
