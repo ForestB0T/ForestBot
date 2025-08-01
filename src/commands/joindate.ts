@@ -34,7 +34,7 @@ export default {
             jd = data.joindate as string;
         }
 
-        bot.bot.chat(`I first saw ${search}, ${jd}`);
+        bot.bot.chat(`I first seen ${search}, ${jd}`);
 
     }
 } as MCommand

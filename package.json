@@ -8,17 +8,17 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^17.0.21",
+    "@types/node": "^24.1.0",
     "@types/node-fetch": "^2.6.1",
     "@types/ws": "^8.5.4",
     "chalk": "^5.0.0",
-    "date-and-time": "^2.2.1",
-    "dotenv": "^16.0.0",
+    "date-and-time": "^4.0.1",
+    "dotenv": "^17.2.1",
     "forestbot-api-wrapper-v2": "^1.5.5",
     "javascript-time-ago": "^2.3.13",
     "minecraft-protocol": "^1.58.0",
     "mineflayer": "^4.30.0",
     "node-fetch": "^3.2.2",
-    "openai": "^4.24.7"
+    "openai": "^5.11.0"
   }
 }

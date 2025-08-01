@@ -1,4 +1,4 @@
-import date              from 'date-and-time';
+import * as date         from 'date-and-time';
 import TimeAgo           from 'javascript-time-ago';
 import { createRequire } from "module"; 
 const require = createRequire(import.meta.url); 
