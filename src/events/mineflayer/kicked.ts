@@ -8,6 +8,7 @@ export default {
     run: async (content: BotEvents, Bot: Bot) => {
         console.log(Object.values(content));
         Logger.kick(`${content.toString()}`);
+        console.log("Kicked content:", content);
         Bot.bot.end();
         return;
     }

@@ -19,16 +19,16 @@ const { ping } = mc;
  * Main class for mineflayer bot.
  */
 export default class Bot {
-    public bot:             mineflayer.Bot;
-    public useWhitelist:    boolean;
-    public welcomeMsgs:     boolean;
-    public mc_server:       string;
-    public userWhitelist:   Set<string> = new Set();
-    public userBlacklist:   Set<string> = new Set();
+    public bot: mineflayer.Bot;
+    public useWhitelist: boolean;
+    public welcomeMsgs: boolean;
+    public mc_server: string;
+    public userWhitelist: Set<string> = new Set();
+    public userBlacklist: Set<string> = new Set();
     public whitelistedCmds: Set<string> = new Set();
-    public commands:        Map<string, MCommand> = new Map();
-    public restartCount:    number = 0;
-    public isConnected:     boolean = false;
+    public commands: Map<string, MCommand> = new Map();
+    public restartCount: number = 0;
+    public isConnected: boolean = false;
     public allowConnection: boolean = true;
 
     constructor(public options: mineflayer.BotOptions) {
@@ -77,12 +77,15 @@ export default class Bot {
         }
 
         const bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
+        // bot._client.on('packet', (data, meta) => {
+        //     console.log(`[${meta.name}]`, JSON.stringify(data, null, 2));
+        // });
 
         this.loadCommands();
         this.handleEvents(bot);
         return this.bot = bot;
     }
-    public Whisper(user: string, message: string) { 
+    public Whisper(user: string, message: string) {
         this.bot.chat(`/${config.whisperCommand} ${user} ${message}`);
     }
     /**

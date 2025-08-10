@@ -23,6 +23,5 @@ export default {
 
         return bot.bot.chat(`I have seen ${data} advancements from ${search}`);
         
-
     }
 } as MCommand

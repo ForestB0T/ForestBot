@@ -4,7 +4,7 @@ import { config } from "../../config.js";
 
 export default {
     name: "login",
-    once: true,
+    on: true,
     run: async (args: [], Bot: Bot) => {
         Logger.login(`Connected to ${Bot.options.host} successfully`);
 

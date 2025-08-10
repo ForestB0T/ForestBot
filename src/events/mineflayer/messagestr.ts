@@ -17,9 +17,10 @@ export default {
   run: async (args: any[], Bot: Bot) => {
     const rawMessage = args[0] as string;
     const chatArgs = [...args];
-    
+
+    console.log(rawMessage, " rawMessage args[0]");
     // console.log(rawMessage, " rawMessage args[0]")
-    // console.log(chatArgs, " chatArgs args")
+    // console.log(chatArgs, " chatArgs args")w
 
     try {
       // Early exit for blacklisted words
@@ -134,17 +135,35 @@ export default {
       };
 
       const players = Object.values(Bot.bot.players);
+
+      // --- PATCH: Skip death handling if message matches chat format (username> message or username > message) ---
+      // Check for chat message pattern: username > message or username> message
+      let isChatFormat = false;
       for (const player of players) {
-        if (rawMessage.includes(player.username)) {
-          if (Bot.bot.players[rawMessage.split(" ")[0]] && !Bot.bot.players[rawMessage.split(" ")[1]]) {
-            await handleDeath(rawMessage.split(" ")[0]);
-            return;
-          } else if (Bot.bot.players[rawMessage.split(" ")[1]]) {
-            await handleDeath(rawMessage.split(" ")[1]);
-            return;
+        // Check for both "username> message" and "username > message"
+        if (
+          rawMessage.startsWith(player.username + ">") ||
+          rawMessage.startsWith(player.username + " >")
+        ) {
+          isChatFormat = true;
+          break;
+        }
+      }
+
+      if (!isChatFormat) {
+        for (const player of players) {
+          if (rawMessage.includes(player.username)) {
+            if (Bot.bot.players[rawMessage.split(" ")[0]] && !Bot.bot.players[rawMessage.split(" ")[1]]) {
+              await handleDeath(rawMessage.split(" ")[0]);
+              return;
+            } else if (Bot.bot.players[rawMessage.split(" ")[1]]) {
+              await handleDeath(rawMessage.split(" ")[1]);
+              return;
+            }
           }
         }
       }
+      // --- END PATCH ---
 
       // Handle chat messages
       const saveMessage = async (username: string, uuid: string, message: string) => {
@@ -195,8 +214,12 @@ export default {
       if (!username) {
         const chatDividers = ["»", ">>", ">", ":"];
         for (const divider of chatDividers) {
-          if (rawMessage.includes(divider)) {
-            const [senderRaw, msgContent] = rawMessage.split(divider, 2);
+          // PATCH: Allow for optional space after divider (e.g., "username > message" or "username> message")
+          const regex = new RegExp(`^(.+?)\\s*\\${divider}\\s*(.+)$`);
+          const match = rawMessage.match(regex);
+          if (match) {
+            const senderRaw = match[1];
+            const msgContent = match[2];
             const possibleUsername = parseUsername(senderRaw.trim(), Bot.bot);
             if (Bot.bot.players[possibleUsername]) {
               username = possibleUsername;
