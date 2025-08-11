@@ -11,23 +11,23 @@ export default {
     maxArgs: 0,
     whitelisted: true,
     execute: async (user, args, bot, api: forestBotAPI) => {
-        const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.displayName === "Minecart");
+        // Find the nearest boat entity (entity type: 'boat')
+        const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.name === "boat");
 
-        bot.Whisper(user, "Searching for nearest minecart")
-
+        bot.Whisper(user, "Searching for nearest boat")
 
         if (isMounted) {
             bot.bot.dismount();
             isMounted = false;
-            return bot.Whisper(user, "I dismounted the minecart")
+            return bot.Whisper(user, "I dismounted the boat")
         }
 
         if (nearestBoat && !isMounted) {
             bot.bot.mount(nearestBoat);
             isMounted = true;
-            return bot.Whisper(user, "I mounted the nearest minecart")
+            return bot.Whisper(user, "I mounted the nearest boat")
         } else {
-            return bot.Whisper(user, "I could not find a minecart")
+            return bot.Whisper(user, "I could not find a boat")
         }
 
     }
