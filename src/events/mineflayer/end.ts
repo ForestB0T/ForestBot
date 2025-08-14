@@ -12,8 +12,8 @@ export default {
         // lets send a leave packet to our websocket server to let it know the bot has left the server.
         // when it is the bot that left the server, we will also save user sessions to the database.
         
-        // Bot.bot.quit();
-        // Bot.endAndRestart();
+        Bot.bot.quit();
+        Bot.endAndRestart();
         Logger.warn("Bot has ended attempting to restart soon.");
         console.log(content, " end content");
         console.log(args, " end args");
