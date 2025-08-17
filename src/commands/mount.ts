@@ -6,29 +6,19 @@ let isMounted: boolean = false;
 
 export default {
     commands: ['mount', 'ride'],
-    description: `Use ${config.prefix}mount to mount the nearest boat.`,
+    description: 'Mounts the nearest boat entity.',
     minArgs: 0,
     maxArgs: 0,
-    whitelisted: true,
-    execute: async (user, args, bot, api: forestBotAPI) => {
-        // Find the nearest boat entity (entity type: 'boat')
+    execute: async (user: string, args: any[], bot: Bot, api: typeof forestBotAPI): Promise<void> => {
         const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.displayName === "Boat");
 
-        bot.Whisper(user, "Searching for nearest boat")
+        bot.bot.whisper(user, "Searching for nearest boat...");
 
-        if (isMounted) {
-            bot.bot.dismount();
-            isMounted = false;
-            return bot.Whisper(user, "I dismounted the boat")
-        }
-
-        if (nearestBoat && !isMounted) {
+        if (nearestBoat) {
             bot.bot.mount(nearestBoat);
-            isMounted = true;
-            return bot.Whisper(user, "I mounted the nearest boat")
+            bot.bot.whisper(user, "I mounted the nearest boat!");
         } else {
-            return bot.Whisper(user, "I could not find a boat")
+            bot.bot.whisper(user, "I could not find a boat.");
         }
-
     }
-} as MCommand
+ } as MCommand
