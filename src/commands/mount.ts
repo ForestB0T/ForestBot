@@ -13,6 +13,7 @@ export default {
         const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.displayName === "Boat");
 
         bot.bot.whisper(user, "Searching for nearest boat...");
+        console.log("Nearest boat entity:", nearestBoat);
 
         if (nearestBoat) {
             bot.bot.mount(nearestBoat);
