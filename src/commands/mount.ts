@@ -12,7 +12,7 @@ export default {
     whitelisted: true,
     execute: async (user, args, bot, api: forestBotAPI) => {
         // Find the nearest boat entity (entity type: 'boat')
-        const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.name === "boat");
+        const nearestBoat = bot.bot.nearestEntity((entity: any) => entity.displayName === "Boat");
 
         bot.Whisper(user, "Searching for nearest boat")
 
