@@ -6,8 +6,8 @@ import parseUsername from "../../structure/mineflayer/utils/parseUsername.js";
 const log = Logger;
 
 const blacklistedWords = [
-  "[w]", "[Administrator]", "arrived", "kicked", "muted", "banned", 
-  "tempbanned", "temp-banned", "[+]", "From", "left", "Left", "joined", 
+  "[w]", "[Administrator]", "arrived", "kicked", "muted", "banned",
+  "tempbanned", "temp-banned", "[+]", "From", "left", "Left", "joined",
   "whispers", "[EUPVP]", "[Duels]", "voted", "has requested to teleport to you.", "[Rcon]"
 ];
 
@@ -136,8 +136,7 @@ export default {
 
       const players = Object.values(Bot.bot.players);
 
-      // --- PATCH: Skip death handling if message matches chat format (username> message or username > message) ---
-      // Check for chat message pattern: username > message or username> message
+      // --- PATCH: Skip death handling if message matches chat format or contains ">" ---
       let isChatFormat = false;
       for (const player of players) {
         // Check for both "username> message" and "username > message"
@@ -150,7 +149,8 @@ export default {
         }
       }
 
-      if (!isChatFormat) {
+      // New check: if the rawMessage has ">", ignore death detection entirely
+      if (!isChatFormat && !rawMessage.includes(">")) {
         for (const player of players) {
           if (rawMessage.includes(player.username)) {
             if (Bot.bot.players[rawMessage.split(" ")[0]] && !Bot.bot.players[rawMessage.split(" ")[1]]) {
@@ -164,6 +164,7 @@ export default {
         }
       }
       // --- END PATCH ---
+
 
       // Handle chat messages
       const saveMessage = async (username: string, uuid: string, message: string) => {
