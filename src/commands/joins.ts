@@ -4,7 +4,7 @@ import { config } from '../config.js';
 
 export default {
     commands: ['joins'],
-    description: `Shows the number of times a user has joined. Usage: ${config.prefix}joins <username>`,
+    description: `🤖 Shows the number of times a user has joined. Usage: ${config.prefix}joins <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -15,13 +15,13 @@ export default {
 
         if (!data || !data.joincount) {
             if (search === user) {
-                bot.Whisper(user, `You have no joins, or unexpected error occurred.`);
+                bot.Whisper(user, `🤖 You have no joins, or unexpected error occurred.`);
             } else {
-                bot.Whisper(user, `${search} has no joins, or unexpected error occurred.`);
+                bot.Whisper(user, `🤖 ${search} has no joins, or unexpected error occurred.`);
             }
             return;
         }
 
-        return bot.bot.chat(`${search} has joined the server ${data.joincount} times`);
+        return bot.bot.chat(`🤖 ${search} has joined the server ${data.joincount} times`);
     }
 } as MCommand

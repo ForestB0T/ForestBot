@@ -5,7 +5,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['lastadvancement', 'ladv'],
-    description: `Retrieves the most recent advancement of a user. Usage: ${config.prefix}lastadvancement <username>`,
+    description: `🤖 Retrieves the most recent advancement of a user. Usage: ${config.prefix}lastadvancement <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -16,9 +16,9 @@ export default {
 
         if (!data || data.length === 0) {
             if (search === user) {
-                bot.Whisper(user, `You have no advancements, or unexpected error occurred.`);
+                bot.Whisper(user, `🤖 You have no advancements, or unexpected error occurred.`);
             } else {
-                bot.Whisper(user, `${search} has no advancements, or unexpected error occurred.`);
+                bot.Whisper(user, `🤖 ${search} has no advancements, or unexpected error occurred.`);
             }
             return;
         };
@@ -26,7 +26,7 @@ export default {
         const timeStampAgo = time.timeAgoStr(parseInt(data[0].time.toString()));
         const advancement = data[0].advancement;
 
-        bot.bot.chat(`${advancement}, ${timeStampAgo}`);
+        bot.bot.chat(`🤖 ${advancement}, ${timeStampAgo}`);
         return;
     }
 } as MCommand

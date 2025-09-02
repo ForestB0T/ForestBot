@@ -5,7 +5,7 @@ import type Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['twerk', 'bootyshake', 'booty', 'dance'],
-    description: `I will twerk for 10 seconds on your command Usage: ${config.prefix}twerk`,
+    description: `🤖 I will twerk for 10 seconds on your command Usage: ${config.prefix}twerk`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {

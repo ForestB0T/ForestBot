@@ -3,7 +3,7 @@ import { config } from '../config.js';
 
 export default {
     commands: ['search', 'lookup', 'find'],
-    description: `Retrives likely usernames related to your search. Usage: ${config.prefix}search <username>`,
+    description: `🤖 Retrives likely usernames related to your search. Usage: ${config.prefix}search <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotAPI) => {
@@ -11,10 +11,10 @@ export default {
         const data = await api.getNameFinder(args[0], config.mc_server);
 
         if (!data || !data.usernames || data.usernames.length == 0) {
-            return bot.bot.chat(`No matches found or an unexpected error occured.`);
+            return bot.bot.chat(`🤖 No matches found or an unexpected error occured.`);
         }
 
         const usernames = data.usernames;
-        return bot.bot.chat(`You could be looking for: ${usernames.join(", ")}`);
+        return bot.bot.chat(`🤖 You could be looking for: ${usernames.join(", ")}`);
     }
 } as MCommand

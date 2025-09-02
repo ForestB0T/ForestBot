@@ -5,7 +5,7 @@ import Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['joindate', 'jd', 'firstseen'],
-    description: `Retrieves the join date of a user. Usage: ${config.prefix}joindate <username>`,
+    description: `🤖 Retrieves the join date of a user. Usage: ${config.prefix}joindate <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -16,9 +16,9 @@ export default {
 
         if (!data || !data.joindate) {
             if (search === user) {
-                bot.Whisper(user, `You have no join date, or unexpected error occurred.`);
+                bot.Whisper(user, `🤖 You have no join date, or unexpected error occurred.`);
             } else {
-                bot.Whisper(user, `${search} has no join date, or unexpected error occurred.`);
+                bot.Whisper(user, `🤖 ${search} has no join date, or unexpected error occurred.`);
             }
             return;
         }
@@ -34,7 +34,7 @@ export default {
             jd = data.joindate as string;
         }
 
-        bot.bot.chat(`I first seen ${search}, ${jd}`);
+        bot.bot.chat(`🤖 ${search}, joined on: ${jd}`);
 
     }
 } as MCommand

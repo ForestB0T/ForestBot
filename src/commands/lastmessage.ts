@@ -5,7 +5,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['lastmessage', 'lm'],
-    description: `Retrieves the last message of a user. Usage: ${config.prefix}lastmessage <username>`,
+    description: `🤖 Retrieves the last message of a user. Usage: ${config.prefix}lastmessage <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -15,9 +15,9 @@ export default {
 
         if (!data || data.length === 0) {
             if (search === user) {
-                bot.Whisper(user, `You have no messages, or unexpected error occurred.`);
+                bot.Whisper(user, `🤖 You have no messages, or unexpected error occurred.`);
             } else {
-                bot.Whisper(user, `${search} has no messages, or unexpected error occurred.`);
+                bot.Whisper(user, `🤖 ${search} has no messages, or unexpected error occurred.`);
             }
             return;
         }
@@ -38,6 +38,6 @@ export default {
 
         date = time.timeAgoStr(parseInt(data[0].date.toString()));
 
-        bot.bot.chat(`${search}: ${lastMessage}, ${date}`);
+        bot.bot.chat(`🤖 ${search}: ${lastMessage}, ${date}`);
     }
 } as MCommand

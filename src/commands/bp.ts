@@ -26,10 +26,10 @@ export default {
         const { name, ping } = playerWithBestPing;
         let str = `${name}: ${ping}ms`;
         if (ping === 0) {
-          str = `${name}: ${ping}ms (Most likely just joined.)`;
+          str = `🤖 ${name}: ${ping}ms (Most likely just joined.)`;
         }
       
-        return bot.bot.chat(`Best ping: ${str}`);
+        return bot.bot.chat(`🤖 Best ping: ${str}`);
       }
       
  } as MCommand

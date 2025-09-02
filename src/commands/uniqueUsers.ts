@@ -5,7 +5,7 @@ import type Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['users', 'uniqueusers'],
-    description: `See the unique user count: ${config.prefix}users`,
+    description: `🤖 See the unique user count: ${config.prefix}users`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -13,7 +13,7 @@ export default {
         const uniqueUsers = await api.getUniqueUsers(server);
 
         const uniqueUsersCount = uniqueUsers.length;
-        const string = `I have seen ${uniqueUsersCount} different users on this server! api.forestbot.org/unique-users?server=${server}`;
+        const string = `🤖 I have seen ${uniqueUsersCount} different users on this server! api.forestbot.org/unique-users?server=${server}`;
         bot.bot.chat(string);
     }
 } as MCommand

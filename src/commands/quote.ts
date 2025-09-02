@@ -4,7 +4,7 @@ import time from "../functions/utils/time.js";
 
 export default {
     commands: ['quote', 'q'],
-    description: `Retrieves a random quote from a user. Usage: ${config.prefix}quote <username>`,
+    description: `🤖 Retrieves a random quote from a user. Usage: ${config.prefix}quote <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot, api: ForestBotAPI) => {
@@ -16,9 +16,9 @@ export default {
 
         if (!data || !data.message) { 
             if (search === user) {
-                bot.Whisper(user, `I have no quotes recorded for you, or unexpected error occurred.`);
+                bot.Whisper(user, `🤖 I have no quotes recorded for you, or unexpected error occurred.`);
             } else {
-                bot.Whisper(user, `I have no quotes recorded for ${search}, or unexpected error occurred.`);
+                bot.Whisper(user, `🤖 I have no quotes recorded for ${search}, or unexpected error occurred.`);
             }
             return;
         }
@@ -41,6 +41,6 @@ export default {
             date = ""
         }
 
-        return bot.bot.chat(`${search}: ${data.message} ${date ? `(${date})` : ''}`);
+        return bot.bot.chat(`🤖 ${search}: ${data.message} ${date ? `(${date})` : ''}`);
     }
 } as MCommand
