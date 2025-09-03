@@ -19,9 +19,12 @@
     "welcome_messages": true,
     "whitelisted_commands": [],
     "useCommands": true,
-    "disabled_events": ["entitySpawn"],
+    "disabled_events": [
+        "entitySpawn"
+    ],
     "allow_chatbridge_input": true,
     "rotateHeadOnJoin": false,
+    "useLegacyChat": false,
     "commands": {
         "urban": true,
         "kill": false,

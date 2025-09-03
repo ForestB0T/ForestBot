@@ -12,7 +12,7 @@ import { readFile, writeFile } from 'fs/promises';
 
 export default {
     commands: ["offlinemsg"],
-    description: `🤖 Use ${config.prefix}offlinemsg <username> <text> to send a message to a user who is offline.`,
+    description: ` Use ${config.prefix}offlinemsg <username> <text> to send a message to a user who is offline.`,
     minArgs: 1,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -23,23 +23,23 @@ export default {
 
             // check if user is offlinemsging themselves
             if (user === userToSendMessageTo) {
-                return bot.Whisper(user, `🤖 You can't send a message to yourself, sorry.`);
+                return bot.Whisper(user, ` You can't send a message to yourself, sorry.`);
             }
 
             // check if msg is over 250 characters
             if (message.length > 250) {
-                return bot.Whisper(user, `🤖 Message is too long, must be less than 250 characters.`);
+                return bot.Whisper(user, ` Message is too long, must be less than 250 characters.`);
             }
 
             // check if user isonline first
             if (bot.bot.players[userToSendMessageTo]) {
-                return bot.Whisper(user, `🤖 User ${userToSendMessageTo} is online, please send them a message directly.`);
+                return bot.Whisper(user, ` User ${userToSendMessageTo} is online, please send them a message directly.`);
             }
 
             // check if user is in the database
             const uuid = await api.convertUsernameToUuid(userToSendMessageTo);
             if (!uuid) {
-                return bot.Whisper(user, `🤖 User ${userToSendMessageTo} is not in the database.`);
+                return bot.Whisper(user, ` User ${userToSendMessageTo} is not in the database.`);
             }
 
             // get a timestamp in milliseconds unix
@@ -48,7 +48,7 @@ export default {
             // lets load the json file 
             const offlineMessages: OfflineMessage[] = (await JSON.parse(await readFile("./json/offline_messages.json", "utf-8")));
             if (!offlineMessages) {
-                return bot.Whisper(user, `🤖 There was an error loading the offline messages.`);
+                return bot.Whisper(user, ` There was an error loading the offline messages.`);
             }
 
             console.log(offlineMessages)
@@ -61,7 +61,7 @@ export default {
             }
 
             if (recipientsMsgCount >= 5) {
-                return bot.Whisper(user, `🤖 User ${userToSendMessageTo} has too many offline messages pending...`);
+                return bot.Whisper(user, ` User ${userToSendMessageTo} has too many offline messages pending...`);
             }
 
             // add the message to the array
@@ -75,11 +75,11 @@ export default {
             // write the array back to the file
             await writeFile("./json/offline_messages.json", JSON.stringify(offlineMessages, null, 2));
 
-            return bot.Whisper(user, `🤖 Your message has been saved and will be delivered to ${userToSendMessageTo} when they are next online.`);
+            return bot.Whisper(user, ` Your message has been saved and will be delivered to ${userToSendMessageTo} when they are next online.`);
 
         } catch (err) {
             console.error(err);
-            return bot.Whisper(user, `🤖 There was an error saving your message for ${userToSendMessageTo}.`);
+            return bot.Whisper(user, ` There was an error saving your message for ${userToSendMessageTo}.`);
         }
     }
 } as MCommand

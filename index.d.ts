@@ -78,6 +78,8 @@ type Config = {
 
     whitelisted_commands:   string[]
 
+    useLegacyChat:          boolean
+
     useCommands:            boolean;
     commands:               {};
 

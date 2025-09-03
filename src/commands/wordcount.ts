@@ -4,7 +4,7 @@ import Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['wordcount', 'words', 'count'],
-    description: `🤖 Shows the number of times a user has said a word. Usage: ${config.prefix}wordcount <username> <word>`,
+    description: ` Shows the number of times a user has said a word. Usage: ${config.prefix}wordcount <username> <word>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -12,15 +12,15 @@ export default {
         const word = args[1];
 
         if (!search||!word) {
-            return bot.Whisper(user, "🤖 Please provide a player and a word to search for.")
+            return bot.Whisper(user, " Please provide a player and a word to search for.")
         }
 
         const data = await api.getWordOccurence(search, config.mc_server, word);
         if (!data || data.count === undefined) {
-            return bot.Whisper(user, `🤖 ${search} has not said ${word}`)
+            return bot.Whisper(user, ` ${search} has not said ${word}`)
         }
 
-        bot.bot.chat(`🤖 ${search} has said ${word} ${data.count} times`)
+        bot.bot.chat(` ${search} has said ${word} ${data.count} times`)
 
         return;
 

@@ -19,7 +19,7 @@ export class Logger {
     }
 
     public static chat(username: string, message: string, uuid: string, type: LogType = "chat") {
-        this.log(type, chalk.red, `${chalk.bold(chalk.red(username))}: ${chalk.white(message)}`);
+        this.log(type, chalk.red, `${chalk.white(message)}`);
     };
 
     public static advancement(message: string, type: LogType = "advancement") {

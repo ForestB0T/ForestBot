@@ -1,5 +1,5 @@
 import type Forestbot from "../../structure/mineflayer/Bot";
-import { Logger }     from "../../index.js";
+import { Logger } from "../../index.js";
 
 const seenPlayerList = new Set<string>();
 
@@ -25,7 +25,26 @@ export default {
         y = Math.round(y * 10) / 10;
         z = Math.round(z * 10) / 10;
 
-        Logger.world(`[${username}] (${x}, ${y}, ${z}) Spotted.`); 
+        Logger.world(`[${username}] (${x}, ${y}, ${z}) Spotted.`);
+
+        const messages = [
+            (username: string) => `/msg ${username} Hello ${username}, Good day!`,
+            (username: string) => `/msg ${username} Hope you're doing well today!`,
+            (username: string) => `/msg ${username} Just wanted to say hi!`,
+            (username: string) => `/msg ${username} Hello, ${username}!`,
+            (username: string) => `/msg ${username} Hi there, ${username}!`,
+            (username: string) => `/msg ${username} Greetings, ${username}!`,
+            (username: string) => `/msg ${username} Hey ${username}, welcome!`,
+            (username: string) => `/msg ${username} Hi ${username}, nice to see you!`,
+            (username: string) => `/msg ${username} Hello ${username}, how's it going?`,
+            (username: string) => `/msg ${username} Hey ${username}, hope you're having a great day!`
+        ];
+
+        // Pick one random message
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+        // Send it
+        Bot.bot.chat(randomMessage(username));
 
         setTimeout(() => {
             seenPlayerList.delete(uuid)

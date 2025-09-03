@@ -5,7 +5,7 @@ import type Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['oldest', 'oldheads', 'oldusers', 'oldestusers', 'oldfags'],
-    description: `🤖 Retrieves the 3 oldest users. Usage: ${config.prefix}oldest`,
+    description: ` Retrieves the 3 oldest users. Usage: ${config.prefix}oldest`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -13,9 +13,9 @@ export default {
 
         const users = await api.getUsersSortedByJoindate(bot.mc_server, 3, 'ASC', onlineUsernames);
 
-        const replyMsg = `🤖 The 3 oldest users online are: ${users.map((user, index) => {
+        const replyMsg = ` The 3 oldest users online are: ${users.map((user, index) => {
             const joinDateStr = user.joindate && !isNaN(Number(user.joindate)) ? time.timeAgoStr(Number(user.joindate)) : 'unknown';
-            return `🤖 ${user.username} (${joinDateStr})`;
+            return ` ${user.username} (${joinDateStr})`;
         }).join(', ')}`;
 
         bot.bot.chat(replyMsg);

@@ -4,7 +4,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['top'],
-    description: `🤖 Shows the top 5 players in a certain statistic. Usage: ${config.prefix}top <kills/deaths/joins/playtime>`,
+    description: ` Shows the top 5 players in a certain statistic. Usage: ${config.prefix}top <kills/deaths/joins/playtime>`,
     minArgs: 0,
     maxArgs: 2,
     execute: async (user, args, bot: Bot, api: forestBotAPI) => {
@@ -17,22 +17,22 @@ export default {
                 case 'kills':
                     const Kills: string[] | number[] = (await api.getTopStatistic("kills", bot.mc_server, 5)).top_stat;
                     const stringKills: string = Kills.map((element: any) => `${element.username}: ${element.kills}`).join(", ");
-                    bot.bot.chat(`🤖 [TOP KILLS]: ${stringKills}`);
+                    bot.bot.chat(` [TOP KILLS]: ${stringKills}`);
                     break;
                 case 'deaths':
                     const Deaths: string[] | number[] = (await api.getTopStatistic("deaths", bot.mc_server, 5)).top_stat;
                     const stringDeaths: string = Deaths.map((element: any) => `${element.username}: ${element.deaths}`).join(", ");
-                    bot.bot.chat(`🤖 [TOP DEATHS]: ${stringDeaths}`);
+                    bot.bot.chat(` [TOP DEATHS]: ${stringDeaths}`);
                     break;
                 case 'joins':
                     const Joins: string[] | number[] = (await api.getTopStatistic("joins", bot.mc_server, 5)).top_stat;
                     const stringJoins: string = Joins.map((element: any) => `${element.username}: ${element.joins}`).join(", ");
-                    bot.bot.chat(`🤖 [TOP JOINS/LEAVES]: ${stringJoins}`);
+                    bot.bot.chat(` [TOP JOINS/LEAVES]: ${stringJoins}`);
                     break;
                 case 'playtime':
                     const Playtime: string[] | number[] = (await api.getTopStatistic("playtime", bot.mc_server, 5)).top_stat;
                     const stringPlaytime: string = Playtime.map((element: any) => `${element.username}: ${Math.floor(element.playtime / (1000 * 60 * 60 * 24))} Days`).join(", ");
-                    bot.bot.chat(`🤖 [TOP PLAYTIME]: ${stringPlaytime}`);
+                    bot.bot.chat(` [TOP PLAYTIME]: ${stringPlaytime}`);
                     break;
                 default:
                     return;

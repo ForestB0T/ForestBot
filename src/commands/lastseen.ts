@@ -5,7 +5,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['lastseen', 'seen', 'ls'],
-    description: `🤖 Displays the last time a user was seen online. Usage: ${config.prefix}lastseen <username>`,
+    description: ` Displays the last time a user was seen online. Usage: ${config.prefix}lastseen <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -15,9 +15,9 @@ export default {
         
         if (!data || !data.lastseen) {
             if (search === user) {
-                bot.Whisper(user, `🤖 You haven't been seen by me or unexpected error occurred.`);
+                bot.Whisper(user, ` You haven't been seen by me or unexpected error occurred.`);
             } else {
-                bot.Whisper(user, `🤖 ${search} has not been seen by me, or unexpected error occurred.`);
+                bot.Whisper(user, ` ${search} has not been seen by me, or unexpected error occurred.`);
             }
             return;
         }
@@ -27,7 +27,7 @@ export default {
         if (userIsOnline && (data && data.lastseen.toString().match(/^\d+$/))) {
             const unixTime = parseInt(data.lastseen.toString());
             const lastseen = time.timeAgoStr(unixTime);
-            return bot.bot.chat(`🤖 ${search} is playing right now and logged in ${lastseen}`);
+            return bot.bot.chat(` ${search} is playing right now and logged in ${lastseen}`);
         }
 
         let lastseenString: string;
@@ -39,6 +39,6 @@ export default {
             lastseenString = data.lastseen.toString();
         }
 
-        return bot.bot.chat(`🤖 I last seen ${search} ${lastseenString}`);
+        return bot.bot.chat(` I last seen ${search} ${lastseenString}`);
     }
 } as MCommand

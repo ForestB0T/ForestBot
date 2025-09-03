@@ -5,7 +5,7 @@ import Bot from "../structure/mineflayer/Bot.js";
 
 export default {
     commands: ['playtime', 'pt'],
-    description: `🤖 Retrieves the total playtime of a user. Usage: ${config.prefix}playtime <username>`,
+    description: ` Retrieves the total playtime of a user. Usage: ${config.prefix}playtime <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot:Bot, api: ForestBotAPI) => {
@@ -16,15 +16,15 @@ export default {
 
         if (!data || !data.playtime) { 
             if (search === user) {
-                bot.Whisper(user, `🤖 I have no playtime recorded for you, or unexpected error occurred.`);
+                bot.Whisper(user, ` I have no playtime recorded for you, or unexpected error occurred.`);
                 return
             } else {
-                bot.Whisper(user, `🤖 I have no playtime recorded for ${search}, or unexpected error occurred.`);
+                bot.Whisper(user, ` I have no playtime recorded for ${search}, or unexpected error occurred.`);
                 return
             }
         }
 
         const playtime = time.dhms(data.playtime);
-        return bot.bot.chat(`🤖 ${search}'s total playtime is ${playtime}`)
+        return bot.bot.chat(` ${search}'s total playtime is ${playtime}`)
     }
 } as MCommand

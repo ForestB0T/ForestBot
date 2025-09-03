@@ -1,3 +1,4 @@
+import { config } from "../../config.js";
 import { Logger, api } from "../../index.js";
 import type Bot from "../../structure/mineflayer/Bot.js";
 import mcCommandHandler from "../../structure/mineflayer/utils/commandHandler.js";
@@ -15,10 +16,9 @@ export default {
   name: "messagestr",
   once: false,
   run: async (args: any[], Bot: Bot) => {
+    if (!config.useLegacyChat) return; // Skip if using legacy chat handling
     const rawMessage = args[0] as string;
     const chatArgs = [...args];
-
-    console.log(rawMessage, " rawMessage args[0]");
     // console.log(rawMessage, " rawMessage args[0]")
     // console.log(chatArgs, " chatArgs args")w
 
@@ -37,7 +37,6 @@ export default {
       ) {
         let uuid = chatArgs[3];
         let username = chatArgs[0];
-        console.log("uuid", uuid, "username", username);
         // If uuid matches a player, use that player's username
         const playerByUuid = Object.values(Bot.bot.players).find(p => p.uuid === uuid);
         if (playerByUuid) {

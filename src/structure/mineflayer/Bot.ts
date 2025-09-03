@@ -56,35 +56,39 @@ export default class Bot {
      */
     public async startBot() {
         if (!this.allowConnection) return;
-        this.restartCount++;
 
-        Logger.login("Attempting to start mineflayer bot");
+        this.restartCount++;
+        Logger.login("Attempting to start Mineflayer bot");
 
         if (this.restartCount >= 10) {
-            Logger.warn("Minecraft Server Connection is being refused, The server is most likely offline.");
+            Logger.warn("Minecraft server connection is being refused. The server is most likely offline.");
             this.restartCount = 0;
-            setTimeout(() => { this.startBot() }, 10 * 60000)
-            return
+            setTimeout(() => void this.startBot(), 10 * 60_000); // 10 minutes
+            return;
         }
 
         try {
             const res = await ping({ host: this.options.host, port: this.options.port });
-            if (!res) throw new Error("No Response.");
+            if (!res) throw new Error("No response from server.");
         } catch (err) {
+            Logger.warn("Server ping failed, retrying...");
             await time.sleep(config.reconnect_time);
-            this.startBot();
+            void this.startBot();
             return;
         }
 
-        const bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
-        // bot._client.on('packet', (data, meta) => {
-        //     console.log(`[${meta.name}]`, JSON.stringify(data, null, 2));
-        // });
+        // Create the bot and assign to this.bot
+        this.bot = mineflayer.createBot({ ...this.options, auth: "microsoft" });
 
+        // Load commands and event handlers
         this.loadCommands();
-        this.handleEvents(bot);
-        return this.bot = bot;
+        this.handleEvents(this.bot);
+
+        Logger.login("Mineflayer bot started successfully.");
+        return this.bot;
     }
+
+
     public Whisper(user: string, message: string) {
         this.bot.chat(`/${config.whisperCommand} ${user} ${message}`);
     }

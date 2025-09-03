@@ -12,8 +12,8 @@ export default async function mcCommandHandler(
 
     const commandPrefix = config.prefix;
     const [command, ...args] = message.trim().split(" ");
-    const commandKey = `${command.toLowerCase()} ${args.join(" ").toLowerCase()}`;
 
+    if (user === bot.bot.username) return; // Ignore commands from itself
     // Find matching command
     const matchedCommand = Array.from(bot.commands.values()).find(cmd =>
         cmd.commands.some(alias => command.toLowerCase() === `${commandPrefix}${alias}`)

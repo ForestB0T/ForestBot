@@ -4,7 +4,7 @@ import Bot from '../structure/mineflayer/Bot.js';
 
 export default {
     commands: ['kd', 'kills', 'deaths'],
-    description: `🤖 Displays the kill/death ratio of a user. Usage: ${config.prefix}kd <username>`,
+    description: ` Displays the kill/death ratio of a user. Usage: ${config.prefix}kd <username>`,
     minArgs: 0,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: ForestBotAPI) => {
@@ -14,14 +14,14 @@ export default {
         const data = await api.getKd(uuid, config.mc_server);
         if (!data) {
             if (search === user) {
-                bot.Whisper(user, `🤖 You have no kills or deaths, or unexpected error occurred.`);
+                bot.Whisper(user, ` You have no kills or deaths, or unexpected error occurred.`);
             } else {
-                bot.Whisper(user, `🤖 ${search} has no kills or deaths, or unexpected error occurred.`);
+                bot.Whisper(user, ` ${search} has no kills or deaths, or unexpected error occurred.`);
             }
             return;
         }
 
         const kdRatio = data.kills / data.deaths;
-        return bot.bot.chat(`🤖 ${search}: Kills: ${data.kills} Deaths: ${data.deaths} KD: ${kdRatio.toFixed(2)}`);
+        return bot.bot.chat(` ${search}: Kills: ${data.kills} Deaths: ${data.deaths} KD: ${kdRatio.toFixed(2)}`);
     }
 } as MCommand
