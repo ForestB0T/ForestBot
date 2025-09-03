@@ -83,7 +83,15 @@ export default {
                 // If the next token is ">", it's definitely a chat message, not a death
                 if (words[victimIndex + 1] === ">" || words[victimIndex + 1]?.startsWith(">")) {
                     // Skip death detection and let it fall through to chat handler
-                } else {
+                } else if (fullMsg.includes("<") || fullMsg.includes(">")) {
+                    
+                }
+                else {
+
+                    //check if there is a <> beside the player name
+
+
+
                     let murderer: string | null = null;
 
                     // Loop over words after victim
