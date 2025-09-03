@@ -43,6 +43,7 @@ export default {
         for (const player of currentOnlinePlayers) {
             // Only proceed if the message includes the player's name
             if (!fullMsg.includes(player)) continue;
+            console.log(fullMsg, " fullMsg by " + player);
             //if (player === Bot.bot.username) continue; // Ignore messages about itself
 
             const uuid = await api.convertUsernameToUuid(player);
@@ -79,40 +80,42 @@ export default {
                 const words = fullMsg.split(" ");
                 const victimIndex = words.indexOf(player);
 
-                if (words[victimIndex + 1] === ">" || (words[victimIndex + 1] && words[victimIndex + 1].startsWith(">"))) return
+                // If the next token is ">", it's definitely a chat message, not a death
+                if (words[victimIndex + 1] === ">" || words[victimIndex + 1]?.startsWith(">")) {
+                    // Skip death detection and let it fall through to chat handler
+                } else {
+                    let murderer: string | null = null;
 
-                let murderer: string | null = null;
-
-                // Loop over words after victim
-                for (let i = victimIndex + 1; i < words.length; i++) {
-                    const possibleMurderer = words[i];
-                    // Ignore the victim themselves
-                    if (possibleMurderer !== player && currentOnlinePlayers[possibleMurderer]) {
-                        murderer = possibleMurderer;
-                        break;
+                    // Loop over words after victim
+                    for (let i = victimIndex + 1; i < words.length; i++) {
+                        const possibleMurderer = words[i];
+                        if (possibleMurderer !== player && currentOnlinePlayers[possibleMurderer]) {
+                            murderer = possibleMurderer;
+                            break;
+                        }
                     }
+
+                    // Determine type
+                    const deathType = murderer ? "pvp" : "pve";
+                    const murdereruuid = murderer ? await api.convertUsernameToUuid(murderer) : null;
+
+                    await api.websocket.sendPlayerDeath({
+                        victim: player,
+                        death_message: fullMsg,
+                        murderer,
+                        time: Date.now(),
+                        type: deathType,
+                        mc_server: Bot.mc_server,
+                        victimUUID: uuid,
+                        murdererUUID: murdereruuid,
+                        id: undefined
+                    });
+
+                    Logger.death(fullMsg);
+                    return;
                 }
-
-                // Determine type
-                const deathType = murderer ? "pvp" : "pve";
-                const murdereruuid = murderer ? await api.convertUsernameToUuid(murderer) : null;
-
-                await api.websocket.sendPlayerDeath({
-                    victim: player,
-                    death_message: fullMsg,
-                    murderer,
-                    time: Date.now(),
-                    type: deathType,
-                    mc_server: Bot.mc_server,
-                    victimUUID: uuid,
-                    murdererUUID: murdereruuid,
-                    id: undefined
-                });
-
-                Logger.death(fullMsg);
-                return
-
             }
+
 
 
 
