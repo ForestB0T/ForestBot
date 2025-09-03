@@ -80,11 +80,11 @@ export default {
                 const words = fullMsg.split(" ");
                 const victimIndex = words.indexOf(player);
 
-                // If the next token is ">", it's definitely a chat message, not a death
-                if (words[victimIndex + 1] === ">" || words[victimIndex + 1]?.startsWith(">")) {
-                    // Skip death detection and let it fall through to chat handler
+                const nextWord = words[victimIndex + 1]?.trim();
+                if (nextWord === ">" || nextWord?.startsWith(">")) {
+                    // definitely chat → skip death detection
                 } else if (fullMsg.includes("<") || fullMsg.includes(">")) {
-                    
+                    // also definitely chat → skip
                 }
                 else {
 
