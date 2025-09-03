@@ -79,6 +79,8 @@ export default {
                 const words = fullMsg.split(" ");
                 const victimIndex = words.indexOf(player);
 
+                if (words[victimIndex + 1] === ">" || (words[victimIndex + 1] && words[victimIndex + 1].startsWith(">"))) return
+
                 let murderer: string | null = null;
 
                 // Loop over words after victim
