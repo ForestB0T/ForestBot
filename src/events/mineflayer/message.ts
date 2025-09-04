@@ -70,7 +70,6 @@ export default {
                 // also definitely chat → skip
             }
 
-            console.log(fullMsg, " fullMsg by " + player);
             //if (player === Bot.bot.username) continue; // Ignore messages about itself
 
             const uuid = await api.convertUsernameToUuid(player);
