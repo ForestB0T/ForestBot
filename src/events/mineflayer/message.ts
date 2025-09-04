@@ -151,10 +151,20 @@ export default {
             // Replace it only if it's at the start
             Logger.chat(player, fullMsg, uuid || null);
 
+            // fix it so we get rid of the <> and the players usrname in the fullmsg
+            // before saving to api
+
+            function cleanPlayerFromMsg(fullMsg: string, player: string): string {
+                // Regex matches <player>, < player>, player>, <player >, etc.
+                const pattern = new RegExp(`\\s*<?\\s*${player}\\s*>?\\s*`);
+                return fullMsg.replace(pattern, ` ${player} `).trim();
+            }
+
+            const cleanedMessage = cleanPlayerFromMsg(fullMsg, player);
 
             await api.websocket.sendMinecraftChatMessage({
                 name: player,
-                message: fullMsg,
+                message: cleanedMessage,
                 date: Date.now().toString(),
                 mc_server: Bot.mc_server,
                 uuid,

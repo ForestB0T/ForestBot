@@ -39,7 +39,7 @@ export default {
         const originalChat = Bot.bot.chat;
         Bot.bot.chat = (msg: string) => {
             if (msg.startsWith("/")) return originalChat(msg);
-            originalChat(`🤖 ${toFullWidth(msg)} 🤖`);
+            originalChat(`${msg} 🤖`);
         };
 
         await api.websocket.sendPlayerListUpdate(Bot.getPlayers());
