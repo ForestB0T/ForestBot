@@ -23,13 +23,31 @@ const ignoreStartsWith = [
     "To "
 ];
 
+function splitRightCarrotInFirstWord(words: string[]): string[] {
+    if (words.length === 0) return words;
+
+    let first = words[0];
+
+    if (first.endsWith(">") && first.length > 1) {
+        return [first.slice(0, -1), ">", ...words.slice(1)];
+    }
+
+    return words;
+}
+
+
 export default {
     name: 'message',
     once: false,
     run: async (args: any[], Bot: Bot) => {
         if (config.useLegacyChat) return; // Skip if using legacy chat handling
 
-        const fullMsg = args[0].toString();
+        let fullMsg = args[0].toString();
+        let words = fullMsg.split(" ");
+
+        words = splitRightCarrotInFirstWord(words);
+        fullMsg = words.join(" ");
+
 
         const currentOnlinePlayers = Bot.getPlayers().map(p => p.username);
         const commandsList = Array.from(Bot.commands.values()).flatMap(entry => entry.commands);
@@ -43,11 +61,19 @@ export default {
         for (const player of currentOnlinePlayers) {
             // Only proceed if the message includes the player's name
             if (!fullMsg.includes(player)) continue;
+
+            const nextWord = words[player + 1]?.trim();
+
+            if (nextWord === ">" || nextWord?.startsWith(">")) {
+                // definitely chat → skip death detection
+            } else if (fullMsg.includes("<") || fullMsg.includes(">")) {
+                // also definitely chat → skip
+            }
+
             console.log(fullMsg, " fullMsg by " + player);
             //if (player === Bot.bot.username) continue; // Ignore messages about itself
 
             const uuid = await api.convertUsernameToUuid(player);
-
 
             if (
                 fullMsg.includes("has reached the goal") ||
@@ -77,10 +103,10 @@ export default {
 
             // Checking if the message is a death message;
             if (fullMsg.startsWith(player)) {
-                const words = fullMsg.split(" ");
                 const victimIndex = words.indexOf(player);
 
                 const nextWord = words[victimIndex + 1]?.trim();
+
                 if (nextWord === ">" || nextWord?.startsWith(">")) {
                     // definitely chat → skip death detection
                 } else if (fullMsg.includes("<") || fullMsg.includes(">")) {
@@ -123,6 +149,7 @@ export default {
                     return;
                 }
             }
+
 
 
 
