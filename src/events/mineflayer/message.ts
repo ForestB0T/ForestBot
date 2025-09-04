@@ -154,13 +154,14 @@ export default {
             // fix it so we get rid of the <> and the players usrname in the fullmsg
             // before saving to api
 
-            function cleanPlayerFromMsg(fullMsg: string, player: string): string {
-                // Regex matches <player>, < player>, player>, <player >, etc.
-                const pattern = new RegExp(`\\s*<?\\s*${player}\\s*>?\\s*`);
-                return fullMsg.replace(pattern, ` ${player} `).trim();
+            function removePlayerFromMsg(fullMsg: string, player: string): string {
+                // Matches <player>, < player>, player>, <player >, or just player
+                const pattern = new RegExp(`\\s*<?\\s*${player}\\s*>?\\s*`, "g");
+                return fullMsg.replace(pattern, " ").trim().replace(/\s+/g, " ");
             }
 
-            const cleanedMessage = cleanPlayerFromMsg(fullMsg, player);
+
+            const cleanedMessage = removePlayerFromMsg(fullMsg, player);
 
             await api.websocket.sendMinecraftChatMessage({
                 name: player,
