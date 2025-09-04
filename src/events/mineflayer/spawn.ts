@@ -38,7 +38,7 @@ export default {
         Logger.spawn(`${Bot.bot.username} has spawned`);
 
         if (config.usePViewer) {
-            initiateViewer(Bot.bot, 8080);
+            initiateViewer(Bot.bot, config.pViewerPort);
         }
 
         const originalChat = Bot.bot.chat;

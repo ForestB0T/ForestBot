@@ -43,5 +43,7 @@
         "quote": true,
         "top": true,
         "wp": true
-    }
+    },
+    "usePViewer": true,
+    "pViewerPort": 8080
 }
