@@ -44,9 +44,6 @@ function extractPlayerMessage(fullMsg: string, currentOnlinePlayers: Map<string,
     const words = fullMsg.split(" ");
     const firstTwoWords = words.slice(0, 2);
 
-    console.log(firstTwoWords, " firstTwoWords --- IGNORE ---");
-    console.log(currentOnlinePlayers)
-
     for (const word of firstTwoWords) {
         for (const [realName, displayName] of currentOnlinePlayers) {
             if (word === realName || word === displayName) {
