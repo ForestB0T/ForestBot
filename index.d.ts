@@ -1,7 +1,7 @@
 
 type User = {
     username: string,
-    uuid:     string,
+    uuid: string,
     message?: string
 }
 
@@ -32,11 +32,11 @@ interface BotInterface {
 
 type MCommand = {
     commands: string[],
-    description:? string,
-    minArgs:  number,
-    maxArgs:  number,
+    description: ?string,
+    minArgs: number,
+    maxArgs: number,
     whitelisted?: boolean,
-    execute:  (user: string, args: any[], bot: Bot, api: ForestBotApiClient) => Promise<void>
+    execute: (user: string, args: any[], bot: Bot, api: ForestBotApiClient) => Promise<void>
 }
 
 interface OfflineMessage {
@@ -57,51 +57,54 @@ type Config = {
     useLogger: boolean
 
     prefix: "!" | "?" | "-" | "="
-    useCustomChatPrefix:    boolean 
-    customChatPrefix:       string
-    whisperCommand:         string
+    useCustomChatPrefix: boolean
+    customChatPrefix: string
+    whisperCommand: string
 
-    announce:               boolean
+    announce: boolean
 
-    useForestBotAI:         boolean
+    useForestBotAI: boolean
 
-    antiafk:                boolean
+    antiafk: boolean
 
-    use_mc_whitelist:       boolean
+    use_mc_whitelist: boolean
 
-    reconnect_time:         number
+    reconnect_time: number
 
-    anti_spam_cooldown:     number
-    anti_spam_msg_limit:    number
+    anti_spam_cooldown: number
+    anti_spam_msg_limit: number
 
-    welcome_messages:       boolean
+    welcome_messages: boolean
 
-    whitelisted_commands:   string[]
+    whitelisted_commands: string[]
 
-    useLegacyChat:          boolean
+    useLegacyChat: boolean
 
-    useCommands:            boolean;
-    commands:               {};
+    useCommands: boolean;
+    commands: {};
 
-    disabled_events:        string[]
+    disabled_events: string[]
 
     allow_chatbridge_input: boolean
     rotateHeadOnJoin: boolean
+
+    usePViewer: boolean
+    pViewerPort: number
 }
 
 type Colors = {
-    red:    string
-    green:  string
+    red: string
+    green: string
     purple: string
     yellow: string
-    gray:   string
-    pink:   string
-    blue:   string
+    gray: string
+    pink: string
+    blue: string
 }
 
 type antiSpamArgsType = {
-    user:          string,
-    bot:           Bot,
+    user: string,
+    bot: Bot,
     cooldown_time: number,
-    spam_limit:    number
+    spam_limit: number
 }

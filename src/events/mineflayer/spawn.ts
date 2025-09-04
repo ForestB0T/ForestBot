@@ -2,6 +2,7 @@ import type Bot from "../../structure/mineflayer/Bot.js"
 import { config } from "../../config.js";
 import antiafk from "../../structure/mineflayer/utils/antiAFK.js";
 import { Logger, api } from "../../index.js";
+import initiateViewer from "../../structure/mineflayer/utils/pViewer.js";
 
 const getRandomInterval = () => Math.floor(Math.random() * (45 * 60 * 1000 - 15 * 60 * 1000 + 1)) + 15 * 60 * 1000;
 
@@ -35,6 +36,10 @@ export default {
     once: true,
     run: async (args: any[], Bot: Bot) => {
         Logger.spawn(`${Bot.bot.username} has spawned`);
+
+        if (config.usePViewer) {
+            initiateViewer(Bot.bot, 8080);
+        }
 
         const originalChat = Bot.bot.chat;
         Bot.bot.chat = (msg: string) => {

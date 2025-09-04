@@ -11,6 +11,7 @@
     "@types/node": "^24.1.0",
     "@types/node-fetch": "^2.6.1",
     "@types/ws": "^8.5.4",
+    "canvas": "^3.2.0",
     "chalk": "^5.0.0",
     "date-and-time": "^4.0.1",
     "dotenv": "^17.2.1",
@@ -19,6 +20,7 @@
     "minecraft-protocol": "^1.58.0",
     "mineflayer": "^4.30.0",
     "node-fetch": "^3.2.2",
-    "openai": "^5.11.0"
+    "openai": "^5.11.0",
+    "prismarine-viewer": "^1.33.0"
   }
 }
