@@ -1,30 +1,36 @@
-
-/**
- * This is a command used to check a users real name if the user has a nickname
- */
 import type Bot from '../structure/mineflayer/Bot.js';
 import { config } from '../config.js';
 import forestBotAPI from 'forestbot-api-wrapper-v2/build/wrapper.js';
 
 export default {
     commands: ['realname'],
-    description: ` Use ${config.prefix}realname to see through a users nickname.`,
+    description: `Use ${config.prefix}realname to see through a user's nickname.`,
     minArgs: 1,
     maxArgs: 1,
     execute: async (user, args, bot: Bot, api: forestBotAPI) => {
-        const username = args[0];
-        if (!username) return bot.Whisper(user, ` Please provide a username to check the real name of.`);
+        const usernameToCheck = args[0];
+        if (!usernameToCheck) return bot.Whisper(user, `Please provide a username to check.`);
+
+        let found = false;
+
         for (const player of Object.values(bot.bot.players)) {
-            const displayName = player.displayName;
-            if (!displayName.extra) return;
-            if (displayName.extra.length > 0 && 'text' in displayName.extra[0]) {
-                if ((displayName.extra[0] as any).text !== player.username) {
-                    const displayNameArr = displayName.toString().split(" ");
-                    if (displayNameArr.includes(username)) {
-                        bot.bot.chat(` ${username} is a nickname for ${player.username}`);
-                    }
-                } 
+            const realUsername = player.username;
+            const displayName = player.displayName?.toString() ?? realUsername;
+
+            // Check if input matches the displayName or part of it
+            if (displayName === usernameToCheck || displayName.split(" ").includes(usernameToCheck)) {
+                if (displayName !== realUsername) {
+                    bot.bot.chat(`${usernameToCheck} is a nickname for ${realUsername}`);
+                } else {
+                    bot.bot.chat(`${usernameToCheck} is the real username.`);
+                }
+                found = true;
+                break;
             }
         }
+
+        if (!found) {
+            bot.bot.chat(`No player found matching "${usernameToCheck}" online.`);
+        }
     }
- } as MCommand
+} as MCommand;
