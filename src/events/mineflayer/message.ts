@@ -76,7 +76,6 @@ export default {
             const displayName = playerObj.displayName?.toString() ?? realName;
             currentOnlinePlayers.set(realName, displayName);
         }
-
         if (
             ignoreContains.some(phrase => fullMsg.includes(phrase)) ||
             ignoreStartsWith.some(phrase => fullMsg.startsWith(phrase))
@@ -85,7 +84,7 @@ export default {
         const { player, message } = extractPlayerMessage(fullMsg, currentOnlinePlayers);
         if (!player) return;
 
-
+    
 
         // --- Determine the leftmost "sender" ---
         let firstWord = words[0];
@@ -94,7 +93,7 @@ export default {
 
 
         const uuid = await api.convertUsernameToUuid(player);
-
+        if (Bot.userBlacklist.has(uuid)) return;
         // --- Advancement messages ---
         if (
             fullMsg.includes("has reached the goal") ||
