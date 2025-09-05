@@ -42,8 +42,11 @@ function removePlayerFromMsg(fullMsg: string, player: string): string {
 
 function extractPlayerMessage(fullMsg: string, currentOnlinePlayers: Map<string, string>): { player: string | null, message: string } {
     const words = fullMsg.split(" ");
-    const firstTwoWords = words.slice(0, 2);
-
+    const firstTwoWords = words.slice(0, 2).map(w => w.replace(/^<|>$/g, ""));
+    // remove absolutely any < > from first twoTwoWords
+    
+    console.log("First two words:", firstTwoWords);
+    console.log("Current online players:", Array.from(currentOnlinePlayers.keys()));
     for (const word of firstTwoWords) {
         for (const [realName, displayName] of currentOnlinePlayers) {
             if (word === realName || word === displayName) {

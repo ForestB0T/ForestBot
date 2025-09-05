@@ -1,33 +1,33 @@
 import type Bot from '../structure/mineflayer/Bot.js';
 import forestBotAPI from 'forestbot-api-wrapper-v2/build/wrapper.js';
-import { Entity } from 'prismarine-entity';
 
 export default {
     commands: ['mount', 'ride'],
-    description: 'Mounts the nearest boat entity.',
+    description: 'Activate the nearest boat entity.',
     minArgs: 0,
     maxArgs: 0,
     execute: async (user: string, args: any[], bot: Bot, api: typeof forestBotAPI): Promise<void> => {
         bot.bot.whisper(user, "Searching for nearest boat...");
 
-        // Find nearest boat
-        const nearestBoat = bot.bot.nearestEntity((entity: Entity) =>
-            entity.name === 'boat' && entity.isValid && !entity.passengers.includes(bot.bot.entity)
+        const nearestBoat = bot.bot.nearestEntity((entity: any) =>
+            entity.kind === "Vehicles"
         );
 
-        console.log("Nearest boat entity:", nearestBoat);
+        console.log("Nearest boat:", nearestBoat);
 
         if (!nearestBoat) {
-            bot.bot.whisper(user, "I could not find a boat.");
+            bot.bot.whisper(user, "I could not find a boat nearby.");
             return;
         }
 
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 1 second before activating 
+
         try {
             await bot.bot.mount(nearestBoat);
-            bot.bot.whisper(user, "I mounted the nearest boat!");
+            bot.bot.whisper(user, "I activated the boat!");
         } catch (err) {
-            console.error("Failed to mount:", err);
-            bot.bot.whisper(user, "I tried to mount the boat but failed.");
+            console.error("Failed to activate:", err);
+            bot.bot.whisper(user, "I tried to activate the boat but failed.");
         }
     }
 } as MCommand;
