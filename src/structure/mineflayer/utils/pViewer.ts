@@ -14,15 +14,15 @@ export default function initiateViewer(bot: Bot, port: number = 3000) {
 
     Logger.info(`Prismarine Viewer started at http://localhost:${port}`);
 
-    bot.on("move", () => {
-        // Only add new positions if the bot has moved more than 1 block
-        const lastPos = path[path.length - 1];
-        if (lastPos.distanceTo(bot.entity.position) > 1) {
-            path.push(bot.entity.position.clone());
+    // bot.on("move", () => {
+    //     // Only add new positions if the bot has moved more than 1 block
+    //     const lastPos = path[path.length - 1];
+    //     if (lastPos.distanceTo(bot.entity.position) > 1) {
+    //         path.push(bot.entity.position.clone());
 
-            // Draw the path in the viewer
-            //@ts-ignore - drawLine is not typed in prismarine-viewer
-            bot.viewer.drawLine("path", path);
-        }
-    });
+    //         // Draw the path in the viewer
+    //         //@ts-ignore - drawLine is not typed in prismarine-viewer
+    //         bot.viewer.drawLine("path", path);
+    //     }
+    // });
 }
