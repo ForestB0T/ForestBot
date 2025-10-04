@@ -134,6 +134,7 @@ export default {
         const rawFirstWord = words[0] ?? "";
         const normalizedFirstWord = normalizeWord(rawFirstWord);
 
+
         const { player, message } = extractPlayerMessage(fullMsg, currentOnlinePlayers);
         if (!player) return;
 
@@ -161,8 +162,15 @@ export default {
             return;
         }
 
-        // --- Death / System messages (generic, not hardcoded) ---
-        if (isDeathOrSystemMessage(fullMsg, rawFirstWord, normalizedFirstWord)) {
+        // --- Chat divider (>) detection: treat as chat, not death ---
+        // If the message is in the form 'username> message' or 'username > message', always treat as chat
+        let isChatDivider = false;
+        if (words.length >= 2 && (words[1] === '>' || (words[0].endsWith('>') && words[0].length > 1))) {
+            // username > message  OR  username> message
+            isChatDivider = true;
+        }
+
+        if (!isChatDivider && isDeathOrSystemMessage(fullMsg, rawFirstWord, normalizedFirstWord)) {
             let murderer: string | null = null;
 
             // Try to find another online player mentioned (naive scan)
